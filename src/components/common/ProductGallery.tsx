@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import ProductImage from "@/components/common/ProductImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ProductGallery({
@@ -66,14 +67,7 @@ export default function ProductGallery({
           >
             {images.map((img, idx) => (
               <div key={img + idx} className="relative h-full shrink-0" style={{ width: `${100 / count}%` }}>
-                <Image
-                  src={img}
-                  alt={alt}
-                  fill
-                  sizes="(max-width: 768px) 90vw, 45vw"
-                  className="object-contain p-6 md:p-10"
-                  priority={idx === 0}
-                />
+                <ProductImage src={img} alt={alt} sizes="(max-width: 768px) 90vw, 45vw" priority={idx === 0} />
               </div>
             ))}
           </div>

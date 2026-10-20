@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
+import ProductImage from "@/components/common/ProductImage";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Zap, ShoppingBag, Check } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
@@ -170,15 +171,7 @@ export default function FlashDealsSection() {
                   <span className="absolute top-3 left-3 z-10 bg-brand-funk text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
                     {discount}% off
                   </span>
-                  <div className="absolute inset-x-4 top-11 bottom-4">
-                    <Image
-                      src={deal.image}
-                      alt={deal.name}
-                      fill
-                      sizes="(max-width: 768px) 55vw, 240px"
-                      className="object-contain drop-shadow-sm"
-                    />
-                  </div>
+                  <ProductImage src={deal.image} alt={deal.name} sizes="(max-width: 768px) 60vw, 260px" />
                 </div>
                 <div className="px-3.5 py-3 bg-white">
                   <p className="text-[10px] font-medium uppercase tracking-[0.15em] text-brand-tan truncate">{deal.category}</p>

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import ProductImage from "@/components/common/ProductImage";
 import Link from "next/link";
 import { Star, Eye, ShoppingBag, Check, Heart } from "lucide-react";
 import {
@@ -48,7 +49,7 @@ export default function ProductCard({
       style={{ boxShadow: "0 14px 30px -22px rgba(31,45,36,0.35)" }}
     >
       <Link href={`/products/${product.slug}`} className="block">
-        <div className="relative aspect-square bg-[#F7F3EA] border-b border-brand-line/70 overflow-hidden">
+        <div className="relative aspect-[5/4] bg-[#F7F3EA] border-b border-brand-line/70 overflow-hidden">
           <div className="absolute top-1.5 left-1.5 right-1.5 md:top-2 md:left-2 md:right-2 z-10 flex items-center justify-between gap-1.5">
             {!onRemove && product.category && (
               <span className="inline-flex items-center px-2 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white text-brand-funk text-[8px] md:text-[10px] font-medium uppercase tracking-[0.15em]">
@@ -56,16 +57,12 @@ export default function ProductCard({
               </span>
             )}
           </div>
-          {/* Padded frame: the whole photo stays visible whatever its size or shape */}
-          <div className="absolute inset-x-3 top-9 bottom-3 md:inset-x-5 md:top-12 md:bottom-5">
-            <Image
-              src={image}
-              alt={product.name}
-              fill
-              sizes="(max-width: 1024px) 40vw, 20vw"
-              className="object-contain drop-shadow-sm group-hover:scale-[1.04] transition-transform duration-500"
-            />
-          </div>
+          <ProductImage
+            src={image}
+            alt={product.name}
+            sizes="(max-width: 1024px) 45vw, 22vw"
+            className="group-hover:scale-[1.04] transition-transform duration-500"
+          />
         </div>
       </Link>
 
