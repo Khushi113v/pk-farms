@@ -94,7 +94,7 @@ export default function CartSidebar() {
                     className="relative w-[68px] h-[68px] rounded-xl overflow-hidden border border-brand-line shrink-0"
                     style={{ backgroundColor: `${item.tileBg}55` }}
                   >
-                    <Image src={item.image} alt={item.name} fill sizes="68px" className="object-cover object-top" />
+                    <Image src={item.image} alt={item.name} fill sizes="68px" className="object-contain p-1" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <Link

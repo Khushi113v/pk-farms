@@ -39,7 +39,7 @@ export default function StickyAddToCart({
           className="relative w-11 h-11 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-brand-line shrink-0"
           style={{ backgroundColor: `${tileBg}99` }}
         >
-          <Image src={image} alt={name} fill sizes="56px" className="object-cover object-top" />
+          <Image src={image} alt={name} fill sizes="56px" className="object-contain p-1" />
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm sm:text-base font-display font-medium text-brand-ink truncate">{name}</p>

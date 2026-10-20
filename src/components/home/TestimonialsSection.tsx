@@ -183,7 +183,7 @@ export default function TestimonialsSection({
                         alt={`${s.parent} from ${s.location}`}
                         fill
                         sizes="240px"
-                        className="object-cover object-top"
+                        className="object-cover object-center"
                                               />
                       <button
                         onClick={() => setPlaying(idx)}

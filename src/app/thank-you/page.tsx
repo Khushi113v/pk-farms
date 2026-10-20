@@ -67,7 +67,7 @@ export default function ThankYouPage() {
                 {order.items.map((i, idx) => (
                   <li key={idx} className="flex items-center gap-3 py-3">
                     <span className="relative shrink-0 w-14 h-[70px] rounded-lg overflow-hidden border border-brand-line">
-                      <Image src={i.image} alt={i.name} fill sizes="56px" className="object-cover object-top" />
+                      <Image src={i.image} alt={i.name} fill sizes="56px" className="object-contain p-1" />
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block font-display font-medium text-brand-ink text-sm truncate">{i.name}</span>

@@ -122,7 +122,7 @@ export default function FeaturedProductsSection({
                 className="group relative snap-start shrink-0 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1.125rem)] rounded-2xl bg-white border border-brand-line overflow-hidden flex flex-col transition-colors duration-300 hover:border-brand-funk/40"
               >
                 {/* Product image */}
-                <div className="relative aspect-[3/4] bg-brand-soft overflow-hidden">
+                <div className="relative aspect-square bg-[#F7F3EA] overflow-hidden">
                   {/* Top row: New / Sale tag + wishlist */}
                   <div className="absolute top-2 left-2 right-2 md:top-3 md:left-3 md:right-3 z-10 flex items-center justify-between gap-1.5">
                     <span
@@ -152,13 +152,16 @@ export default function FeaturedProductsSection({
                     </button>
                   </div>
 
-                  <Image
-                    src={p.image}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 1024px) 45vw, 22vw"
-                    className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
-                  />
+                  {/* Padded frame: the whole photo stays visible whatever its size or shape */}
+                  <div className="absolute inset-x-3 top-10 bottom-3 md:inset-x-5 md:top-14 md:bottom-5">
+                    <Image
+                      src={p.image}
+                      alt={p.name}
+                      fill
+                      sizes="(max-width: 1024px) 40vw, 20vw"
+                      className="object-contain drop-shadow-sm group-hover:scale-[1.03] transition-transform duration-500"
+                    />
+                  </div>
                 </div>
 
                 {/* Text + arrow */}

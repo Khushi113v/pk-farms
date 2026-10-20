@@ -122,7 +122,7 @@ export default function BlogDetailPage({
                       alt={post.productName}
                       fill
                       sizes="80px"
-                      className="object-cover object-top"
+                      className="object-contain p-1"
                     />
                   </div>
                 )}

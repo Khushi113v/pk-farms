@@ -210,7 +210,7 @@ export default function CartPage() {
                       className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden border border-brand-line shrink-0"
                       style={{ backgroundColor: `${item.tileBg}33` }}
                     >
-                      <Image src={item.image} alt={item.name} fill sizes="112px" className="object-cover object-top" />
+                      <Image src={item.image} alt={item.name} fill sizes="112px" className="object-contain p-1" />
                     </div>
                     <div className="flex-1 min-w-0 flex flex-col">
                       <div className="flex items-start justify-between gap-3">

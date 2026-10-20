@@ -140,7 +140,7 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
                           className="relative w-14 h-14 shrink-0 rounded-xl overflow-hidden border border-brand-line"
                           style={{ backgroundColor: `${p.tileBg}99` }}
                         >
-                          <Image src={sizeImage(p, v.size)} alt="" fill sizes="56px" className="object-cover object-top" />
+                          <Image src={sizeImage(p, v.size)} alt="" fill sizes="56px" className="object-contain p-1" />
                         </span>
                         <span className="min-w-0 flex-1">
                           <span className="block font-display font-medium text-brand-ink text-sm truncate">{p.name}</span>

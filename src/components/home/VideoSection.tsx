@@ -142,7 +142,7 @@ export default function VideoSection() {
                         alt={`${v.name} from ${v.location}`}
                         fill
                         sizes="240px"
-                        className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       />
                       <button
                         onClick={() => setPlaying(idx)}

@@ -129,7 +129,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
                 {order.items.map((item) => (
                   <div key={item.slug} className="py-4 first:pt-0 last:pb-0 flex items-center gap-4">
                     <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-brand-line bg-brand-cream shrink-0">
-                      <Image src={item.image} alt={item.name} fill sizes="64px" className="object-cover object-top" />
+                      <Image src={item.image} alt={item.name} fill sizes="64px" className="object-contain p-1" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <Link

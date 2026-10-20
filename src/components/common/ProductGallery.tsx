@@ -37,13 +37,13 @@ export default function ProductGallery({
                   type="button"
                   onClick={() => setActive(idx)}
                   aria-label={`View image ${idx + 1}`}
-                  className={`relative shrink-0 aspect-[3/4] rounded-lg overflow-hidden border transition-colors ${isActive ? "" : "border-brand-line hover:border-brand-ink/40"}`}
+                  className={`relative shrink-0 aspect-square rounded-lg overflow-hidden border transition-colors ${isActive ? "" : "border-brand-line hover:border-brand-ink/40"}`}
                   style={{
                     backgroundColor: `${tileBg}33`,
                     borderColor: isActive ? borderColor : undefined,
                   }}
                 >
-                  <Image src={img} alt="" fill sizes="80px" className="object-cover object-top" />
+                  <Image src={img} alt="" fill sizes="80px" className="object-contain p-1.5" />
                 </button>
               );
             })}
@@ -54,7 +54,7 @@ export default function ProductGallery({
       <div className="flex-1 min-w-0">
         {/* Main image — sliding track */}
         <div
-          className={`relative aspect-[4/5] ${rounded} overflow-hidden border`}
+          className={`relative aspect-square ${rounded} overflow-hidden border bg-[#F7F3EA]`}
           style={{ backgroundColor: `${tileBg}33`, borderColor }}
         >
           <div
@@ -71,7 +71,7 @@ export default function ProductGallery({
                   alt={alt}
                   fill
                   sizes="(max-width: 768px) 90vw, 45vw"
-                  className="object-cover object-center"
+                  className="object-contain p-6 md:p-10"
                   priority={idx === 0}
                 />
               </div>

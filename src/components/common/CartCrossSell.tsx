@@ -99,7 +99,7 @@ export default function CartCrossSell() {
                 aria-label={`View ${title}`}
                 className="relative block h-[72px] bg-brand-soft"
               >
-                <Image src={sizeImage(p, size)} alt={title} fill sizes="150px" className="object-cover object-[center_15%]" />
+                <Image src={sizeImage(p, size)} alt={title} fill sizes="150px" className="object-contain p-1.5" />
               </Link>
               <div className="px-1.5 pt-1 pb-1">
                 <Link

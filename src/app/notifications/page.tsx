@@ -32,7 +32,7 @@ export default function NotificationsPage() {
                   }`}
                 >
                   <span className="relative shrink-0 w-16 h-20 rounded-xl overflow-hidden border border-brand-line">
-                    <Image src={n.image} alt="" fill sizes="64px" className="object-cover object-top" />
+                    <Image src={n.image} alt="" fill sizes="64px" className="object-contain p-1" />
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="font-display font-medium text-brand-ink text-base">{n.title}</p>
