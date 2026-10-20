@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9DDD3"/><stop offset="1" stop-color="#EDB3A2"/></linearGradient></defs><rect width="800" height="1000" fill="url(#bg)"/><circle cx="400" cy="460" r="330" fill="#fff" opacity=".35"/><g transform="translate(400 900) scale(1)">
+  <defs><linearGradient id="p5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#08472A"/><stop offset="1" stop-color="#06361F"/></linearGradient><linearGradient id="p5w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6402A"/><stop offset="1" stop-color="#9E1F12"/></linearGradient></defs>
+  <ellipse cx="0" cy="6" rx="190" ry="16" fill="#000" opacity=".16"/>
+  <path d="M-185 -10 Q-200 -250 -180 -520 L180 -520 Q200 -250 185 -10 Q0 18 -185 -10Z" fill="url(#p5)"/>
+  <path d="M-180 -520 L180 -520 L180 -500 L-180 -500Z" fill="#E2A230"/>
+  <text x="0" y="-465" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="30" fill="#FBF1D7" letter-spacing="4">PK FARMS</text>
+  <text x="0" y="-438" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#E2A230" letter-spacing="3">FROM THE HIMALAYAS</text>
+  <ellipse cx="0" cy="-300" rx="118" ry="128" fill="url(#p5w)"/>
+  <ellipse cx="0" cy="-300" rx="118" ry="128" fill="none" stroke="#FBF1D7" stroke-width="6"/>
+  <g><g transform="translate(-60 -380) rotate(-20) scale(1)"><path d="M0 0 C 40 10 70 60 60 140 C 40 90 10 50 -10 30Z" fill="#C8281E"/><path d="M0 0 C -6 -14 6 -22 14 -16" stroke="#2f6b2f" stroke-width="7" fill="none" stroke-linecap="round"/></g><g transform="translate(30 -380) rotate(25) scale(0.9)"><path d="M0 0 C 40 10 70 60 60 140 C 40 90 10 50 -10 30Z" fill="#C8281E"/><path d="M0 0 C -6 -14 6 -22 14 -16" stroke="#2f6b2f" stroke-width="7" fill="none" stroke-linecap="round"/></g></g>
+  <rect x="-140" y="-150" width="280" height="110" rx="16" fill="#FBF1D7"/>
+  <text x="0" y="-100" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="30" fill="#1F2D24">Bird's Eye Chilli</text>
+  <text x="0" y="-70" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#1F2D24" opacity=".75">Hand-pounded powder</text>
+  <rect x="-48" y="-30" width="96" height="30" rx="15" fill="#0B5B36"/>
+  <text x="0" y="-9" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="18" fill="#fff">100 g</text>
+  </g></svg>

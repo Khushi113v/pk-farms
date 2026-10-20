@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900"><defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBF1D7"/><stop offset="1" stop-color="#F1DDA3"/></linearGradient></defs><rect width="1200" height="900" fill="url(#sky)"/><circle cx="900" cy="180" r="144" fill="#FFE9A8" opacity=".25"/><circle cx="900" cy="180" r="80" fill="#FFE9A8"/><path d="M0 900 L0 405 L0 294 L150 367 L300 138 L450 367 L600 330 L750 367 L900 202 L1050 367 L1200 259 L1200 900Z" fill="#cfdccb"/><path d="M0 900 L0 468 L0 348 L120 437 L240 300 L360 437 L480 407 L600 437 L720 250 L840 437 L960 376 L1080 437 L1200 357 L1200 900Z" fill="#a9c3a6"/><path d="M0 900 L0 531 L0 435 L100 507 L200 441 L300 507 L400 462 L500 507 L600 358 L700 507 L800 482 L900 507 L1000 405 L1100 507 L1200 436 L1200 900Z" fill="#7aa57d"/><path d="M0 792 Q600 702 1200 792 V900 H0Z" fill="#6E9F5E"/><g transform="translate(600 738) scale(1)">
+  <defs><linearGradient id="j40f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7C94A"/><stop offset="1" stop-color="#E7A722"/></linearGradient><linearGradient id="j40g" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".25" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient></defs>
+  <ellipse cx="0" cy="6" rx="190" ry="18" fill="#000" opacity=".14"/>
+  <path d="M-170 -420 Q-190 -400 -190 -360 L-190 -50 Q-190 0 -140 0 L140 0 Q190 0 190 -50 L190 -360 Q190 -400 170 -420 Z" fill="url(#j40f)"/>
+  <path d="M-170 -420 Q-190 -400 -190 -360 L-190 -50 Q-190 0 -140 0 L140 0 Q190 0 190 -50 L190 -360 Q190 -400 170 -420 Z" fill="url(#j40g)"/>
+  <rect x="-175" y="-500" width="350" height="86" rx="14" fill="#0B5B36"/>
+  <rect x="-175" y="-500" width="350" height="16" rx="8" fill="#fff" opacity=".18"/>
+  <rect x="-175" y="-428" width="350" height="12" fill="#E2A230"/>
+  <rect x="-150" y="-330" width="300" height="250" rx="22" fill="#FBF1D7"/>
+  <rect x="-140" y="-320" width="280" height="230" rx="16" fill="none" stroke="#0B5B36" stroke-width="3"/>
+  <text x="0" y="-278" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="30" fill="#0B5B36" letter-spacing="3">PK FARMS</text>
+  <path d="M-60 -262 H60" stroke="#E2A230" stroke-width="3"/>
+  <text x="0" y="-215" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="38" fill="#1F2D24">Badri Cow Ghee</text>
+  <text x="0" y="-170" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#1F2D24" opacity=".75">Bilona Method</text>
+  <rect x="-62" y="-140" width="124" height="38" rx="19" fill="#0B5B36"/>
+  <text x="0" y="-113" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="22" fill="#fff">500 g</text>
+  </g></svg>
