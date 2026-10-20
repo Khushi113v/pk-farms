@@ -6,7 +6,7 @@ import { Check, SlidersHorizontal, X } from "lucide-react";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ProductCard from "@/components/common/ProductCard";
 import BrandBackdrop, { BRAND_BACKDROP_BG } from "@/components/common/BrandBackdrop";
-import { PRODUCTS, searchProducts, CATEGORIES, STYLES, COLOUR_HEX, type Category, type Style, type Product } from "@/lib/product-data";
+import { PRODUCTS, searchProducts, CATEGORIES, STYLES, COLOUR_HEX, COLLECTIONS, type Category, type Style, type Product } from "@/lib/product-data";
 
 // Every colour a product comes in
 const COLOURS = Array.from(new Set(PRODUCTS.map((p) => p.colour).filter((c): c is string => !!c)));
@@ -190,6 +190,7 @@ function ShopContent() {
   const categoryParam = searchParams.get("category") ?? "";
   const styleParam = searchParams.get("style") ?? "";
   const query = (searchParams.get("q") ?? "").trim();
+  const collection = COLLECTIONS.find((c) => c.slug === searchParams.get("collection"));
 
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [selectedStyles, setSelectedStyles] = useState<Style[]>([]);
@@ -220,7 +221,8 @@ function ShopContent() {
   };
 
   const filtered = useMemo(() => {
-    const matches = query ? searchProducts(query) : PRODUCTS;
+    const found = query ? searchProducts(query) : PRODUCTS;
+    const matches = collection ? found.filter((p) => p.collections?.includes(collection.slug)) : found;
     // One card per product — its colour options live inside the card
     const unique = matches.filter((p, i) => !p.group || matches.findIndex((x) => x.group === p.group) === i);
     return unique.filter((p) => {
@@ -230,14 +232,17 @@ function ShopContent() {
       if (p.price > maxPrice) return false;
       return true;
     });
-  }, [query, selectedCategories, selectedStyles, selectedColours, maxPrice]);
+  }, [query, collection, selectedCategories, selectedStyles, selectedColours, maxPrice]);
 
   const activeFilterCount =
     selectedCategories.length + selectedStyles.length + selectedColours.length + (maxPrice < MAX_PRICE ? 1 : 0);
 
   return (
     <>
-      <Breadcrumb title="Shop All" items={[{ label: "Shop" }]} />
+      <Breadcrumb
+        title={collection ? collection.label : "Shop All"}
+        items={collection ? [{ label: "Shop", href: "/shop" }, { label: collection.label }] : [{ label: "Shop" }]}
+      />
 
       <section className={`relative overflow-clip py-10 md:py-14 ${BRAND_BACKDROP_BG}`}>
         <BrandBackdrop wave={false} />

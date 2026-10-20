@@ -5,6 +5,13 @@ export type Category = (typeof CATEGORIES)[number];
 export const STYLES = ["Glass Jar", "Bottle"] as const;
 export type Style = (typeof STYLES)[number];
 
+// Curated collections shown in the header Shop menu and on /shop?collection=…
+export const COLLECTIONS = [
+  { slug: "best-sellers", label: "Best Sellers" },
+  { slug: "new-arrivals", label: "New Arrivals" },
+] as const;
+export type Collection = (typeof COLLECTIONS)[number]["slug"];
+
 // Picks the Storage & Use guidance on the product page
 export type CareKind = "ghee" | "honey" | "oil" | "spices";
 
@@ -35,6 +42,7 @@ export type Product = {
   reviewCount: number;
   category: Category;
   style: Style; // packaging type
+  collections?: Collection[];
   includes?: string; // what comes in the pack
   care?: CareKind; // picks the Storage & Use instructions
   tileBg: string;
@@ -98,6 +106,7 @@ const BASE_PRODUCTS: Product[] = [
     care: "ghee",
     rows: [["250 g", 649, 749], ["500 g", 1199, 1399], ["1 kg", 2299, 2599]],
     defaultPack: "500 g",
+    collections: ["best-sellers"],
     rating: 4.9,
     reviewCount: 1240,
     tileBg: "#FBF1D7",
@@ -117,6 +126,7 @@ const BASE_PRODUCTS: Product[] = [
     care: "honey",
     rows: [["250 g", 349, 399], ["500 g", 649, 749], ["1 kg", 1199, 1399]],
     defaultPack: "500 g",
+    collections: ["best-sellers"],
     rating: 4.8,
     reviewCount: 934,
     tileBg: "#FBEFD8",
@@ -136,6 +146,7 @@ const BASE_PRODUCTS: Product[] = [
     care: "oil",
     rows: [["1 L", 399, 449], ["2 L", 779, 879], ["5 L", 1899, 2149]],
     defaultPack: "1 L",
+    collections: ["new-arrivals", "best-sellers"],
     rating: 4.8,
     reviewCount: 612,
     tileBg: "#FBF3D6",
@@ -155,6 +166,7 @@ const BASE_PRODUCTS: Product[] = [
     care: "spices",
     rows: [["50 g", 249, 299], ["100 g", 449, 549]],
     defaultPack: "50 g",
+    collections: ["new-arrivals"],
     rating: 4.7,
     reviewCount: 404,
     tileBg: "#F8EFDB",

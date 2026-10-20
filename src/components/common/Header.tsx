@@ -23,16 +23,77 @@ import AnnouncementBar from "./AnnouncementBar";
 import OccasionBanner from "@/components/common/OccasionBanner";
 import SearchOverlay from "./SearchOverlay";
 import { useCart } from "@/lib/cart-context";
+import { PRODUCTS, COLLECTIONS, type Product } from "@/lib/product-data";
 
-type NavItem = { label: string; href: string; hasMenu?: boolean };
+type NavItem = { label: string; href: string; menu?: "shop" | "category" };
 
 const NAV: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "Shop", href: "/shop", menu: "shop" },
   { label: "About Us", href: "/about-us" },
-  { label: "Shop by Category", href: "/shop", hasMenu: true },
+  { label: "Shop by Category", href: "/shop", menu: "category" },
+  { label: "Blogs", href: "/blog" },
   { label: "FAQs", href: "/faq" },
   { label: "Contact Us", href: "/contact-us" },
 ];
+
+// Shop menu: a heading per group with its products listed underneath
+type ShopGroup = { title: string; href: string; products: Product[] };
+
+const SHOP_GROUPS: ShopGroup[] = [
+  ...COLLECTIONS.map((c) => ({
+    title: c.label,
+    href: `/shop?collection=${c.slug}`,
+    products: PRODUCTS.filter((p) => p.collections?.includes(c.slug)),
+  })),
+  { title: "All Collection", href: "/shop", products: PRODUCTS },
+];
+
+const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
+
+function ShopPanel() {
+  return (
+    <div
+      className="absolute inset-x-0 top-full z-30 px-4 sm:px-6 lg:px-8 opacity-0 translate-y-3 invisible pointer-events-none group-hover/shop:opacity-100 group-hover/shop:translate-y-0 group-hover/shop:visible group-hover/shop:pointer-events-auto transition-[opacity,transform,visibility] duration-300 ease-out"
+      role="menu"
+    >
+      <div className="grid grid-cols-3 gap-8 p-6 rounded-2xl bg-white border border-brand-line shadow-card">
+        {SHOP_GROUPS.map((g) => (
+          <div key={g.title} className="min-w-0">
+            <div className="flex items-center justify-between gap-3 pb-3 mb-3 border-b border-brand-line">
+              <h4 className="font-display font-semibold text-brand-ink text-base">{g.title}</h4>
+              <Link href={g.href} className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-brand-funk hover:text-brand-funkDark">
+                View all
+                <ChevronRight size={13} strokeWidth={2} />
+              </Link>
+            </div>
+            <ul className="flex flex-col gap-1">
+              {g.products.map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    href={`/products/${p.slug}`}
+                    className="group/item flex items-center gap-3 rounded-xl p-1.5 -mx-1.5 hover:bg-brand-cream transition-colors"
+                  >
+                    <span className="relative w-12 h-12 shrink-0 rounded-lg overflow-hidden border border-brand-line bg-[#F7F3EA]">
+                      <Image src={p.image} alt="" fill sizes="48px" className="object-contain p-0.5" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-sm text-brand-ink group-hover/item:text-brand-funk truncate transition-colors">{p.name}</span>
+                      <span className="block text-xs text-brand-muted">
+                        {inr(p.price)}
+                        {p.mrp > p.price && <span className="ml-1.5 line-through">{inr(p.mrp)}</span>}
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 type MegaItem = {
   name: string;
@@ -147,7 +208,7 @@ export default function Header() {
 
       {/* Main bar */}
       <div className="bg-brand-cream border-b border-brand-line">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-[72px] md:h-[88px] flex items-center justify-between gap-4">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-[72px] md:h-[88px] flex items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1.5 shrink-0" aria-label="PK Farms — home">
             <Image
@@ -161,20 +222,38 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-8">
+          <nav className="hidden lg:flex self-stretch items-center gap-4 xl:gap-7">
             {NAV.map((item) => {
-              const active = isActive(item.href);
+              // "Shop" and "Shop by Category" share /shop; only "Shop" shows as active
+              const active = item.menu !== "category" && isActive(item.href);
               const linkCls = `relative flex items-center gap-1 py-2 text-[15px] tracking-wide transition-colors after:absolute after:left-0 after:right-0 after:-bottom-0.5 after:h-px after:bg-brand-funk after:transition-transform after:origin-left ${
                 active
                   ? "text-brand-funk after:scale-x-100"
                   : "text-brand-ink hover:text-brand-funk after:scale-x-0 hover:after:scale-x-100"
               }`;
 
-              if (!item.hasMenu) {
+              if (!item.menu) {
                 return (
                   <Link key={item.label} href={item.href} className={linkCls}>
                     {item.label}
                   </Link>
+                );
+              }
+
+              // Shop: full-width panel; the wrapper spans the bar height so the pointer can reach the panel
+              if (item.menu === "shop") {
+                return (
+                  <div key={item.label} className="group/shop h-full flex items-center">
+                    <Link href={item.href} className={linkCls}>
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        size={14}
+                        strokeWidth={1.75}
+                        className="mt-0.5 transition-transform group-hover/shop:rotate-180"
+                      />
+                    </Link>
+                    <ShopPanel />
+                  </div>
                 );
               }
 
@@ -299,8 +378,59 @@ export default function Header() {
         <nav className="max-h-[calc(100vh-8rem)] overflow-y-auto">
           <ul className="mx-auto max-w-7xl px-4 sm:px-6 py-2 flex flex-col divide-y divide-brand-line">
             {NAV.map((item) => {
-              const menu = item.hasMenu ? SHOP_MENU : null;
+              const menu = item.menu === "category" ? SHOP_MENU : null;
               const isExpanded = mobileExpand === item.label;
+
+              if (item.menu === "shop") {
+                const closeMenu = () => {
+                  setOpen(false);
+                  setMobileExpand(null);
+                };
+                return (
+                  <li key={item.label}>
+                    <button
+                      type="button"
+                      onClick={() => setMobileExpand((s) => (s === item.label ? null : item.label))}
+                      aria-expanded={isExpanded}
+                      className="w-full flex items-center justify-between py-3 text-base text-brand-ink"
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        size={16}
+                        strokeWidth={1.75}
+                        className={`transition-transform ${isExpanded ? "rotate-180 text-brand-funk" : ""}`}
+                      />
+                    </button>
+                    {isExpanded && (
+                      <div className="pb-3 flex flex-col gap-4">
+                        {SHOP_GROUPS.map((g) => (
+                          <div key={g.title}>
+                            <div className="flex items-center justify-between pb-1.5 mb-1 border-b border-brand-line">
+                              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-tan">{g.title}</p>
+                              <Link href={g.href} onClick={closeMenu} className="text-xs font-semibold text-brand-funk">
+                                View all
+                              </Link>
+                            </div>
+                            <ul className="flex flex-col">
+                              {g.products.map((p) => (
+                                <li key={p.slug}>
+                                  <Link href={`/products/${p.slug}`} onClick={closeMenu} className="flex items-center gap-3 py-1.5">
+                                    <span className="relative w-10 h-10 shrink-0 rounded-lg overflow-hidden border border-brand-line bg-[#F7F3EA]">
+                                      <Image src={p.image} alt="" fill sizes="40px" className="object-contain p-0.5" />
+                                    </span>
+                                    <span className="text-sm text-brand-ink">{p.name}</span>
+                                    <span className="ml-auto text-xs text-brand-muted">{inr(p.price)}</span>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </li>
+                );
+              }
 
               if (menu) {
                 return (
@@ -405,7 +535,7 @@ export default function Header() {
                     className="flex items-center justify-between py-3 text-base text-brand-ink"
                   >
                     <span>{item.label}</span>
-                    {item.hasMenu && <ChevronDown size={16} strokeWidth={1.75} />}
+                    {item.menu && <ChevronDown size={16} strokeWidth={1.75} />}
                   </Link>
                 </li>
               );
