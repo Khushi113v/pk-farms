@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Search, X, ArrowRight } from "lucide-react";
 import { PRODUCTS, searchProducts, sizeImage, defaultVariant } from "@/lib/product-data";
 
-const POPULAR = ["Ghee", "Honey", "Turmeric", "Chilli", "Garam masala", "Combo"];
+const POPULAR = ["Ghee", "Honey", "Groundnut oil", "Heeng"];
 const MAX_RESULTS = 6;
 
 export default function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -65,7 +65,7 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search ghee, honey, masala…"
+            placeholder="Search ghee, honey, oil, spices…"
             className="flex-1 min-w-0 h-10 bg-transparent text-brand-ink placeholder:text-brand-muted focus:outline-none text-base"
           />
           {query && (

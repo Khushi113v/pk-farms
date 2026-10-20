@@ -18,14 +18,12 @@ const colourVariants = (p: Product) => (p.group ? PRODUCTS.filter((x) => x.group
 const CATEGORY_PARAM: Record<string, Category> = {
   ghee: "Ghee",
   honey: "Honey",
-  spices: "Spices & Masala",
-  combos: "Combos",
+  oils: "Oils",
+  spices: "Spices",
 };
 const STYLE_PARAM: Record<string, Style> = {
   jar: "Glass Jar",
-  tin: "Tin",
-  pouch: "Pouch",
-  combo: "Gift Combo",
+  bottle: "Bottle",
 };
 
 const MAX_PRICE = Math.max(...PRODUCTS.map((p) => p.price));

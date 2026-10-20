@@ -165,7 +165,7 @@ export default function CartPage() {
               </div>
               <h2 className="font-display font-medium text-brand-ink text-xl">Your cart is empty</h2>
               <p className="text-brand-muted text-sm max-w-sm">
-                Looks like you haven&apos;t added anything yet. Explore our ghee, honey and masala
+                Looks like you haven&apos;t added anything yet. Explore our ghee, honey, oils and spices
                 collections.
               </p>
               <Link

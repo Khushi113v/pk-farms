@@ -8,10 +8,10 @@ export type GiftMilestone = {
 };
 
 export const GIFT_MILESTONES: GiftMilestone[] = [
-  { threshold: 999, label: "Pahadi Garam Masala 100 g", subLabel: "Free with your order", image: "/images/products/masala-garam.svg", position: "center center" },
-  { threshold: 1999, label: "Wild Forest Honey 250 g", subLabel: "Free with your order", image: "/images/products/honey-forest.svg", position: "center center" },
-  { threshold: 2999, label: "Badri Cow Ghee 250 g", subLabel: "Free with your order", image: "/images/products/ghee-badri-cow.svg", position: "center center" },
-  { threshold: 4999, label: "Multiflora Honey 500 g", subLabel: "Free with your order", image: "/images/products/honey-multiflora.svg", position: "center center" },
+  { threshold: 999, label: "Heeng 50 g", subLabel: "Free with your order", image: "/images/products/spices.png", position: "center center" },
+  { threshold: 1999, label: "Raw Honey 250 g", subLabel: "Free with your order", image: "/images/products/honey.png", position: "center center" },
+  { threshold: 2999, label: "Desi Cow Ghee 250 g", subLabel: "Free with your order", image: "/images/products/ghee.png", position: "center center" },
+  { threshold: 4999, label: "Groundnut Oil 1 L", subLabel: "Free with your order", image: "/images/products/oils.png", position: "center center" },
 ];
 
 // Share of the line (0-100) that is filled. The line runs from the first gift to the last,

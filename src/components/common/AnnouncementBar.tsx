@@ -2,10 +2,10 @@
 import { Leaf, Truck, Heart, Gift, ShieldCheck, Sparkles } from "lucide-react";
 
 const ITEMS = [
-  { icon: Leaf, text: "Pure pahadi ghee, honey and masalas from the Himalayas" },
+  { icon: Leaf, text: "Pure ghee, raw honey, cold pressed oils and spices" },
   { icon: Truck, text: "Free delivery on orders above ₹999" },
   { icon: Heart, text: "Loved by families across India" },
-  { icon: Gift, text: "Combo offers inside — save more on every pack" },
+  { icon: Gift, text: "Save more on bigger packs" },
   { icon: ShieldCheck, text: "Lab-tested, no preservatives, no added colour" },
   { icon: Sparkles, text: "Earn 2% loyalty points on every order" },
 ];

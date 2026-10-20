@@ -71,7 +71,7 @@ export default function ProductGallery({
                   alt={alt}
                   fill
                   sizes="(max-width: 768px) 90vw, 45vw"
-                  className="object-cover object-top"
+                  className="object-cover object-center"
                   priority={idx === 0}
                 />
               </div>

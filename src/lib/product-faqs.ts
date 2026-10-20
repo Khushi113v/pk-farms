@@ -6,7 +6,7 @@ export type QA = { q: string; a: string };
 export const FAQS: QA[] = [
   {
     q: "What is PK Farms?",
-    a: "PK Farms brings pure pahadi food from the Himalayas to your kitchen: bilona ghee, raw honey and stone-ground masalas, sourced directly from farmers and small producers.",
+    a: "PK Farms brings pure, natural food to your kitchen: A2 desi cow ghee, raw honey, wood pressed groundnut oil and pure heeng, all 100% natural with no preservatives.",
   },
   {
     q: "Is your ghee really made the traditional way?",
@@ -17,8 +17,8 @@ export const FAQS: QA[] = [
     a: "Yes. Our honey is raw and unheated, and never mixed with sugar syrup. It may crystallise over time, which is a natural sign of purity.",
   },
   {
-    q: "Are your spices free of colour and fillers?",
-    a: "Yes. Our masalas are sun-dried and stone-ground in small batches, with no added colour, fillers or preservatives.",
+    q: "What does wood pressed mean?",
+    a: "Our groundnut oil is extracted slowly in a traditional wooden press (kachi ghani) without high heat or chemicals, so it keeps its natural aroma and nutrients.",
   },
   {
     q: "How long does delivery take?",
@@ -60,23 +60,39 @@ export const HONEY_FAQS: QA[] = [
   },
 ];
 
-export const MASALA_FAQS: QA[] = [
+export const OIL_FAQS: QA[] = [
   {
-    q: "How hot is the chilli powder?",
-    a: "Bird's eye chilli is very hot. Start with a small pinch and add more to taste.",
+    q: "Is the oil refined?",
+    a: "No. It is unrefined and cold pressed in a wooden press, so it keeps its natural colour, aroma and nutrients.",
   },
   {
-    q: "How long do the spices stay fresh?",
-    a: "Unopened, up to 12 months. Once opened, keep the pouch sealed or move the spice to an airtight jar and use within 6 months for the best aroma.",
+    q: "Why is there sediment at the bottom?",
+    a: "Unrefined oil can settle slightly over time. It is natural and safe; shake the bottle gently before use.",
   },
   {
-    q: "Are the spices ground fresh?",
-    a: "They are stone-ground in small batches and packed soon after, so the aroma stays strong.",
+    q: "What can I cook with it?",
+    a: "It is ideal for everyday Indian cooking, from tadka and sabzi to deep frying.",
+  },
+];
+
+export const SPICE_FAQS: QA[] = [
+  {
+    q: "What is compounded heeng?",
+    a: "Compounded heeng is pure asafoetida resin blended with edible starch and gum so it is easy to use in everyday cooking.",
+  },
+  {
+    q: "How much should I use?",
+    a: "Heeng is strong. A small pinch in hot ghee or oil is enough for a pot of dal or sabzi.",
+  },
+  {
+    q: "How long does it stay fresh?",
+    a: "Unopened, up to 12 months. Keep the lid tightly closed after use to retain the aroma.",
   },
 ];
 
 export function productFaqs(p: Product): QA[] {
   if (p.category === "Honey") return HONEY_FAQS;
-  if (p.category === "Spices & Masala") return MASALA_FAQS;
+  if (p.category === "Oils") return OIL_FAQS;
+  if (p.category === "Spices") return SPICE_FAQS;
   return GHEE_FAQS;
 }

@@ -30,7 +30,7 @@ export function getNotifications(profile: Profile, today = new Date()): Notifica
     list.push({
       id: `birthday-${today.getFullYear()}`,
       kind: "birthday",
-      image: "/images/editorial/ghee-kitchen.svg",
+      image: "/images/products/ghee.png",
       title: `Happy Birthday, ${name}! You have received 15% off`,
       text: "A birthday gift from PK Farms is waiting for you. Use the code at checkout, valid all month long.",
       code: "BIRTHDAY15",
@@ -43,7 +43,7 @@ export function getNotifications(profile: Profile, today = new Date()): Notifica
     list.push({
       id: `anniversary-${today.getFullYear()}`,
       kind: "anniversary",
-      image: "/images/editorial/honey-harvest.svg",
+      image: "/images/products/honey.png",
       title: `Happy Anniversary, ${name}! You have received 15% off`,
       text: "An anniversary gift from PK Farms is waiting for you. Use the code at checkout, valid all month long.",
       code: "ANNIVERSARY15",
@@ -55,7 +55,7 @@ export function getNotifications(profile: Profile, today = new Date()): Notifica
     {
       id: "offer-welcome",
       kind: "offer",
-      image: "/images/hero/hero-honey.svg",
+      image: "/images/products/honey.png",
       title: "Flat 10% off your first order",
       text: "New to PK Farms? Use the code at checkout.",
       code: "WELCOME10",
@@ -63,7 +63,7 @@ export function getNotifications(profile: Profile, today = new Date()): Notifica
     {
       id: "offer-festive",
       kind: "offer",
-      image: "/images/editorial/ghee-toast.svg",
+      image: "/images/products/ghee.png",
       title: "₹100 off on orders above ₹1500",
       text: "A little treat for your next pantry refill.",
       code: "FESTIVE100",

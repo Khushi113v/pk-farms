@@ -17,17 +17,17 @@ export const CARE: Record<CareKind, CareStep[]> = {
     { icon: "iron", title: "Crystals are normal", text: "Raw honey crystallises naturally. Place the jar in warm water to turn it liquid again." },
     { icon: "store", title: "Seal after use", text: "Close the lid tightly. Do not heat above 40°C to keep its natural goodness." },
   ],
-  masala: [
-    { icon: "wash", title: "Keep it dry", text: "Use a dry spoon and never add spices straight from a steaming pan to the pouch." },
-    { icon: "dry", title: "Away from light", text: "Store in a cool, dark place. Sunlight fades colour and aroma." },
-    { icon: "iron", title: "Use a little at a time", text: "Whole-spice powders are strong. Start small and adjust to taste." },
-    { icon: "store", title: "Reseal the pouch", text: "Press out the air and seal the pouch, or move the spice to an airtight jar." },
+  oil: [
+    { icon: "wash", title: "Keep the cap closed", text: "Close the cap tightly after every use to keep air and moisture out." },
+    { icon: "dry", title: "Cool, dark place", text: "Store away from direct sunlight and the heat of the stove." },
+    { icon: "iron", title: "Natural sediment", text: "Unrefined oil can show slight sediment at the bottom. This is natural; shake gently before use." },
+    { icon: "store", title: "Best within 3 months of opening", text: "For the freshest taste and aroma, use within 3 months of opening." },
   ],
-  combo: [
-    { icon: "wash", title: "Handle with care", text: "Keep the jars upright and store in the gift box until you are ready to use them." },
-    { icon: "dry", title: "Cool and dry place", text: "Store ghee, honey and spices away from direct sunlight and moisture." },
-    { icon: "iron", title: "Use dry spoons", text: "Always use a clean, dry spoon for ghee and honey." },
-    { icon: "store", title: "Seal after use", text: "Close every lid and pouch tightly after use." },
+  spices: [
+    { icon: "wash", title: "Use a dry spoon", text: "Always use a clean, dry spoon. Moisture makes heeng lump and lose aroma." },
+    { icon: "dry", title: "Away from heat", text: "Keep the jar away from the stove and direct sunlight." },
+    { icon: "iron", title: "A pinch is enough", text: "Heeng is strong. Add a small pinch to hot ghee or oil at the start of your tadka." },
+    { icon: "store", title: "Close the lid tightly", text: "Keep the lid tightly closed so the aroma stays locked in." },
   ],
 };
 

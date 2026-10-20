@@ -33,15 +33,15 @@ const PILLARS = [
   },
   {
     icon: Leaf,
-    title: "Sourced from farmers",
-    desc: "We buy directly from Himalayan farmers and beekeepers, so they get a fair price and you get fresh produce.",
+    title: "Honest sourcing",
+    desc: "We work closely with farmers and producers, so you know where your food comes from.",
     accent: "#A67C2E",
     accentSoft: "#F5EBD9",
   },
   {
     icon: ShieldCheck,
-    title: "Jars, tins and pouches",
-    desc: "Choose the pack that suits you, from everyday pouches to gift-ready combos.",
+    title: "Safe packaging",
+    desc: "Glass jars and sealed bottles that keep every product fresh.",
     accent: "#08472A",
     accentSoft: "#E7F0E4",
   },
@@ -150,8 +150,8 @@ export default function WhyPkFarmsPage() {
             <div className="relative">
               <div className="relative aspect-[4/3.4] rounded-3xl overflow-hidden border border-brand-line">
                 <Image
-                  src="/images/editorial/village-morning.svg"
-                  alt="Himalayan morning with PK Farms ghee and honey"
+                  src="/images/products/oils.png"
+                  alt="PK Farms Wood Pressed Groundnut Oil"
                   fill
                   sizes="(max-width: 768px) 90vw, 45vw"
                   className="object-cover object-center"

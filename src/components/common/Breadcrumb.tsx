@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 
 export type Crumb = {
@@ -7,29 +6,18 @@ export type Crumb = {
   href?: string;
 };
 
-// Page banner: the pastel illustration sits behind the title, already pale, so the title reads directly on it.
+// Page banner: plain warm background with the title and trail.
 export default function Breadcrumb({
   title,
   items,
-  image = "/images/breadcrumb.svg",
 }: {
   title: string;
   items: Crumb[];
-  image?: string;
 }) {
   return (
     <section className="relative overflow-hidden bg-[#F4EDDA] border-b border-brand-line">
-      <Image
-        src={image}
-        alt=""
-        aria-hidden
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-[center_78%] opacity-60"
-      />
 
-      <div className="relative h-[130px] md:h-[210px] flex flex-col items-center justify-center text-center px-4">
+      <div className="relative h-[120px] md:h-[170px] flex flex-col items-center justify-center text-center px-4">
         <h1 className="font-display font-medium text-brand-funk text-[26px] sm:text-[34px] md:text-[42px] leading-tight">
           {title}
         </h1>

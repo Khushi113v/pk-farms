@@ -16,11 +16,11 @@ type Story = {
 const SHARED_ID = "jNQXAC9IVRw";
 
 const STORIES: Story[] = [
-  { youtubeId: SHARED_ID, poster: "/images/editorial/village-morning.svg", parent: "Aanya", location: "Jaipur", rating: 5, bought: "Pahadi Badri Cow Ghee" },
-  { youtubeId: SHARED_ID, poster: "/images/editorial/masala-spread.svg", parent: "Meera", location: "Delhi", rating: 5, bought: "Multiflora Himalayan Honey" },
-  { youtubeId: SHARED_ID, poster: "/images/editorial/honey-spoon.svg", parent: "Simran", location: "Mumbai", rating: 5, bought: "Lakadong Turmeric Powder" },
-  { youtubeId: SHARED_ID, poster: "/images/editorial/honey-harvest.svg", parent: "Kavya", location: "Bengaluru", rating: 4, bought: "Wild Forest Honey" },
-  { youtubeId: SHARED_ID, poster: "/images/editorial/mountain-farm.svg", parent: "Riya", location: "Lucknow", rating: 5, bought: "Pahadi Pantry Combo" },
+  { youtubeId: SHARED_ID, poster: "/images/products/oils.png", parent: "Aanya", location: "Jaipur", rating: 5, bought: "Pure Desi Cow Ghee" },
+  { youtubeId: SHARED_ID, poster: "/images/products/spices.png", parent: "Meera", location: "Delhi", rating: 5, bought: "Raw Honey" },
+  { youtubeId: SHARED_ID, poster: "/images/products/honey.png", parent: "Simran", location: "Mumbai", rating: 5, bought: "Heeng" },
+  { youtubeId: SHARED_ID, poster: "/images/products/honey.png", parent: "Kavya", location: "Bengaluru", rating: 4, bought: "Wood Pressed Groundnut Oil" },
+  { youtubeId: SHARED_ID, poster: "/images/products/oils.png", parent: "Riya", location: "Lucknow", rating: 5, bought: "Pure Desi Cow Ghee" },
 ];
 
 // `roomBelow` leaves a little extra bottom space for an illustration standing on the next section.

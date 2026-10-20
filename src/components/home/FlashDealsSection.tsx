@@ -17,12 +17,10 @@ type Deal = {
 };
 
 const DEAL_SLUGS = [
-  "pahadi-badri-cow-ghee",
-  "multiflora-himalayan-honey",
-  "lakadong-turmeric-powder",
-  "a2-gir-cow-ghee-tin",
-  "wild-forest-honey",
-  "pahadi-pantry-combo",
+  "pure-desi-cow-ghee",
+  "raw-honey",
+  "wood-pressed-groundnut-oil",
+  "heeng-compounded-asafoetida",
 ];
 
 const DEALS: Deal[] = DEAL_SLUGS.map((slug) => PRODUCTS.find((p) => p.slug === slug))

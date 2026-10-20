@@ -45,40 +45,27 @@ type MegaItem = {
 const SHOP_MENU: MegaItem[] = [
   {
     name: "Ghee",
-    hint: "Bilona desi ghee, jars & tins",
-    image: "/images/categories/ghee.svg",
+    hint: "A2 desi cow ghee, bilona process",
+    image: "/images/products/ghee.png",
     href: "/shop?category=ghee",
-    subs: [
-      { label: "Glass Jar", href: "/shop?category=ghee&style=jar" },
-      { label: "Tin", href: "/shop?category=ghee&style=tin" },
-    ],
   },
   {
     name: "Honey",
-    hint: "Raw & unprocessed Himalayan honey",
-    image: "/images/categories/honey.svg",
+    hint: "Raw, unprocessed wild honey",
+    image: "/images/products/honey.png",
     href: "/shop?category=honey",
-    subs: [
-      { label: "Glass Jar", href: "/shop?category=honey&style=jar" },
-    ],
   },
   {
-    name: "Spices & Masala",
-    hint: "Stone-ground pahadi masalas",
-    image: "/images/categories/masala.svg",
+    name: "Oils",
+    hint: "Wooden cold pressed oils",
+    image: "/images/products/oils.png",
+    href: "/shop?category=oils",
+  },
+  {
+    name: "Spices",
+    hint: "Pure, aromatic heeng",
+    image: "/images/products/spices.png",
     href: "/shop?category=spices",
-    subs: [
-      { label: "Pouch", href: "/shop?category=spices&style=pouch" },
-    ],
-  },
-  {
-    name: "Combos",
-    hint: "Gift sets & pantry bundles",
-    image: "/images/products/combo-pahadi.svg",
-    href: "/shop?category=combos",
-    subs: [
-      { label: "Gift Combo", href: "/shop?category=combos&style=combo" },
-    ],
   },
 ];
 
@@ -355,7 +342,7 @@ export default function Header() {
                                 }`}
                               >
                                 <div className="relative w-12 h-12 shrink-0 rounded-lg overflow-hidden">
-                                  <Image src={c.image} alt={c.name} fill sizes="48px" className="object-cover object-top" />
+                                  <Image src={c.image} alt={c.name} fill sizes="48px" className="object-cover object-center" />
                                 </div>
                                 <div className="min-w-0 flex-1">
                                   <p className="font-display font-medium text-brand-ink text-sm leading-tight truncate">

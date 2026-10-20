@@ -10,9 +10,9 @@ import { ProfileProvider } from "@/lib/profile-context";
 import { WishlistProvider } from "@/lib/wishlist-context";
 
 export const metadata: Metadata = {
-  title: "PK Farms — Pure Pahadi Ghee, Honey & Masala",
+  title: "PK Farms — Pure Desi Ghee, Raw Honey, Cold Pressed Oils & Spices",
   description:
-    "Bilona ghee, raw Himalayan honey and stone-ground masalas, sourced directly from farmers and delivered to your door.",
+    "A2 desi cow ghee, raw honey, wood pressed groundnut oil and pure heeng. 100% natural, no preservatives, delivered to your door.",
 };
 
 export default function RootLayout({

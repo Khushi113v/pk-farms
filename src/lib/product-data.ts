@@ -1,12 +1,12 @@
-export const CATEGORIES = ["Ghee", "Honey", "Spices & Masala", "Combos"] as const;
+export const CATEGORIES = ["Ghee", "Honey", "Oils", "Spices"] as const;
 export type Category = (typeof CATEGORIES)[number];
 
-// Packaging types — the same options sit under every category
-export const STYLES = ["Glass Jar", "Tin", "Pouch", "Gift Combo"] as const;
+// Packaging types
+export const STYLES = ["Glass Jar", "Bottle"] as const;
 export type Style = (typeof STYLES)[number];
 
 // Picks the Storage & Use guidance on the product page
-export type CareKind = "ghee" | "honey" | "masala" | "combo";
+export type CareKind = "ghee" | "honey" | "oil" | "spices";
 
 // Placeholders in a specifications list that follow the selected pack on the product page
 export const SPEC_COLOUR = "__colour__";
@@ -67,7 +67,7 @@ function product(o: Input): Product {
     ...base,
     group: o.slug,
     image: IMG(file),
-    images: Array(7).fill(IMG(file)),
+    images: [IMG(file)],
     sizes,
     price: def.price,
     mrp: def.mrp,
@@ -76,61 +76,42 @@ function product(o: Input): Product {
 }
 
 const row = (label: string, value: string) => ({ label, value });
-const specs = (o: { source: string; type: string; ingredients: string; shelf: string }) => [
+const specs = (o: { source: string; type: string; ingredients: string; shelf: string; packaging: string }) => [
   row("Type", o.type),
   row("Sourced from", o.source),
   row("Ingredients", o.ingredients),
   row("Shelf life", o.shelf),
-  row("Packaging", "Food-grade, sealed"),
+  row("Packaging", o.packaging),
   row("Discount", SPEC_DISCOUNT),
 ];
 
-const HIGHLIGHT = "No preservatives, no added colour or flavour";
-
 const BASE_PRODUCTS: Product[] = [
   product({
-    slug: "pahadi-badri-cow-ghee",
-    name: "Pahadi Badri Cow Ghee",
-    hint: "Bilona-churned desi ghee from Himalayan cows",
+    slug: "pure-desi-cow-ghee",
+    name: "Pure Desi Cow Ghee",
+    hint: "A2 cow milk, traditional bilona process",
     description:
-      "Slow-churned the traditional bilona way from the curd of free-grazing Badri cows in the Garhwal hills. Rich aroma, grainy texture and a golden colour you can see and taste.",
-    file: "ghee-badri-cow.svg",
+      "Made from the A2 milk of grass-fed desi cows and churned the traditional bilona way. Rich aroma, a natural grainy texture and a golden colour, with nothing added.",
+    file: "ghee.png",
     category: "Ghee",
     style: "Glass Jar",
     care: "ghee",
-    rows: [["250 g", 599, 699], ["500 g", 1099, 1299], ["1 kg", 2049, 2399]],
+    rows: [["250 g", 649, 749], ["500 g", 1199, 1399], ["1 kg", 2299, 2599]],
     defaultPack: "500 g",
     rating: 4.9,
     reviewCount: 1240,
+    tileBg: "#FBF1D7",
     includes: "1 glass jar of ghee",
-    benefits: ["Made by the traditional bilona method", "Sourced from free-grazing Badri cows", HIGHLIGHT],
-    specifications: specs({ source: "Garhwal, Uttarakhand", type: "Desi cow ghee", ingredients: "100% cow milk butter (bilona)", shelf: "9 months" }),
+    benefits: ["Traditional bilona process", "A2 cow milk source", "100% natural, no preservatives"],
+    specifications: specs({ source: "Grass-fed desi cows", type: "A2 desi cow ghee", ingredients: "100% A2 cow milk butter", shelf: "9 months", packaging: "Glass jar" }),
   }),
   product({
-    slug: "a2-gir-cow-ghee-tin",
-    name: "A2 Gir Cow Ghee",
-    hint: "Hand-churned A2 ghee in a durable tin",
+    slug: "raw-honey",
+    name: "Raw Honey",
+    hint: "Pure wild honey, unprocessed",
     description:
-      "Made from the A2 milk of Gir cows and hand-churned in small batches. Packed in a sturdy food-grade tin that keeps the ghee fresh and travels well.",
-    file: "ghee-a2-tin.svg",
-    category: "Ghee",
-    style: "Tin",
-    care: "ghee",
-    rows: [["500 g", 1199, 1399], ["1 kg", 2249, 2599], ["2 kg", 4299, 4999]],
-    defaultPack: "1 kg",
-    reviewCount: 862,
-    tileBg: "#EAF2E3",
-    includes: "1 tin of ghee",
-    benefits: ["A2 milk from Gir cows", "Sturdy tin that keeps ghee fresh", HIGHLIGHT],
-    specifications: specs({ source: "Gir cow farms", type: "A2 cow ghee", ingredients: "100% A2 cow milk butter", shelf: "12 months" }),
-  }),
-  product({
-    slug: "multiflora-himalayan-honey",
-    name: "Multiflora Himalayan Honey",
-    hint: "Raw, unprocessed honey from high-altitude flowers",
-    description:
-      "Collected by local beekeepers from wild flowers across the Himalayan valleys. Raw, unheated and never blended with syrup, so you get the real taste of the mountains.",
-    file: "honey-multiflora.svg",
+      "Pure wild honey collected from natural forests and bottled raw. Never heated and never blended with sugar syrup, so the natural flavour and goodness stay intact.",
+    file: "honey.png",
     category: "Honey",
     style: "Glass Jar",
     care: "honey",
@@ -138,111 +119,48 @@ const BASE_PRODUCTS: Product[] = [
     defaultPack: "500 g",
     rating: 4.8,
     reviewCount: 934,
-    tileBg: "#FDEFC9",
+    tileBg: "#FBEFD8",
     includes: "1 glass jar of honey",
-    benefits: ["Raw and unheated", "Collected by local Himalayan beekeepers", "No sugar syrup, no added colour"],
-    specifications: specs({ source: "Himachal & Uttarakhand", type: "Multiflora raw honey", ingredients: "100% honey", shelf: "24 months" }),
+    benefits: ["Pure wild honey", "Raw and unprocessed", "100% natural, no preservatives"],
+    specifications: specs({ source: "Natural forest beehives", type: "Raw wild honey", ingredients: "100% honey", shelf: "24 months", packaging: "Glass jar" }),
   }),
   product({
-    slug: "wild-forest-honey",
-    name: "Wild Forest Honey",
-    hint: "Dark, rich honey from Himalayan forests",
+    slug: "wood-pressed-groundnut-oil",
+    name: "Wood Pressed Groundnut Oil",
+    hint: "Wooden cold pressed, pure & natural",
     description:
-      "A deep, dark honey gathered from wild forest blossoms. Bold in flavour with a hint of earthy sweetness, perfect with warm water or on its own by the spoon.",
-    file: "honey-forest.svg",
-    category: "Honey",
-    style: "Glass Jar",
-    care: "honey",
-    rows: [["250 g", 399, 469], ["500 g", 749, 869], ["1 kg", 1399, 1599]],
-    defaultPack: "250 g",
-    rating: 4.7,
-    reviewCount: 705,
-    tileBg: "#F9E3B4",
-    includes: "1 glass jar of honey",
-    benefits: ["Dark, bold forest flavour", "Raw and unprocessed", "No sugar syrup, no added colour"],
-    specifications: specs({ source: "Himalayan forests", type: "Wild forest honey", ingredients: "100% honey", shelf: "24 months" }),
-  }),
-  product({
-    slug: "lakadong-turmeric-powder",
-    name: "Lakadong Turmeric Powder",
-    hint: "High-curcumin turmeric from Meghalaya",
-    description:
-      "Lakadong turmeric is prized for its deep colour and high curcumin content. Sun-dried, stone-ground and packed fresh for your kitchen and your golden milk.",
-    file: "masala-turmeric.svg",
-    category: "Spices & Masala",
-    style: "Pouch",
-    care: "masala",
-    rows: [["100 g", 179, 219], ["200 g", 329, 399], ["500 g", 749, 899]],
-    defaultPack: "200 g",
+      "Extracted slowly in a traditional wooden press from select groundnuts. Cold pressed and unrefined, it keeps the natural nutty aroma and is ideal for everyday Indian cooking.",
+    file: "oils.png",
+    category: "Oils",
+    style: "Bottle",
+    care: "oil",
+    rows: [["1 L", 399, 449], ["2 L", 779, 879], ["5 L", 1899, 2149]],
+    defaultPack: "1 L",
     rating: 4.8,
     reviewCount: 612,
-    tileBg: "#FBEBC2",
-    includes: "1 resealable pouch",
-    benefits: ["8–10% curcumin content", "Sun-dried and stone-ground", "No added colour or fillers"],
-    specifications: specs({ source: "Lakadong, Meghalaya", type: "Turmeric powder", ingredients: "100% Lakadong turmeric", shelf: "12 months" }),
+    tileBg: "#FBF3D6",
+    includes: "1 bottle of oil",
+    benefits: ["Wooden cold pressed", "Unrefined, natural aroma", "100% natural, no preservatives"],
+    specifications: specs({ source: "Select groundnuts", type: "Cold pressed groundnut oil", ingredients: "100% groundnut", shelf: "9 months", packaging: "Bottle" }),
   }),
   product({
-    slug: "birds-eye-chilli-powder",
-    name: "Bird's Eye Chilli Powder",
-    hint: "Fiery hand-pounded Himalayan chilli",
+    slug: "heeng-compounded-asafoetida",
+    name: "Heeng",
+    hint: "Compounded asafoetida, pure & aromatic",
     description:
-      "Small but fierce, hand-pounded from sun-dried Himalayan bird's eye chillies. A little goes a long way in curries, chutneys and pahadi dishes.",
-    file: "masala-chilli.svg",
-    category: "Spices & Masala",
-    style: "Pouch",
-    care: "masala",
-    rows: [["100 g", 199, 249], ["250 g", 449, 549]],
-    defaultPack: "100 g",
-    rating: 4.6,
-    reviewCount: 404,
-    tileBg: "#F9DDD3",
-    includes: "1 resealable pouch",
-    benefits: ["Hand-pounded, small batch", "Intense heat and aroma", "No added colour or fillers"],
-    specifications: specs({ source: "Uttarakhand hills", type: "Chilli powder", ingredients: "100% bird's eye chilli", shelf: "12 months" }),
-  }),
-  product({
-    slug: "pahadi-garam-masala",
-    name: "Pahadi Garam Masala",
-    hint: "Stone-ground whole-spice blend",
-    description:
-      "A warm, balanced blend of whole spices roasted and stone-ground the pahadi way. Add it at the end of cooking for a full, fragrant finish.",
-    file: "masala-garam.svg",
-    category: "Spices & Masala",
-    style: "Pouch",
-    care: "masala",
-    rows: [["100 g", 229, 279], ["250 g", 519, 629]],
-    defaultPack: "100 g",
+      "Strong, aromatic heeng that brings depth to dal, sabzi and tadka. A small pinch is all you need. Packed in a glass jar with a gold lid to keep the aroma locked in.",
+    file: "spices.png",
+    category: "Spices",
+    style: "Glass Jar",
+    care: "spices",
+    rows: [["50 g", 249, 299], ["100 g", 449, 549]],
+    defaultPack: "50 g",
     rating: 4.7,
-    reviewCount: 318,
-    tileBg: "#EFE3D3",
-    includes: "1 resealable pouch",
-    benefits: ["Roasted and stone-ground", "Balanced, aromatic blend", "No added colour or fillers"],
-    specifications: specs({ source: "Himalayan villages", type: "Garam masala", ingredients: "Cumin, coriander, cardamom, cinnamon, clove, black pepper, bay leaf", shelf: "12 months" }),
-  }),
-  product({
-    slug: "pahadi-pantry-combo",
-    name: "Pahadi Pantry Combo",
-    hint: "Ghee + honey + turmeric gift set",
-    description:
-      "A gift-ready set of our best sellers: Badri cow ghee (500 g), Multiflora honey (500 g) and Lakadong turmeric (200 g). Everything a pahadi kitchen needs, in one box.",
-    file: "combo-pahadi.svg",
-    category: "Combos",
-    style: "Gift Combo",
-    care: "combo",
-    rows: [["Set of 3", 1999, 2399]],
-    defaultPack: "Set of 3",
-    rating: 4.9,
-    reviewCount: 186,
-    tileBg: "#FBF1D7",
-    includes: "Ghee 500 g, honey 500 g, turmeric 200 g",
-    benefits: ["Our three best sellers in one box", "Gift-ready packaging", "Save over the single-item prices"],
-    specifications: [
-      row("Includes", "Badri cow ghee 500 g, Multiflora honey 500 g, Lakadong turmeric 200 g"),
-      row("Sourced from", "Himalayan farms"),
-      row("Packaging", "Gift box"),
-      row("Shelf life", "9 months"),
-      row("Discount", SPEC_DISCOUNT),
-    ],
+    reviewCount: 404,
+    tileBg: "#F8EFDB",
+    includes: "1 glass jar of heeng",
+    benefits: ["Strong, pure aroma", "A pinch is enough", "100% natural, no preservatives"],
+    specifications: specs({ source: "Selected asafoetida resin", type: "Compounded asafoetida", ingredients: "Asafoetida, edible starch, edible gum", shelf: "12 months", packaging: "Glass jar" }),
   }),
 ];
 

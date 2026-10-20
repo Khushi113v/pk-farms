@@ -17,50 +17,64 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
-    eyebrow: "Straight from the Himalayas",
+    eyebrow: "A2 cow milk · Bilona process",
     title: (
       <>
-        Pure Pahadi <br className="hidden sm:block" />
-        Ghee &amp; Goodness
+        Pure Desi <br className="hidden sm:block" />
+        Cow Ghee
       </>
     ),
     desc:
-      "Bilona-churned desi ghee, raw honey and stone-ground masalas, sourced directly from farmers and made the way our grandparents did.",
-    cta: { label: "Shop Now", href: "/shop" },
-    image: "/images/hero/hero-himalaya.svg",
-    alt: "PK Farms ghee, honey and turmeric in front of Himalayan mountains",
-    imgFocus: "85% 50%",
-    mobileFocus: "75% 50%",
+      "Churned the traditional bilona way from the A2 milk of grass-fed desi cows. Rich aroma, natural grain and nothing added.",
+    cta: { label: "Shop Ghee", href: "/shop?category=ghee" },
+    image: "/images/products/ghee.png",
+    alt: "PK Farms Pure Desi Cow Ghee in a glass jar",
+    imgFocus: "center",
   },
   {
-    eyebrow: "Raw & unprocessed",
+    eyebrow: "Pure · Natural · Unprocessed",
     title: (
       <>
-        Golden Honey, <br className="hidden sm:block" />
-        <span className="italic">Wild</span> Flavour
+        Raw Wild <br className="hidden sm:block" />
+        Honey
       </>
     ),
     desc:
-      "Multiflora and wild forest honey collected by local beekeepers. Never heated, never blended with syrup.",
+      "Collected from natural forests and bottled raw. Never heated, never blended with sugar syrup.",
     cta: { label: "Shop Honey", href: "/shop?category=honey" },
-    image: "/images/hero/hero-honey.svg",
-    alt: "Jars of raw Himalayan honey with a honey dipper",
-    imgFocus: "85% 50%",
+    image: "/images/products/honey.png",
+    alt: "PK Farms Raw Honey in a glass jar",
+    imgFocus: "center",
   },
   {
-    eyebrow: "Stone-ground in small batches",
+    eyebrow: "Wooden cold pressed",
     title: (
       <>
-        Masalas With <br className="hidden sm:block" />
-        Mountain Aroma
+        Groundnut Oil, <br className="hidden sm:block" />
+        Pressed Pure
       </>
     ),
     desc:
-      "Lakadong turmeric, bird's eye chilli and pahadi garam masala, ground fresh with no added colour or fillers.",
-    cta: { label: "Shop Masalas", href: "/shop?category=spices" },
-    image: "/images/hero/hero-masala.svg",
-    alt: "Turmeric and chilli masala pouches with whole spices",
-    imgFocus: "85% 50%",
+      "Slowly extracted in a traditional wooden press, unrefined and full of natural aroma for everyday cooking.",
+    cta: { label: "Shop Oils", href: "/shop?category=oils" },
+    image: "/images/products/oils.png",
+    alt: "PK Farms Wood Pressed Groundnut Oil bottle with groundnuts",
+    imgFocus: "center",
+  },
+  {
+    eyebrow: "Pure & aromatic",
+    title: (
+      <>
+        Heeng for <br className="hidden sm:block" />
+        Every Tadka
+      </>
+    ),
+    desc:
+      "Strong, aromatic compounded asafoetida. A small pinch brings depth to dal, sabzi and everyday cooking.",
+    cta: { label: "Shop Spices", href: "/shop?category=spices" },
+    image: "/images/products/spices.png",
+    alt: "PK Farms Heeng compounded asafoetida in a glass jar",
+    imgFocus: "center",
   },
 ];
 
@@ -76,8 +90,8 @@ export default function HeroSlider() {
   }, [total, i]);
 
   return (
-    <section className="relative w-full bg-[#F2E7C9]">
-      <div className="relative w-full h-[500px] sm:h-[540px] md:h-[480px] lg:h-[520px] overflow-hidden">
+    <section className="relative w-full bg-[#F7EBCF]">
+      <div className="relative w-full h-[640px] sm:h-[700px] md:h-[480px] lg:h-[520px] overflow-hidden">
         {SLIDES.map((s, idx) => (
           <div
             key={idx}
@@ -86,19 +100,19 @@ export default function HeroSlider() {
               idx === i ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
-            {/* Photo — fills the right side and fades softly into the blush background */}
-            <div className="absolute inset-0 md:left-auto md:w-[60%] md:[mask-image:linear-gradient(to_right,transparent,black_32%)]">
+            {/* Product photo — square on the right, fading softly into the background */}
+            <div className="absolute inset-x-0 top-0 h-[360px] sm:h-[400px] md:inset-y-0 md:h-auto md:left-auto md:w-auto md:aspect-square md:[mask-image:linear-gradient(to_right,transparent,black_22%)]">
               <Image
                 src={s.image}
                 alt={s.alt}
                 fill
                 priority={idx === 0}
-                sizes="(min-width: 768px) 60vw, 100vw"
+                sizes="(min-width: 768px) 520px, 100vw"
                 className="object-cover [object-position:var(--mpos)] md:[object-position:var(--pos)]"
                 style={{ "--pos": s.imgFocus, "--mpos": s.mobileFocus ?? s.imgFocus } as React.CSSProperties}
               />
-              {/* Mobile only — blush wash rising from the bottom so the text sits on the photo */}
-              <div className="md:hidden absolute inset-0 bg-[linear-gradient(to_top,rgba(242,231,201,0.96)_0%,rgba(242,231,201,0.88)_34%,rgba(242,231,201,0.4)_52%,rgba(242,231,201,0)_64%)]" />
+              {/* Mobile only — short fade at the bottom of the photo into the background */}
+              <div className="md:hidden absolute inset-0 bg-[linear-gradient(to_top,rgba(247,235,207,1)_0%,rgba(247,235,207,0)_22%)]" />
             </div>
 
             {/* Text */}

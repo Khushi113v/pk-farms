@@ -32,54 +32,48 @@ type Feature = {
 const FEATURES: Feature[] = [
   {
     icon: Sparkles,
-    heroImage: "/images/blog/ghee-guide.svg",
-    focus: "center 35%",
-    title: "Traditional methods",
-    desc: "Bilona ghee and hand-collected honey, made the old way.",
+    heroImage: "/images/products/ghee.png",
+        title: "Traditional methods",
+    desc: "Bilona ghee and wooden cold pressed oil, made the old way.",
     accent: "#0B5B36",
     accentSoft: "#E7F0E4",
   },
   {
     icon: Droplets,
-    heroImage: "/images/editorial/turmeric-field.svg",
-    focus: "center 20%",
-    title: "Pure ingredients",
+    heroImage: "/images/products/honey.png",
+        title: "Pure ingredients",
     desc: "No preservatives, no added colour, no fillers.",
     accent: "#C4553C",
     accentSoft: "#EEF3E6",
   },
   {
     icon: Leaf,
-    heroImage: "/images/blog/farm-story.svg",
-    focus: "center",
-    title: "Sourced from farmers",
-    desc: "Bought directly from Himalayan farmers and beekeepers.",
+    heroImage: "/images/products/oils.png",
+        title: "Honest sourcing",
+    desc: "We work closely with farmers and producers.",
     accent: "#A67C2E",
     accentSoft: "#F5EBD9",
   },
   {
     icon: Gem,
-    heroImage: "/images/editorial/masala-spread.svg",
-    focus: "center 15%",
-    title: "Jars, tins and pouches",
-    desc: "Pick the pack that suits you, from pouches to gift combos.",
+    heroImage: "/images/products/spices.png",
+        title: "Safe packaging",
+    desc: "Glass jars and sealed bottles that keep it fresh.",
     accent: "#08472A",
     accentSoft: "#E7F0E4",
   },
   {
     icon: RefreshCw,
-    heroImage: "/images/editorial/mountain-farm.svg",
-    focus: "center 20%",
-    title: "Easy replacement",
+    heroImage: "/images/products/ghee.png",
+        title: "Easy replacement",
     desc: "Damaged in transit? We will replace it.",
     accent: "#B24A32",
     accentSoft: "#EEF3E6",
   },
   {
     icon: Heart,
-    heroImage: "/images/hero/hero-masala.svg",
-    focus: "center 20%",
-    title: "Made with care",
+    heroImage: "/images/products/honey.png",
+        title: "Made with care",
     desc: "Every product is chosen and tested by our team.",
     accent: "#0B5B36",
     accentSoft: "#E7F0E4",
@@ -234,7 +228,7 @@ function ProductWhyChoose({ decor }: { decor?: React.ReactNode }) {
             PK Farms?
           </h2>
           <p className="mt-3 text-brand-ink/70 text-sm md:text-[15px] leading-relaxed">
-            Pure, traceable and made the way the mountains intended.
+            Pure, natural and made the traditional way.
           </p>
         </div>
 

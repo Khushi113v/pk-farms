@@ -25,28 +25,24 @@ export default function HomePage() {
         tagLabel="Best Seller"
         interval={4600}
         slugs={[
-          "pahadi-badri-cow-ghee",
-          "multiflora-himalayan-honey",
-          "lakadong-turmeric-powder",
-          "a2-gir-cow-ghee-tin",
-          "pahadi-garam-masala",
-          "birds-eye-chilli-powder",
+          "pure-desi-cow-ghee",
+          "raw-honey",
+          "wood-pressed-groundnut-oil",
+          "heeng-compounded-asafoetida",
         ]}
       />
       <WhyChooseSection />
       <FeaturedProductsSection
         eyebrow="Featured products"
-        heading="Pure from the"
-        accent="Himalayas"
+        heading="Pure, natural and"
+        accent="trusted"
         tagLabel="Featured"
         interval={5000}
         slugs={[
-          "pahadi-pantry-combo",
-          "wild-forest-honey",
-          "a2-gir-cow-ghee-tin",
-          "pahadi-garam-masala",
-          "pahadi-badri-cow-ghee",
-          "multiflora-himalayan-honey",
+          "raw-honey",
+          "pure-desi-cow-ghee",
+          "heeng-compounded-asafoetida",
+          "wood-pressed-groundnut-oil",
         ]}
       />
       <VideoSection />

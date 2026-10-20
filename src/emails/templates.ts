@@ -45,8 +45,8 @@ export function registerEmail(d: { name: string; code?: string }) {
         ${spacer(26)}
         ${button("Start shopping", "/shop")}
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:30px;border-top:1px solid ${C.line};">
-          ${perk("Ghee, honey and masala", "Bilona ghee, raw honey and stone-ground spices from the Himalayas.")}
-          ${perk("Jars, tins and pouches", "Choose the pack that suits you, with gift combos for every occasion.")}
+          ${perk("Ghee, honey, oils and spices", "Bilona ghee, raw honey, wood pressed oil and pure heeng.")}
+          ${perk("Natural, no preservatives", "Every product is 100% natural with nothing added.")}
           ${perk("Birthday and anniversary gifts", `Add your dates in <a href="${SITE_URL}/my-account" style="color:${C.maroon};">My Profile</a> and we will send you 15% off.`)}
         </table>`,
     }),
@@ -147,8 +147,8 @@ export function cartReminderEmail(d: { name: string; items: EmailItem[]; code?: 
 
 // ─── Sample data for the preview page ─────────────────────────────────────────
 export const SAMPLE_ITEMS: EmailItem[] = [
-  { name: "Multiflora Himalayan Honey", variant: "500 g", qty: 1, price: 649, mrp: 749, image: "/images/products/honey-multiflora.svg" },
-  { name: "Pahadi Badri Cow Ghee", variant: "500 g", qty: 1, price: 1099, mrp: 1299, image: "/images/products/ghee-badri-cow.svg" },
+  { name: "Raw Honey", variant: "500 g", qty: 1, price: 649, mrp: 749, image: "/images/products/honey.png" },
+  { name: "Pure Desi Cow Ghee", variant: "500 g", qty: 1, price: 1199, mrp: 1399, image: "/images/products/ghee.png" },
 ];
 
 export const TEMPLATES = [
@@ -163,12 +163,12 @@ export const TEMPLATES = [
         orderId: "SBK48201937",
         date: "19 Oct 2026",
         items: SAMPLE_ITEMS,
-        subtotal: 1748,
-        discount: 175,
+        subtotal: 1848,
+        discount: 185,
         coupon: "WELCOME10",
         giftWrap: 99,
         shipping: 0,
-        total: 1672,
+        total: 1762,
         paymentMethod: "Paid online",
         billing: { name: "Jane Doe", lines: "112, Palm Residency, 4th Cross, Indiranagar<br />Bengaluru, Karnataka – 560038" },
         shippingTo: { name: "Jane Doe", lines: "PK Farms Studio, 2nd Floor, MG Road<br />Pune, Maharashtra – 411001" },

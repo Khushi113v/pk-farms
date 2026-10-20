@@ -7,7 +7,7 @@ import BrandBackdrop, { BRAND_BACKDROP_BG } from "@/components/common/BrandBackd
 export const metadata: Metadata = {
   title: "About Us — PK Farms",
   description:
-    "PK Farms — pure pahadi ghee, raw honey and stone-ground masalas, sourced directly from Himalayan farmers.",
+    "PK Farms — A2 desi cow ghee, raw honey, wood pressed oils and pure spices. 100% natural, no preservatives.",
 };
 
 const PILLARS = [
@@ -21,14 +21,14 @@ const PILLARS = [
   {
     icon: Target,
     title: "Our Mission",
-    desc: "To bring authentic pahadi food to your table, with fair prices for the farmer and clear quality with care.",
+    desc: "To bring pure, natural food to every table, with fair prices for the farmer and quality you can trust.",
     accent: "#C4553C",
     accentSoft: "#EEF3E6",
   },
   {
     icon: HeartHandshake,
     title: "Our Promise",
-    desc: "No preservatives, no added colour and no shortcuts, so every jar and pouch is one you will want to buy again.",
+    desc: "No preservatives, no added colour and no shortcuts, so every jar and bottle is one you will want to buy again.",
     accent: "#A67C2E",
     accentSoft: "#F5EBD9",
   },
@@ -49,11 +49,11 @@ export default function AboutUsPage() {
             <div className="relative">
               <div className="relative aspect-[4/3.9] rounded-3xl overflow-hidden border border-brand-line">
                 <Image
-                  src="/images/editorial/ghee-kitchen.svg"
-                  alt="PK Farms ghee jar in front of Himalayan mountains"
+                  src="/images/products/ghee.png"
+                  alt="PK Farms Pure Desi Cow Ghee"
                   fill
                   sizes="(max-width: 768px) 90vw, 45vw"
-                  className="object-cover object-[center_18%]"
+                  className="object-cover object-center"
                 />
               </div>
               {/* Decorative sticker */}
@@ -72,7 +72,7 @@ export default function AboutUsPage() {
                 About PK Farms
               </span>
               <h1 className="mt-4 font-display font-medium text-brand-ink text-[30px] sm:text-4xl md:text-5xl leading-[1.08]">
-                Pure pahadi food,{" "}
+                Pure food,{" "}
                 <span className="italic font-script font-medium text-brand-funk text-[1em] leading-none">
                   sourced
                 </span>{" "}
@@ -81,20 +81,19 @@ export default function AboutUsPage() {
 
               <div className="mt-5 space-y-4 text-brand-muted text-[15px] md:text-base leading-relaxed">
                 <p>
-                  PK Farms began with a simple love for the food of the hills:
-                  the aroma of bilona ghee, the taste of wild honey and the warmth of
-                  freshly ground masalas. We wanted that food to reach every home, just
-                  as it is made in the mountains.
+                  PK Farms began with a simple belief: everyday food should be pure.
+                  The ghee on your roti, the honey in your tea and the oil in your
+                  kadhai should be exactly what the label says, and nothing more.
                 </p>
                 <p>
-                  Every product is chosen with care: ghee churned by hand, honey that is
-                  raw and never heated, and spices stone-ground in small batches. Our
-                  range comes in glass jars, tins and pouches, with gift combos for
-                  every occasion.
+                  Our range is small and carefully made: A2 desi cow ghee from the
+                  bilona process, raw wild honey, groundnut oil from a wooden cold
+                  press and pure, aromatic heeng. Every product is 100% natural with
+                  no preservatives.
                 </p>
                 <p>
-                  From a spoon of ghee on hot rotis to a pinch of turmeric in golden
-                  milk, we want you to taste the difference. We keep listening to our
+                  From a spoon of ghee on hot rotis to a pinch of heeng in your tadka,
+                  we want you to taste the difference. We keep listening to our
                   customers, so every batch is a little better than the last.
                 </p>
               </div>

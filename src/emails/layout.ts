@@ -93,7 +93,7 @@ export function wrap({ title, preheader, body }: { title: string; preheader: str
     </td></tr>
     <tr><td style="padding:34px 32px 36px;">${body}</td></tr>
     <tr><td align="center" style="padding:24px 28px 28px;background:${C.ivory};border-radius:0 0 16px 16px;border-top:1px solid ${C.line};font-family:${SANS};">
-      <div style="font-family:${SERIF};font-size:13px;letter-spacing:0.14em;color:${C.goldText};text-transform:uppercase;">Pure pahadi food. Straight from the hills.</div>
+      <div style="font-family:${SERIF};font-size:13px;letter-spacing:0.14em;color:${C.goldText};text-transform:uppercase;">Pure. Natural. Trusted.</div>
       <p style="margin:12px 0 0;font-size:12px;line-height:1.7;color:${C.muted};">
         <a href="${SITE_URL}/shop" style="color:${C.maroon};text-decoration:none;">Shop</a> &nbsp;·&nbsp;
         <a href="${SITE_URL}/my-orders" style="color:${C.maroon};text-decoration:none;">My orders</a> &nbsp;·&nbsp;
