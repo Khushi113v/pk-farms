@@ -26,6 +26,8 @@ const config: Config = {
         // Body, buttons and UI text — Nunito
         body: ["'Nunito'", "system-ui", "sans-serif"],
         // Accent words — italic
+        // Banner headings — Playfair Display, a refined serif
+        hero: ["'Playfair Display'", "Georgia", "serif"],
         script: ["'Figtree'", "system-ui", "sans-serif"],
       },
       boxShadow: {

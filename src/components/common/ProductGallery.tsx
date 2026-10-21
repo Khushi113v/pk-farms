@@ -55,7 +55,7 @@ export default function ProductGallery({
       <div className="flex-1 min-w-0">
         {/* Main image — sliding track */}
         <div
-          className={`relative aspect-square ${rounded} overflow-hidden border bg-[#F7F3EA]`}
+          className={`relative aspect-square ${rounded} overflow-hidden border bg-white`}
           style={{ backgroundColor: `${tileBg}33`, borderColor }}
         >
           <div
@@ -67,7 +67,7 @@ export default function ProductGallery({
           >
             {images.map((img, idx) => (
               <div key={img + idx} className="relative h-full shrink-0" style={{ width: `${100 / count}%` }}>
-                <ProductImage src={img} alt={alt} sizes="(max-width: 768px) 90vw, 45vw" priority={idx === 0} />
+                <ProductImage src={img} alt={alt} sizes="(max-width: 768px) 90vw, 45vw" priority={idx === 0} inset="inset-8 md:inset-14" />
               </div>
             ))}
           </div>

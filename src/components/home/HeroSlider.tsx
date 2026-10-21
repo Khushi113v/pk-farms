@@ -117,10 +117,10 @@ export default function HeroSlider() {
             <div className="absolute inset-x-0 bottom-0 top-[270px] sm:top-[320px] md:inset-0 flex items-start md:items-center">
               <div className="mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-8 pt-2 md:pt-0">
                 <div className="max-w-md lg:max-w-lg text-center md:text-left mx-auto md:mx-0">
-                  <p className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.25em] text-brand-tan">
+                  <p className="text-[11px] md:text-xs font-bold uppercase tracking-[0.3em] text-brand-tan">
                     {s.eyebrow}
                   </p>
-                  <h1 className="mt-3 font-display font-semibold text-brand-funk text-[30px] sm:text-[38px] md:text-[40px] lg:text-[46px] xl:text-[56px] leading-[1.08]">
+                  <h1 className="mt-3 font-hero font-bold text-brand-funk text-[32px] sm:text-[40px] md:text-[42px] lg:text-[50px] xl:text-[60px] leading-[1.1] tracking-[-0.01em]">
                     {s.title}
                   </h1>
                   <p className="mt-3 md:mt-4 text-brand-ink/80 text-[14px] md:text-[15px] leading-relaxed">

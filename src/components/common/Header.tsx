@@ -49,19 +49,17 @@ const SHOP_GROUPS: ShopGroup[] = [
   { title: "All Collection", href: "/shop", products: PRODUCTS },
 ];
 
-const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
-
 function ShopPanel() {
   return (
     <div
-      className="absolute inset-x-0 top-full z-30 px-4 sm:px-6 lg:px-8 opacity-0 translate-y-3 invisible pointer-events-none group-hover/shop:opacity-100 group-hover/shop:translate-y-0 group-hover/shop:visible group-hover/shop:pointer-events-auto transition-[opacity,transform,visibility] duration-300 ease-out"
+      className="absolute left-0 top-full z-30 w-[700px] opacity-0 translate-y-3 invisible pointer-events-none group-hover/shop:opacity-100 group-hover/shop:translate-y-0 group-hover/shop:visible group-hover/shop:pointer-events-auto transition-[opacity,transform,visibility] duration-300 ease-out"
       role="menu"
     >
-      <div className="grid grid-cols-3 gap-8 p-6 rounded-2xl bg-white border border-brand-line shadow-card">
+      <div className="grid grid-cols-3 gap-6 p-5 rounded-2xl bg-white border border-brand-line shadow-card">
         {SHOP_GROUPS.map((g) => (
           <div key={g.title} className="min-w-0">
-            <div className="flex items-center justify-between gap-3 pb-3 mb-3 border-b border-brand-line">
-              <h4 className="font-display font-semibold text-brand-ink text-base">{g.title}</h4>
+            <div className="flex items-center justify-between gap-2 pb-2.5 mb-2.5 border-b border-brand-line">
+              <h4 className="font-display font-semibold text-brand-ink text-[15px]">{g.title}</h4>
               <Link href={g.href} className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-brand-funk hover:text-brand-funkDark">
                 View all
                 <ChevronRight size={13} strokeWidth={2} />
@@ -72,18 +70,12 @@ function ShopPanel() {
                 <li key={p.slug}>
                   <Link
                     href={`/products/${p.slug}`}
-                    className="group/item flex items-center gap-3 rounded-xl p-1.5 -mx-1.5 hover:bg-brand-cream transition-colors"
+                    className="group/item flex items-center gap-2.5 rounded-xl p-1.5 -mx-1.5 hover:bg-brand-cream transition-colors"
                   >
-                    <span className="relative w-12 h-12 shrink-0 rounded-lg overflow-hidden border border-brand-line bg-[#F7F3EA]">
-                      <Image src={p.image} alt="" fill sizes="48px" className="object-contain p-0.5" />
+                    <span className="relative w-10 h-10 shrink-0 rounded-lg overflow-hidden border border-brand-line bg-white">
+                      <Image src={p.image} alt="" fill sizes="40px" className="object-contain p-0.5" />
                     </span>
-                    <span className="min-w-0">
-                      <span className="block text-sm text-brand-ink group-hover/item:text-brand-funk truncate transition-colors">{p.name}</span>
-                      <span className="block text-xs text-brand-muted">
-                        {inr(p.price)}
-                        {p.mrp > p.price && <span className="ml-1.5 line-through">{inr(p.mrp)}</span>}
-                      </span>
-                    </span>
+                    <span className="min-w-0 text-sm leading-snug text-brand-ink group-hover/item:text-brand-funk transition-colors">{p.name}</span>
                   </Link>
                 </li>
               ))}
@@ -243,7 +235,7 @@ export default function Header() {
               // Shop: full-width panel; the wrapper spans the bar height so the pointer can reach the panel
               if (item.menu === "shop") {
                 return (
-                  <div key={item.label} className="group/shop h-full flex items-center">
+                  <div key={item.label} className="group/shop relative h-full flex items-center">
                     <Link href={item.href} className={linkCls}>
                       <span>{item.label}</span>
                       <ChevronDown
@@ -415,11 +407,10 @@ export default function Header() {
                               {g.products.map((p) => (
                                 <li key={p.slug}>
                                   <Link href={`/products/${p.slug}`} onClick={closeMenu} className="flex items-center gap-3 py-1.5">
-                                    <span className="relative w-10 h-10 shrink-0 rounded-lg overflow-hidden border border-brand-line bg-[#F7F3EA]">
+                                    <span className="relative w-10 h-10 shrink-0 rounded-lg overflow-hidden border border-brand-line bg-white">
                                       <Image src={p.image} alt="" fill sizes="40px" className="object-contain p-0.5" />
                                     </span>
                                     <span className="text-sm text-brand-ink">{p.name}</span>
-                                    <span className="ml-auto text-xs text-brand-muted">{inr(p.price)}</span>
                                   </Link>
                                 </li>
                               ))}

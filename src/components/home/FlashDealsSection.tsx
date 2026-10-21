@@ -167,11 +167,11 @@ export default function FlashDealsSection() {
             const discount = pct(deal.price, deal.mrp);
             const card = (
               <>
-                <div className="relative overflow-hidden bg-[#F7F3EA]" style={{ height: "clamp(205px, 32vw, 300px)" }}>
+                <div className="relative overflow-hidden bg-white" style={{ height: "clamp(205px, 32vw, 300px)" }}>
                   <span className="absolute top-3 left-3 z-10 bg-brand-funk text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
                     {discount}% off
                   </span>
-                  <ProductImage src={deal.image} alt={deal.name} sizes="(max-width: 768px) 60vw, 260px" />
+                  <ProductImage src={deal.image} alt={deal.name} sizes="(max-width: 768px) 60vw, 260px" inset="inset-4 top-10" />
                 </div>
                 <div className="px-3.5 py-3 bg-white">
                   <p className="text-[10px] font-medium uppercase tracking-[0.15em] text-brand-tan truncate">{deal.category}</p>

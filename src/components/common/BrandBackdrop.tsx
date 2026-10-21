@@ -1,9 +1,5 @@
-// Section background: flat brand colours with an optional thin gold wave.
-// Place inside a `relative overflow-hidden` section that also has one of the BG classes below.
 export const BRAND_BACKDROP_BG = "bg-white";
-// Between the light and strong versions.
 export const BRAND_BACKDROP_BG_MEDIUM = "bg-brand-cream";
-// A step richer, for sections where the light version disappears.
 export const BRAND_BACKDROP_BG_STRONG = "bg-brand-soft";
 
 export default function BrandBackdrop({ wave = true }: { wave?: boolean; strong?: boolean }) {

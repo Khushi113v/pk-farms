@@ -49,7 +49,7 @@ export default function ProductCard({
       style={{ boxShadow: "0 14px 30px -22px rgba(31,45,36,0.35)" }}
     >
       <Link href={`/products/${product.slug}`} className="block">
-        <div className="relative aspect-[5/4] bg-[#F7F3EA] border-b border-brand-line/70 overflow-hidden">
+        <div className="relative aspect-[5/4] bg-white border-b border-brand-line/70 overflow-hidden">
           <div className="absolute top-1.5 left-1.5 right-1.5 md:top-2 md:left-2 md:right-2 z-10 flex items-center justify-between gap-1.5">
             {!onRemove && product.category && (
               <span className="inline-flex items-center px-2 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white text-brand-funk text-[8px] md:text-[10px] font-medium uppercase tracking-[0.15em]">

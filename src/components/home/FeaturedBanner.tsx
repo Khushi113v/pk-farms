@@ -25,9 +25,9 @@ export default function FeaturedBanner() {
               <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-brand-funk">
                 Wooden Cold Pressed
               </p>
-              <h2 className="mt-3 font-display font-medium text-brand-ink text-[30px] md:text-[44px] leading-[1.08]">
+              <h2 className="mt-3 font-hero font-bold text-brand-ink text-[30px] md:text-[44px] leading-[1.12] tracking-[-0.01em]">
                 Pressed slow,{" "}
-                <span className="italic font-script font-medium text-brand-funk text-[1em] leading-none">
+                <span className="italic font-hero font-semibold text-brand-funk text-[1em] leading-none">
                   kept pure
                 </span>
                 .
