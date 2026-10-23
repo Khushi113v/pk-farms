@@ -40,7 +40,7 @@ export default function RegisterPage() {
                   id="name"
                   type="text"
                   required
-                  placeholder="Jane Doe"
+                  placeholder="Priya Sharma"
                   className="w-full h-12 pl-11 pr-4 rounded-2xl bg-brand-cream border border-brand-line text-brand-ink placeholder:text-brand-muted focus:outline-none focus:border-brand-funk focus:ring-4 focus:ring-brand-funk/15 text-sm"
                 />
               </div>

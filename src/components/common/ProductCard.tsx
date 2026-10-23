@@ -125,7 +125,7 @@ export default function ProductCard({
         {product.sizes && (
           <div className="mt-0.5">
             <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-brand-muted mb-1">
-              Pack size
+              Pack
             </p>
             <div className="flex flex-wrap gap-1">
               {product.sizes.map((s, i) => (

@@ -124,7 +124,7 @@ export default function CartPage() {
     }
     setOrderError("");
     const order = {
-      id: `SBK${Date.now().toString().slice(-8)}`,
+      id: `PKF${Date.now().toString().slice(-8)}`,
       date: new Date().toISOString(),
       items: items.map((i) => ({ name: i.name, variant: i.variant, image: i.image, price: i.price, qty: i.qty })),
       subtotal,

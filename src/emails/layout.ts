@@ -102,7 +102,7 @@ export function wrap({ title, preheader, body }: { title: string; preheader: str
       </p>
       <p style="margin:12px 0 0;font-size:11px;line-height:1.7;color:${C.muted};">
         Need help? Write to <a href="mailto:hello@pkfarms.in" style="color:${C.maroon};">hello@pkfarms.in</a> or call +91 98765 43210.<br />
-        #377 Ward No. 9, Ekta Nagri, Mandi Dabwali, Haryana 125104
+        PK Farms, [Street address], [City, State] [Pincode]
       </p>
       <p style="margin:12px 0 0;font-size:11px;color:#9AA396;">&copy; ${new Date().getFullYear()} PK Farms. All rights reserved.</p>
     </td></tr>

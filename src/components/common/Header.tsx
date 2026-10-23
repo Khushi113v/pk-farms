@@ -29,8 +29,8 @@ type NavItem = { label: string; href: string; menu?: "shop" | "category" };
 
 const NAV: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Shop", href: "/shop", menu: "shop" },
   { label: "About Us", href: "/about-us" },
+  { label: "Shop", href: "/shop", menu: "shop" },
   { label: "Shop by Category", href: "/shop", menu: "category" },
   { label: "Blogs", href: "/blog" },
   { label: "FAQs", href: "/faq" },
@@ -52,14 +52,14 @@ const SHOP_GROUPS: ShopGroup[] = [
 function ShopPanel() {
   return (
     <div
-      className="absolute left-0 top-full z-30 w-[700px] opacity-0 translate-y-3 invisible pointer-events-none group-hover/shop:opacity-100 group-hover/shop:translate-y-0 group-hover/shop:visible group-hover/shop:pointer-events-auto transition-[opacity,transform,visibility] duration-300 ease-out"
+      className="absolute left-1/2 -translate-x-1/2 top-full z-30 w-[900px] opacity-0 translate-y-3 invisible pointer-events-none group-hover/shop:opacity-100 group-hover/shop:translate-y-0 group-hover/shop:visible group-hover/shop:pointer-events-auto transition-[opacity,transform,visibility] duration-300 ease-out"
       role="menu"
     >
-      <div className="grid grid-cols-3 gap-6 p-5 rounded-2xl bg-white border border-brand-line shadow-card">
+      <div className="grid grid-cols-3 gap-8 p-6 rounded-2xl bg-white border border-brand-line shadow-card">
         {SHOP_GROUPS.map((g) => (
           <div key={g.title} className="min-w-0">
-            <div className="flex items-center justify-between gap-2 pb-2.5 mb-2.5 border-b border-brand-line">
-              <h4 className="font-display font-semibold text-brand-ink text-[15px]">{g.title}</h4>
+            <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-brand-line">
+              <h4 className="font-display font-semibold text-brand-ink text-base">{g.title}</h4>
               <Link href={g.href} className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-brand-funk hover:text-brand-funkDark">
                 View all
                 <ChevronRight size={13} strokeWidth={2} />
@@ -70,10 +70,10 @@ function ShopPanel() {
                 <li key={p.slug}>
                   <Link
                     href={`/products/${p.slug}`}
-                    className="group/item flex items-center gap-2.5 rounded-xl p-1.5 -mx-1.5 hover:bg-brand-cream transition-colors"
+                    className="group/item flex items-center gap-3 rounded-xl p-1.5 -mx-1.5 hover:bg-brand-cream transition-colors"
                   >
-                    <span className="relative w-10 h-10 shrink-0 rounded-lg overflow-hidden border border-brand-line bg-white">
-                      <Image src={p.image} alt="" fill sizes="40px" className="object-contain p-0.5" />
+                    <span className="relative w-12 h-12 shrink-0 rounded-lg overflow-hidden border border-brand-line bg-white">
+                      <Image src={p.image} alt="" fill sizes="48px" className="object-contain p-0.5" />
                     </span>
                     <span className="min-w-0 text-sm leading-snug text-brand-ink group-hover/item:text-brand-funk transition-colors">{p.name}</span>
                   </Link>
@@ -184,7 +184,6 @@ const ACCOUNT_LINKS = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [mobileExpand, setMobileExpand] = useState<string | null>(null);
-  const [mobileCat, setMobileCat] = useState<string | null>(null);
   const [accountOpen, setAccountOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { count, openCart } = useCart();
@@ -444,74 +443,30 @@ export default function Header() {
 
                     {isExpanded && (
                       <ul className="pb-3 flex flex-col gap-2">
-                        {menu.map((c) => {
-                          const catOpen = mobileCat === c.name;
-                          const close = () => {
-                            setOpen(false);
-                            setMobileExpand(null);
-                            setMobileCat(null);
-                          };
-                          return (
-                            <li key={c.name}>
-                              {/* Tap the category to reveal its sub-categories */}
-                              <button
-                                type="button"
-                                onClick={() => setMobileCat((v) => (v === c.name ? null : c.name))}
-                                aria-expanded={catOpen}
-                                className={`w-full flex items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors ${
-                                  catOpen ? "bg-white border-brand-funk/40" : "bg-brand-cream border-brand-line"
-                                }`}
-                              >
-                                <div className="relative w-12 h-12 shrink-0 rounded-lg overflow-hidden">
-                                  <Image src={c.image} alt={c.name} fill sizes="48px" className="object-cover object-center" />
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                  <p className="font-display font-medium text-brand-ink text-sm leading-tight truncate">
-                                    {c.name}
-                                  </p>
-                                  {c.hint && <p className="text-[11px] text-brand-muted truncate">{c.hint}</p>}
-                                </div>
-                                <ChevronDown
-                                  size={16}
-                                  strokeWidth={1.75}
-                                  className={`shrink-0 transition-transform duration-300 ${
-                                    catOpen ? "rotate-180 text-brand-funk" : "text-brand-muted"
-                                  }`}
-                                />
-                              </button>
-
-                              <div
-                                className={`grid transition-[grid-template-rows] duration-300 ease-out ${
-                                  catOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                                }`}
-                              >
-                                <ul className="overflow-hidden ml-[4.25rem] flex flex-col">
-                                  <li className="pt-2">
-                                    <Link
-                                      href={c.href}
-                                      onClick={close}
-                                      className="flex items-center gap-1.5 py-1.5 text-sm font-medium text-brand-funk"
-                                    >
-                                      View all {c.name}
-                                    </Link>
-                                  </li>
-                                  {c.subs?.map((sub) => (
-                                    <li key={sub.label}>
-                                      <Link
-                                        href={sub.href}
-                                        onClick={close}
-                                        className="flex items-center gap-1.5 py-1.5 text-sm text-brand-ink hover:text-brand-funk"
-                                      >
-                                        <ChevronRight size={14} strokeWidth={1.75} className="text-brand-funk/70" />
-                                        {sub.label}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
+                        {menu.map((c) => (
+                          <li key={c.name}>
+                            {/* Each category opens its products directly */}
+                            <Link
+                              href={c.href}
+                              onClick={() => {
+                                setOpen(false);
+                                setMobileExpand(null);
+                              }}
+                              className="group/cat w-full flex items-center gap-3 rounded-xl border border-brand-line bg-brand-cream px-3 py-2.5 hover:border-brand-funk/40 hover:bg-white transition-colors"
+                            >
+                              <div className="relative w-12 h-12 shrink-0 rounded-lg overflow-hidden bg-white">
+                                <Image src={c.image} alt={c.name} fill sizes="48px" className="object-contain p-0.5" />
                               </div>
-                            </li>
-                          );
-                        })}
+                              <div className="min-w-0 flex-1">
+                                <p className="font-display font-medium text-brand-ink text-sm leading-tight truncate">{c.name}</p>
+                                {c.hint && <p className="text-[11px] text-brand-muted truncate">{c.hint}</p>}
+                              </div>
+                              <span className="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-white border border-brand-line text-brand-funk group-hover/cat:bg-brand-funk group-hover/cat:text-white group-hover/cat:border-brand-funk transition-colors">
+                                <ChevronRight size={16} strokeWidth={2} />
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
                       </ul>
                     )}
                   </li>

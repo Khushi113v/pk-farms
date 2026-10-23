@@ -35,7 +35,7 @@ export type Order = {
 };
 
 const ADDRESS = {
-  name: "Jane Doe",
+  name: "Priya Sharma",
   line1: "112, Palm Residency, 4th Cross",
   line2: "Indiranagar",
   city: "Bengaluru",
@@ -46,7 +46,7 @@ const ADDRESS = {
 
 export const ORDERS: Order[] = [
   {
-    id: "WM-2026-0912",
+    id: "PKF-2026-0912",
     date: "05 Sep 2026",
     arrivingBy: "09 Sep 2026",
     status: "Delivered",
@@ -54,7 +54,7 @@ export const ORDERS: Order[] = [
       {
         slug: "pure-desi-cow-ghee",
         name: "Pure Desi Cow Ghee",
-        variant: "500 g",
+        variant: "Pack of 1",
         qty: 1,
         price: 1199,
         image: "/images/products/ghee.png",
@@ -68,7 +68,7 @@ export const ORDERS: Order[] = [
     billingAddress: ADDRESS,
   },
   {
-    id: "WM-2026-0847",
+    id: "PKF-2026-0847",
     date: "28 Aug 2026",
     arrivingBy: "01 Sep 2026",
     status: "Shipped",
@@ -77,15 +77,15 @@ export const ORDERS: Order[] = [
       {
         slug: "raw-honey",
         name: "Raw Honey",
-        variant: "250 g",
+        variant: "Pack of 1",
         qty: 1,
-        price: 349,
+        price: 649,
         image: "/images/products/honey.png",
       },
       {
         slug: "wood-pressed-groundnut-oil",
         name: "Wood Pressed Groundnut Oil",
-        variant: "1 L",
+        variant: "Pack of 1",
         qty: 1,
         price: 399,
         image: "/images/products/oils.png",
@@ -99,7 +99,7 @@ export const ORDERS: Order[] = [
     billingAddress: ADDRESS,
   },
   {
-    id: "WM-2026-0781",
+    id: "PKF-2026-0781",
     date: "19 Aug 2026",
     arrivingBy: "23 Aug 2026",
     status: "Processing",
@@ -107,7 +107,7 @@ export const ORDERS: Order[] = [
       {
         slug: "heeng-compounded-asafoetida",
         name: "Heeng",
-        variant: "50 g",
+        variant: "Pack of 1",
         qty: 1,
         price: 249,
         image: "/images/products/spices.png",
@@ -121,16 +121,16 @@ export const ORDERS: Order[] = [
     billingAddress: ADDRESS,
   },
   {
-    id: "WM-2026-0664",
+    id: "PKF-2026-0664",
     date: "02 Aug 2026",
     status: "Cancelled",
     items: [
       {
         slug: "raw-honey",
         name: "Raw Honey",
-        variant: "250 g",
+        variant: "Pack of 1",
         qty: 1,
-        price: 349,
+        price: 649,
         image: "/images/products/honey.png",
       },
     ],

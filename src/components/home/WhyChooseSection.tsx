@@ -32,48 +32,48 @@ type Feature = {
 const FEATURES: Feature[] = [
   {
     icon: Sparkles,
-    heroImage: "/images/products/ghee.png",
-        title: "Traditional methods",
+    heroImage: "/images/why-choose/why-traditional.png",
+    title: "Traditional methods",
     desc: "Bilona ghee and wooden cold pressed oil, made the old way.",
     accent: "#0B5B36",
     accentSoft: "#E7F0E4",
   },
   {
     icon: Droplets,
-    heroImage: "/images/products/honey.png",
-        title: "Pure ingredients",
+    heroImage: "/images/why-choose/why-pure.png",
+    title: "Pure ingredients",
     desc: "No preservatives, no added colour, no fillers.",
     accent: "#C4553C",
     accentSoft: "#EEF3E6",
   },
   {
     icon: Leaf,
-    heroImage: "/images/products/oils.png",
-        title: "Honest sourcing",
+    heroImage: "/images/why-choose/why-sourcing.png",
+    title: "Honest sourcing",
     desc: "We work closely with farmers and producers.",
     accent: "#A67C2E",
     accentSoft: "#F5EBD9",
   },
   {
     icon: Gem,
-    heroImage: "/images/products/spices.png",
-        title: "Safe packaging",
+    heroImage: "/images/why-choose/why-packaging.png",
+    title: "Safe packaging",
     desc: "Glass jars and sealed bottles that keep it fresh.",
     accent: "#08472A",
     accentSoft: "#E7F0E4",
   },
   {
     icon: RefreshCw,
-    heroImage: "/images/products/ghee.png",
-        title: "Easy replacement",
+    heroImage: "/images/why-choose/why-replacement.png",
+    title: "Easy replacement",
     desc: "Damaged in transit? We will replace it.",
     accent: "#B24A32",
     accentSoft: "#EEF3E6",
   },
   {
     icon: Heart,
-    heroImage: "/images/products/honey.png",
-        title: "Made with care",
+    heroImage: "/images/why-choose/why-care.png",
+    title: "Made with care",
     desc: "Every product is chosen and tested by our team.",
     accent: "#0B5B36",
     accentSoft: "#E7F0E4",
@@ -115,77 +115,80 @@ function HomeWhyChoose() {
     el.scrollBy({ left: (cardWidth + gap) * (dir === "left" ? -1 : 1), behavior: "smooth" });
   };
 
-  
   return (
-    <section className="relative py-6 md:py-8 overflow-hidden bg-[#F4EAD5]">
+    <section className="relative py-10 md:py-14 overflow-hidden bg-brand-cream">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header — same layout as the testimonial section: title left, arrows right */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6 md:mb-8">
-          <div className="max-w-2xl">
-            <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-[#8A6420]">
-              The PK Farms difference
-            </p>
-            <h2 className="mt-3 font-display font-medium text-brand-ink text-[30px] sm:text-4xl md:text-5xl leading-[1.05]">
-              Why{" "}
-              <span className="italic font-script font-medium text-brand-funk text-[1em] leading-none">
-                choose
-              </span>{" "}
-              PK Farms.
+        {/* Header */}
+        <div className="flex items-end justify-between gap-6 mb-7 md:mb-9">
+          <div className="min-w-0">
+            <p className="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-brand-tan">The PK Farms difference</p>
+            <h2 className="mt-2 font-hero font-bold text-brand-ink text-[30px] sm:text-4xl md:text-[46px] leading-[1.05]">
+              Why Choose <span className="italic text-brand-funk">PK Farms</span>
             </h2>
+            <p className="mt-3 flex items-center gap-3 text-brand-ink/70 text-sm md:text-base">
+              <span className="h-px w-8 bg-brand-tan" />
+              <span className="italic">Pure food, made the honest way</span>
+            </p>
           </div>
 
           {/* Prev / Next arrows */}
-          <div className="flex items-center gap-2 self-end md:self-auto">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               aria-label="Scroll left"
               onClick={() => scrollBy("left")}
-              className="grid place-items-center w-10 h-10 rounded-full bg-white text-brand-ink border border-brand-line transition-all"
+              className="grid place-items-center w-10 h-10 rounded-full bg-white text-brand-ink border border-brand-line hover:border-brand-funk/40 transition-colors"
             >
-              <ArrowLeft size={16} strokeWidth={2.75} />
+              <ArrowLeft size={16} strokeWidth={2} />
             </button>
             <button
               aria-label="Scroll right"
               onClick={() => scrollBy("right")}
-              className="grid place-items-center w-10 h-10 rounded-full text-white transition-all bg-brand-funk hover:bg-brand-funkDark"
+              className="grid place-items-center w-10 h-10 rounded-full text-white bg-brand-funk hover:bg-brand-funkDark transition-colors"
             >
-              <ArrowRight size={16} strokeWidth={2.75} />
+              <ArrowRight size={16} strokeWidth={2} />
             </button>
           </div>
         </div>
 
-        {/* Slider: tall photo on top, short text on a white panel below */}
+        {/* Slider: full photo cards with the text over a dark fade */}
         <div
           ref={trackRef}
-          className="no-scrollbar flex gap-5 sm:gap-6 overflow-x-auto snap-x snap-mandatory scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8"
+          className="no-scrollbar flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-2"
         >
           {LOOP.map((f, idx) => {
             const Icon = f.icon;
+            const n = (idx % FEATURES.length) + 1;
             return (
               <div
                 key={idx}
-                className="group relative snap-start shrink-0 w-[calc(100vw-7rem)] sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] flex flex-col rounded-2xl overflow-hidden bg-white border border-[#E6D8B8]"
+                className="group relative snap-start shrink-0 w-[calc(100vw-7rem)] sm:w-[calc(50%-0.625rem)] lg:w-[calc(25%-1.125rem)] aspect-[4/5] rounded-[24px] overflow-hidden bg-brand-ink isolate"
               >
-                {/* Photo */}
-                <div className="relative aspect-[4/4.1] overflow-hidden bg-brand-cream">
-                  <Image
-                    src={f.heroImage}
-                    alt=""
-                    fill
-                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    style={{ objectPosition: f.focus ?? "center" }}
-                  />
+                <Image
+                  src={f.heroImage}
+                  alt={f.title}
+                  fill
+                  sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                  style={{ objectPosition: f.focus ?? "center" }}
+                />
+                {/* Dark fade so the white text always reads */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(14,26,18,0.92)_0%,rgba(14,26,18,0.55)_35%,rgba(14,26,18,0)_62%)]" />
+
+                {/* Top: icon + number */}
+                <div className="absolute top-4 left-4 right-4 flex items-start justify-between">
+                  <span className="grid place-items-center w-11 h-11 rounded-full bg-white/90 text-brand-funk shadow-sm">
+                    <Icon size={19} strokeWidth={1.75} />
+                  </span>
+                  <span className="font-hero italic text-white text-lg drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">
+                    {String(n).padStart(2, "0")}
+                  </span>
                 </div>
 
-                {/* Text panel, with an icon badge overlapping the photo */}
-                <div className="relative px-5 pt-9 pb-6 text-center">
-                  <span className="absolute -top-6 left-1/2 -translate-x-1/2 grid place-items-center w-12 h-12 rounded-full bg-brand-funk text-white border-4 border-white">
-                    <Icon size={18} strokeWidth={1.75} />
-                  </span>
-                  <h3 className="font-display font-medium text-brand-ink text-lg leading-tight">
-                    {f.title}
-                  </h3>
-                  <p className="mt-2 text-brand-muted text-sm leading-relaxed">{f.desc}</p>
+                {/* Bottom: title + text */}
+                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                  <span className="block h-0.5 w-8 bg-brand-tan mb-3 transition-all duration-500 group-hover:w-14" />
+                  <h3 className="font-hero font-bold text-white text-[22px] md:text-2xl leading-tight">{f.title}</h3>
+                  <p className="mt-1.5 text-white/80 text-[13px] md:text-sm leading-relaxed">{f.desc}</p>
                 </div>
               </div>
             );
@@ -193,9 +196,9 @@ function HomeWhyChoose() {
         </div>
 
         {/* Trust strip */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-brand-ink">
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 md:gap-3 text-[13px] md:text-sm text-brand-ink">
           {STAMPS.map(({ icon: Icon, text }) => (
-            <span key={text} className="inline-flex items-center gap-2">
+            <span key={text} className="inline-flex items-center gap-2 rounded-full bg-white border border-brand-line px-4 py-2">
               <Icon size={17} strokeWidth={1.5} className="text-brand-funk" />
               {text}
             </span>

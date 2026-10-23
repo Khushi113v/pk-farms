@@ -95,7 +95,7 @@ export default function AddressFormModal({
               required
               value={form.name}
               onChange={handleChange("name")}
-              placeholder="Jane Doe"
+              placeholder="Priya Sharma"
               className={inputCls}
             />
           </div>

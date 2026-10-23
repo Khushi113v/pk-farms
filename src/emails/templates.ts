@@ -1,7 +1,4 @@
-// Ready-to-use email templates. Each function returns { subject, html }; pass the html to your mail service.
-//   const { subject, html } = orderEmail({ ...order });
-//   await mailer.send({ to, subject, html });
-// Set NEXT_PUBLIC_SITE_URL so images and links use your live domain. Preview them at /email-preview.
+
 import { C, fonts, inr, wrap, button, heading, paragraph, codeBox, divider, spacer, itemRows, SITE_URL, type EmailItem } from "./layout";
 
 // ─── 1. Login code ────────────────────────────────────────────────────────────
@@ -147,20 +144,20 @@ export function cartReminderEmail(d: { name: string; items: EmailItem[]; code?: 
 
 // ─── Sample data for the preview page ─────────────────────────────────────────
 export const SAMPLE_ITEMS: EmailItem[] = [
-  { name: "Raw Honey", variant: "500 g", qty: 1, price: 649, mrp: 749, image: "/images/products/honey.png" },
-  { name: "Pure Desi Cow Ghee", variant: "500 g", qty: 1, price: 1199, mrp: 1399, image: "/images/products/ghee.png" },
+  { name: "Raw Honey", variant: "Pack of 1", qty: 1, price: 649, mrp: 749, image: "/images/products/honey.png" },
+  { name: "Pure Desi Cow Ghee", variant: "Pack of 1", qty: 1, price: 1199, mrp: 1399, image: "/images/products/ghee.png" },
 ];
 
 export const TEMPLATES = [
-  { id: "login", label: "Login code", build: () => loginEmail({ name: "Jane", otp: "482916" }) },
-  { id: "register", label: "Welcome", build: () => registerEmail({ name: "Jane" }) },
+  { id: "login", label: "Login code", build: () => loginEmail({ name: "Priya", otp: "482916" }) },
+  { id: "register", label: "Welcome", build: () => registerEmail({ name: "Priya" }) },
   {
     id: "order",
     label: "Order confirmation",
     build: () =>
       orderEmail({
-        name: "Jane",
-        orderId: "SBK48201937",
+        name: "Priya",
+        orderId: "PKF48201937",
         date: "19 Oct 2026",
         items: SAMPLE_ITEMS,
         subtotal: 1848,
@@ -170,9 +167,9 @@ export const TEMPLATES = [
         shipping: 0,
         total: 1762,
         paymentMethod: "Paid online",
-        billing: { name: "Jane Doe", lines: "112, Palm Residency, 4th Cross, Indiranagar<br />Bengaluru, Karnataka – 560038" },
-        shippingTo: { name: "Jane Doe", lines: "PK Farms Studio, 2nd Floor, MG Road<br />Pune, Maharashtra – 411001" },
+        billing: { name: "Priya Sharma", lines: "112, Palm Residency, 4th Cross, Indiranagar<br />Bengaluru, Karnataka – 560038" },
+        shippingTo: { name: "Priya Sharma", lines: "PK Farms Studio, 2nd Floor, MG Road<br />Pune, Maharashtra – 411001" },
       }),
   },
-  { id: "cart", label: "Cart reminder", build: () => cartReminderEmail({ name: "Jane", items: SAMPLE_ITEMS }) },
+  { id: "cart", label: "Cart reminder", build: () => cartReminderEmail({ name: "Priya", items: SAMPLE_ITEMS }) },
 ];

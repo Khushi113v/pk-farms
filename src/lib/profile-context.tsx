@@ -9,7 +9,7 @@ export type Profile = {
   anniversary: string; // yyyy-mm-dd
 };
 
-const EMPTY: Profile = { name: "Jane Doe", email: "jane.doe@example.com", phone: "", dob: "", anniversary: "" };
+const EMPTY: Profile = { name: "Priya Sharma", email: "priya.sharma@example.com", phone: "", dob: "", anniversary: "" };
 
 type ProfileContextValue = {
   profile: Profile;

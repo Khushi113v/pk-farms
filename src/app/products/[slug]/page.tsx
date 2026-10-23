@@ -6,7 +6,7 @@ import ProductActions from "@/components/common/ProductActions";
 import ProductTabs from "@/components/common/ProductTabs";
 import { SpecTable, ShippingTable, CareList } from "@/components/common/ProductInfoTables";
 import ProductSlider from "@/components/common/ProductSlider";
-import TestimonialsSection from "@/components/home/TestimonialsSection";
+import ReviewsSection from "@/components/home/ReviewsSection";
 import WhyChooseSection from "@/components/home/WhyChooseSection";
 import StickyAddToCart from "@/components/common/StickyAddToCart";
 import {
@@ -158,8 +158,8 @@ export default function ProductDetailPage({
         </div>
       </section>
 
-      {/* Video reviews */}
-      <TestimonialsSection eyebrow={false} />
+      {/* Customer reviews */}
+      <ReviewsSection />
 
       <WhyChooseSection variant="product" />
 

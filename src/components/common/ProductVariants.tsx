@@ -136,7 +136,7 @@ export function VariantSelector() {
 
       {sizes && (
         <div>
-          <p className="text-xs font-bold uppercase tracking-wider text-brand-muted mb-2">Pack size</p>
+          <p className="text-xs font-bold uppercase tracking-wider text-brand-muted mb-2">Pack</p>
           <div className="flex flex-wrap gap-2">
             {sizes.map((s, i) => (
               <button

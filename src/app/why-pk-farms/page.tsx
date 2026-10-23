@@ -189,8 +189,8 @@ export default function WhyPkFarmsPage() {
                 </p>
                 <p>
                   Every PK Farms product is made to be tasted and trusted, whether
-                  it is a spoon of ghee for a busy Monday or a gift box for a family
-                  festival.
+                  it is a spoon of ghee on a busy Monday or a jar of honey for your
+                  morning tea.
                 </p>
               </div>
             </div>

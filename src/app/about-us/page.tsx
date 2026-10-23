@@ -49,8 +49,8 @@ export default function AboutUsPage() {
             <div className="relative">
               <div className="relative aspect-[4/3.9] rounded-3xl overflow-hidden border border-brand-line">
                 <Image
-                  src="/images/products/ghee.png"
-                  alt="PK Farms Pure Desi Cow Ghee"
+                  src="/images/about.png"
+                  alt="A farmer with his desi cow in the fields at sunrise"
                   fill
                   sizes="(max-width: 768px) 90vw, 45vw"
                   className="object-cover object-center"

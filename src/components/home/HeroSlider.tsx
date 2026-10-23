@@ -4,6 +4,16 @@ import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
 import { ArrowRight } from "lucide-react";
 
+// All banners are about 2145 × 733. The photo sits in a "cover" frame with this aspect ratio, focused
+// towards the right on phones (focusX) and fully right-aligned from tablets up.
+const AR = 2145 / 733;
+const coverFrame = (focusX: string): React.CSSProperties => ({
+  width: `max(100cqw, calc(100cqh * ${AR}))`,
+  height: `max(100cqh, calc(100cqw / ${AR}))`,
+  left: `calc((100cqw - max(100cqw, calc(100cqh * ${AR}))) * ${focusX})`,
+  top: `calc((100cqh - max(100cqh, calc(100cqw / ${AR}))) * 0.5)`,
+});
+
 type Slide = {
   eyebrow: string;
   title: React.ReactNode;
@@ -11,7 +21,7 @@ type Slide = {
   cta: { label: string; href: string };
   image: string; // wide banner (≈ 2145 × 733) with open space on the left for the text
   alt: string;
-  mobileFocus?: string; // object-position on phones, where the banner is cropped
+  focusX: number; // horizontal focus (0 = left, 1 = right) on phones, where the banner is cropped
 };
 
 const SLIDES: Slide[] = [
@@ -25,9 +35,9 @@ const SLIDES: Slide[] = [
     ),
     desc: "Churned the traditional bilona way from the A2 milk of grass-fed desi cows. Rich aroma, natural grain and nothing added.",
     cta: { label: "Shop Ghee", href: "/shop?category=ghee" },
-    image: "/images/hero/banner1.png",
+    image: "/images/hero/banner-ghee.png",
     alt: "PK Farms Pure Desi Cow Ghee with a spoon of ghee and a cow in the field",
-    mobileFocus: "72% center",
+    focusX: 0.78,
   },
   {
     eyebrow: "Pure · Natural · Unprocessed",
@@ -39,9 +49,9 @@ const SLIDES: Slide[] = [
     ),
     desc: "Collected from natural forests and bottled raw. Never heated, never blended with sugar syrup.",
     cta: { label: "Shop Honey", href: "/shop?category=honey" },
-    image: "/images/hero/banner3.png",
+    image: "/images/hero/banner-honey.png",
     alt: "PK Farms Raw Honey jar with honeycomb and a honey dipper",
-    mobileFocus: "76% center",
+    focusX: 0.8,
   },
   {
     eyebrow: "Wooden cold pressed",
@@ -53,9 +63,9 @@ const SLIDES: Slide[] = [
     ),
     desc: "Slowly extracted in a traditional wooden press, unrefined and full of natural aroma for everyday cooking.",
     cta: { label: "Shop Oils", href: "/shop?category=oils" },
-    image: "/images/hero/banner4.png",
+    image: "/images/hero/banner-oil.png",
     alt: "PK Farms Wood Pressed Groundnut Oil bottle with groundnuts in a field",
-    mobileFocus: "72% center",
+    focusX: 0.74,
   },
   {
     eyebrow: "Pure & aromatic",
@@ -67,9 +77,9 @@ const SLIDES: Slide[] = [
     ),
     desc: "Strong, aromatic compounded asafoetida. A small pinch brings depth to dal, sabzi and everyday cooking.",
     cta: { label: "Shop Spices", href: "/shop?category=spices" },
-    image: "/images/hero/banner2.png",
+    image: "/images/hero/banner-heeng.png",
     alt: "PK Farms Heeng jar with asafoetida in a wooden bowl",
-    mobileFocus: "74% center",
+    focusX: 0.6,
   },
 ];
 
@@ -97,16 +107,13 @@ export default function HeroSlider() {
             }`}
           >
             {/* Banner */}
-            <div className="absolute inset-x-0 top-0 h-[270px] sm:h-[320px] md:inset-0 md:h-auto">
-              <Image
-                src={s.image}
-                alt={s.alt}
-                fill
-                priority={idx === 0}
-                sizes="100vw"
-                className="object-cover [object-position:var(--mpos)] md:object-right"
-                style={{ "--mpos": s.mobileFocus ?? "right center" } as React.CSSProperties}
-              />
+            <div
+              className="absolute inset-x-0 top-0 h-[270px] sm:h-[320px] md:inset-0 md:h-auto overflow-hidden [container-type:size] [--fx:var(--fx-sm)] md:[--fx:1]"
+              style={{ "--fx-sm": s.focusX } as React.CSSProperties}
+            >
+              <div className="absolute" style={coverFrame("var(--fx)")}>
+                <Image src={s.image} alt={s.alt} fill priority={idx === 0} sizes="100vw" className="object-fill" />
+              </div>
               {/* Phones — soft fade from the banner into the text area */}
               <div className="md:hidden absolute inset-0 bg-[linear-gradient(to_top,#FBF6EA_0%,rgba(251,246,234,0)_28%)]" />
               {/* Larger screens — light wash on the left so the text stays readable on any banner */}

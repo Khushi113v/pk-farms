@@ -22,7 +22,8 @@ const INFO = [
   {
     icon: MapPin,
     title: "Visit us",
-    lines: ["#377, Ward No. 9, Ekta Nagri", "Mandi Dabwali, Haryana", "Pincode: 125104"],
+    // TODO: replace with the PK Farms address
+    lines: ["PK Farms, [Street address]", "[City, State]", "Pincode: [XXXXXX]"],
     accent: "#A67C2E",
     accentSoft: "#F5EBD9",
   },
@@ -158,7 +159,7 @@ export default function ContactUsPage() {
                       required
                       value={form.name}
                       onChange={handleChange("name")}
-                      placeholder="Jane Doe"
+                      placeholder="Priya Sharma"
                       className="w-full h-12 px-4 rounded-2xl bg-brand-cream border border-brand-line text-brand-ink placeholder:text-brand-muted focus:outline-none focus:border-brand-funk focus:ring-4 focus:ring-brand-funk/15 text-sm"
                     />
                   </div>
@@ -183,7 +184,7 @@ export default function ContactUsPage() {
                       required
                       value={form.email}
                       onChange={handleChange("email")}
-                      placeholder="jane@email.com"
+                      placeholder="priya@email.com"
                       className="w-full h-12 px-4 rounded-2xl bg-brand-cream border border-brand-line text-brand-ink placeholder:text-brand-muted focus:outline-none focus:border-brand-funk focus:ring-4 focus:ring-brand-funk/15 text-sm"
                     />
                   </div>

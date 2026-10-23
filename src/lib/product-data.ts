@@ -84,8 +84,16 @@ function product(o: Input): Product {
 }
 
 const row = (label: string, value: string) => ({ label, value });
-const specs = (o: { source: string; type: string; ingredients: string; shelf: string; packaging: string }) => [
+// Every product is sold as Pack of 1 or Pack of 2 (two units, with a small saving).
+const PACK_OF_2_SAVING = 0.05;
+const packRows = (price: number, mrp: number): [string, number, number][] => [
+  ["Pack of 1", price, mrp],
+  ["Pack of 2", Math.round(price * 2 * (1 - PACK_OF_2_SAVING)), mrp * 2],
+];
+
+const specs = (o: { source: string; type: string; ingredients: string; shelf: string; packaging: string; net: string }) => [
   row("Type", o.type),
+  row("Net quantity", `${o.net} per unit`),
   row("Sourced from", o.source),
   row("Ingredients", o.ingredients),
   row("Shelf life", o.shelf),
@@ -104,15 +112,15 @@ const BASE_PRODUCTS: Product[] = [
     category: "Ghee",
     style: "Glass Jar",
     care: "ghee",
-    rows: [["250 g", 649, 749], ["500 g", 1199, 1399], ["1 kg", 2299, 2599]],
-    defaultPack: "500 g",
+    rows: packRows(1199, 1399),
+    defaultPack: "Pack of 1",
     collections: ["best-sellers"],
     rating: 4.9,
     reviewCount: 1240,
     tileBg: "#FBF1D7",
     includes: "1 glass jar of ghee",
     benefits: ["Traditional bilona process", "A2 cow milk source", "100% natural, no preservatives"],
-    specifications: specs({ source: "Grass-fed desi cows", type: "A2 desi cow ghee", ingredients: "100% A2 cow milk butter", shelf: "9 months", packaging: "Glass jar" }),
+    specifications: specs({ source: "Grass-fed desi cows", type: "A2 desi cow ghee", ingredients: "100% A2 cow milk butter", shelf: "9 months", packaging: "Glass jar", net: "500 g" }),
   }),
   product({
     slug: "raw-honey",
@@ -124,15 +132,15 @@ const BASE_PRODUCTS: Product[] = [
     category: "Honey",
     style: "Glass Jar",
     care: "honey",
-    rows: [["250 g", 349, 399], ["500 g", 649, 749], ["1 kg", 1199, 1399]],
-    defaultPack: "500 g",
+    rows: packRows(649, 749),
+    defaultPack: "Pack of 1",
     collections: ["best-sellers"],
     rating: 4.8,
     reviewCount: 934,
     tileBg: "#FBEFD8",
     includes: "1 glass jar of honey",
     benefits: ["Pure wild honey", "Raw and unprocessed", "100% natural, no preservatives"],
-    specifications: specs({ source: "Natural forest beehives", type: "Raw wild honey", ingredients: "100% honey", shelf: "24 months", packaging: "Glass jar" }),
+    specifications: specs({ source: "Natural forest beehives", type: "Raw wild honey", ingredients: "100% honey", shelf: "24 months", packaging: "Glass jar", net: "500 g" }),
   }),
   product({
     slug: "wood-pressed-groundnut-oil",
@@ -144,15 +152,15 @@ const BASE_PRODUCTS: Product[] = [
     category: "Oils",
     style: "Bottle",
     care: "oil",
-    rows: [["1 L", 399, 449], ["2 L", 779, 879], ["5 L", 1899, 2149]],
-    defaultPack: "1 L",
+    rows: packRows(399, 449),
+    defaultPack: "Pack of 1",
     collections: ["new-arrivals", "best-sellers"],
     rating: 4.8,
     reviewCount: 612,
     tileBg: "#FBF3D6",
     includes: "1 bottle of oil",
     benefits: ["Wooden cold pressed", "Unrefined, natural aroma", "100% natural, no preservatives"],
-    specifications: specs({ source: "Select groundnuts", type: "Cold pressed groundnut oil", ingredients: "100% groundnut", shelf: "9 months", packaging: "Bottle" }),
+    specifications: specs({ source: "Select groundnuts", type: "Cold pressed groundnut oil", ingredients: "100% groundnut", shelf: "9 months", packaging: "Bottle", net: "1 L" }),
   }),
   product({
     slug: "heeng-compounded-asafoetida",
@@ -164,15 +172,15 @@ const BASE_PRODUCTS: Product[] = [
     category: "Spices",
     style: "Glass Jar",
     care: "spices",
-    rows: [["50 g", 249, 299], ["100 g", 449, 549]],
-    defaultPack: "50 g",
+    rows: packRows(249, 299),
+    defaultPack: "Pack of 1",
     collections: ["new-arrivals"],
     rating: 4.7,
     reviewCount: 404,
     tileBg: "#F8EFDB",
     includes: "1 glass jar of heeng",
     benefits: ["Strong, pure aroma", "A pinch is enough", "100% natural, no preservatives"],
-    specifications: specs({ source: "Selected asafoetida resin", type: "Compounded asafoetida", ingredients: "Asafoetida, edible starch, edible gum", shelf: "12 months", packaging: "Glass jar" }),
+    specifications: specs({ source: "Selected asafoetida resin", type: "Compounded asafoetida", ingredients: "Asafoetida, edible starch, edible gum", shelf: "12 months", packaging: "Glass jar", net: "50 g" }),
   }),
 ];
 
