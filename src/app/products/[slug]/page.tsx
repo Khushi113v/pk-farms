@@ -1,13 +1,18 @@
+import fs from "fs";
+import path from "path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Star, Check } from "lucide-react";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ProductActions from "@/components/common/ProductActions";
 import ProductTabs from "@/components/common/ProductTabs";
-import { SpecTable, ShippingTable, CareList } from "@/components/common/ProductInfoTables";
+import { SpecTable, ShippingTable, NutritionTable, HowToUse, LabReport } from "@/components/common/ProductInfoTables";
 import ProductSlider from "@/components/common/ProductSlider";
 import ReviewsSection from "@/components/home/ReviewsSection";
-import WhyChooseSection from "@/components/home/WhyChooseSection";
+import WatchAndBuySection from "@/components/home/WatchAndBuySection";
+import FAQSection from "@/components/home/FAQSection";
+import HealthBenefits from "@/components/product/HealthBenefits";
+import ProductWhyChoose from "@/components/product/ProductWhyChoose";
 import StickyAddToCart from "@/components/common/StickyAddToCart";
 import {
   ProductVariantProvider,
@@ -16,6 +21,11 @@ import {
   VariantGallery,
 } from "@/components/common/ProductVariants";
 import { PRODUCTS, getProductBySlug, colourOptions } from "@/lib/product-data";
+import { DETAILS, WHY_US } from "@/lib/product-details";
+import { productFaqs } from "@/lib/product-faqs";
+
+// True when a file exists in /public, so sections can use a new image as soon as it is added
+const hasImage = (src: string) => fs.existsSync(path.join(process.cwd(), "public", src));
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
@@ -41,6 +51,7 @@ export default function ProductDetailPage({
 }) {
   const product = getProductBySlug(params.slug);
   if (!product) notFound();
+  const d = DETAILS[product.care ?? "ghee"];
 
   return (
     <ProductVariantProvider
@@ -124,33 +135,45 @@ export default function ProductDetailPage({
             </div>
           </div>
 
-          {/* Info tabs: Description, Specifications, Shipping Information, Storage & Use */}
+          {/* Info tabs */}
           <div className="relative mt-14 md:mt-16">
             <ProductTabs
               tabs={[
                 {
                   title: "Description",
                   icon: "description",
+                  content: <p className="max-w-3xl">{product.description}</p>,
+                },
+                {
+                  title: "Additional Information",
+                  icon: "info",
                   content: (
-                    <div className="max-w-3xl space-y-4">
-                      <p>{product.description}</p>
+                    <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
+                      <div>
+                        <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-brand-tan">Product details</p>
+                        <SpecTable rows={product.specifications} />
+                      </div>
+                      <div>
+                        <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-brand-tan">Delivery &amp; returns</p>
+                        <ShippingTable />
+                      </div>
                     </div>
                   ),
                 },
                 {
-                  title: "Specifications",
-                  icon: "specs",
-                  content: <SpecTable rows={product.specifications} />,
+                  title: "Nutritional Information",
+                  icon: "nutrition",
+                  content: <NutritionTable rows={d.nutrition} />,
                 },
                 {
-                  title: "Shipping Information",
-                  icon: "shipping",
-                  content: <ShippingTable />,
+                  title: "How to Use",
+                  icon: "use",
+                  content: <HowToUse steps={d.uses} kind={product.care ?? "ghee"} />,
                 },
                 {
-                  title: "Storage & Use",
-                  icon: "care",
-                  content: <CareList kind={product.care ?? "ghee"} />,
+                  title: "Lab Report",
+                  icon: "lab",
+                  content: <LabReport tests={d.labTests} report={product.labReport} />,
                 },
               ]}
             />
@@ -158,13 +181,31 @@ export default function ProductDetailPage({
         </div>
       </section>
 
+      <HealthBenefits
+        product={product.name}
+        rows={d.benefits.map((b) => ({ ...b, src: hasImage(b.image) ? b.image : b.fallback }))}
+      />
+
+      <ProductWhyChoose items={WHY_US.map((w) => ({ ...w, emblem: hasImage(w.image), src: hasImage(w.image) ? w.image : w.fallback }))} />
+
+      <WatchAndBuySection
+        eyebrow="Real kitchens, real stories"
+        title={
+          <>
+            People love our <span className="italic text-brand-funk">{d.short}</span>
+          </>
+        }
+        subtitle="Watch it in action, then add it to your cart"
+        featured={product.slug}
+      />
+
       {/* Customer reviews */}
       <ReviewsSection />
 
-      <WhyChooseSection variant="product" />
+      <FAQSection items={productFaqs(product)} compact />
 
       {/* More products */}
-      <section className="bg-white pt-8 md:pt-10 pb-24 md:pb-20">
+      <section className="bg-white pt-8 md:pt-10 pb-10 md:pb-12">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <ProductSlider slugs={PRODUCTS.filter((p) => p.slug !== product.slug).map((p) => p.slug)} />
         </div>

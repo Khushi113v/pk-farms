@@ -90,6 +90,25 @@ export const SPICE_FAQS: QA[] = [
   },
 ];
 
+export const HAMPER_FAQS: QA[] = [
+  {
+    q: "Can I choose the size of each product?",
+    a: "Yes. Pick any size for each product on this page. The combo discount is applied to whatever sizes you choose.",
+  },
+  {
+    q: "Is it good for gifting?",
+    a: "Yes. Both products are packed together with care, so the hamper makes a thoughtful gift for festivals, housewarmings and family.",
+  },
+  {
+    q: "How long does delivery take?",
+    a: "Orders usually arrive in 3 to 7 working days, and shipping is free on orders above ₹999. Both products arrive together in one parcel.",
+  },
+  {
+    q: "What if something arrives damaged?",
+    a: "Write to us within 48 hours of delivery with a photo and we will replace the damaged item.",
+  },
+];
+
 export function productFaqs(p: Product): QA[] {
   if (p.category === "Honey") return HONEY_FAQS;
   if (p.category === "Oils") return OIL_FAQS;

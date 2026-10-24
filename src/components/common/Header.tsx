@@ -30,8 +30,9 @@ type NavItem = { label: string; href: string; menu?: "shop" | "category" };
 const NAV: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us" },
-  { label: "Shop", href: "/shop", menu: "shop" },
+  { label: "Collections", href: "/shop", menu: "shop" },
   { label: "Shop by Category", href: "/shop", menu: "category" },
+  { label: "Hampers", href: "/hampers" },
   { label: "Blogs", href: "/blog" },
   { label: "FAQs", href: "/faq" },
   { label: "Contact Us", href: "/contact-us" },
@@ -215,7 +216,7 @@ export default function Header() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex self-stretch items-center gap-4 xl:gap-7">
             {NAV.map((item) => {
-              // "Shop" and "Shop by Category" share /shop; only "Shop" shows as active
+              // "Collections" and "Shop by Category" share /shop; only "Collections" shows as active
               const active = item.menu !== "category" && isActive(item.href);
               const linkCls = `relative flex items-center gap-1 py-2 text-[15px] tracking-wide transition-colors after:absolute after:left-0 after:right-0 after:-bottom-0.5 after:h-px after:bg-brand-funk after:transition-transform after:origin-left ${
                 active

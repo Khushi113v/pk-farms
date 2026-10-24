@@ -22,6 +22,22 @@ export const SPEC_DISCOUNT = "__discount__";
 // Products here have no colour options; kept so the shared components stay unchanged
 export const COLOUR_HEX: Record<string, string> = {};
 
+// Multi-buy packs shown on the product page under the size. `off` is the extra % off on top of the
+// selected size price. A product can give each pack its own photo with `packImages` (e.g. a shot of 2 jars).
+export type PackOption = { qty: number; off: number; tag?: string };
+export const PACKS: PackOption[] = [
+  { qty: 1, off: 0 },
+  { qty: 2, off: 5, tag: "Popular" },
+  { qty: 3, off: 10, tag: "Best Value" },
+];
+
+// Price of a pack: qty units of the selected size, `off` % off; the MRP is qty times the unit MRP.
+export function packPrice(size: { price: number; mrp: number }, pack: PackOption) {
+  const price = Math.round(size.price * pack.qty * (1 - pack.off / 100));
+  const mrp = size.mrp * pack.qty;
+  return { price, mrp, save: mrp - price, offPct: Math.round(((mrp - price) / mrp) * 100) };
+}
+
 // `image` / `images` are optional per-pack shots; anything left out falls back to the product's own image(s).
 export type SizeOption = { label: string; price: number; mrp: number; image?: string; images?: string[] };
 
@@ -45,6 +61,8 @@ export type Product = {
   collections?: Collection[];
   includes?: string; // what comes in the pack
   care?: CareKind; // picks the Storage & Use instructions
+  labReport?: string; // lab report PDF, e.g. "/reports/pure-desi-cow-ghee.pdf"
+  packImages?: Partial<Record<number, string>>; // photo per pack, e.g. { 2: "/images/products/packs/ghee-2.png" }
   tileBg: string;
   benefits: string[];
   specifications: { label: string; value: string }[];
@@ -52,8 +70,9 @@ export type Product = {
 
 const IMG = (f: string) => `/images/products/${f}`;
 
-const packs = (image: string, rows: [string, number, number][]): SizeOption[] =>
-  rows.map(([label, price, mrp]) => ({ label, price, mrp, image }));
+// Sizes share the product photos; give a size its own `image` only if it looks different.
+const packs = (rows: [string, number, number][]): SizeOption[] =>
+  rows.map(([label, price, mrp]) => ({ label, price, mrp }));
 
 // Shared defaults, overridden per product below
 const base = {
@@ -65,17 +84,17 @@ const base = {
 };
 
 type Input = Pick<Product, "slug" | "name" | "hint" | "description" | "category" | "style" | "care"> &
-  Partial<Product> & { file: string; rows: [string, number, number][]; defaultPack: string };
+  Partial<Product> & { file: string; gallery?: string[]; rows: [string, number, number][]; defaultPack: string };
 
 function product(o: Input): Product {
-  const { file, rows, defaultPack, ...rest } = o;
-  const sizes = packs(IMG(file), rows);
+  const { file, gallery = [], rows, defaultPack, ...rest } = o;
+  const sizes = packs(rows);
   const def = sizes.find((s) => s.label === defaultPack) ?? sizes[0];
   return {
     ...base,
     group: o.slug,
     image: IMG(file),
-    images: [IMG(file)],
+    images: [IMG(file), ...gallery], // product photo first, then the extra gallery shots
     sizes,
     price: def.price,
     mrp: def.mrp,
@@ -84,20 +103,13 @@ function product(o: Input): Product {
 }
 
 const row = (label: string, value: string) => ({ label, value });
-// Every product is sold as Pack of 1 or Pack of 2 (two units, with a small saving).
-const PACK_OF_2_SAVING = 0.05;
-const packRows = (price: number, mrp: number): [string, number, number][] => [
-  ["Pack of 1", price, mrp],
-  ["Pack of 2", Math.round(price * 2 * (1 - PACK_OF_2_SAVING)), mrp * 2],
-];
-
-const specs = (o: { source: string; type: string; ingredients: string; shelf: string; packaging: string; net: string }) => [
+const specs = (o: { source: string; type: string; ingredients: string; shelf: string; packaging: string }) => [
   row("Type", o.type),
-  row("Net quantity", `${o.net} per unit`),
   row("Sourced from", o.source),
   row("Ingredients", o.ingredients),
   row("Shelf life", o.shelf),
   row("Packaging", o.packaging),
+  row("Country of origin", "India"),
   row("Discount", SPEC_DISCOUNT),
 ];
 
@@ -109,18 +121,19 @@ const BASE_PRODUCTS: Product[] = [
     description:
       "Made from the A2 milk of grass-fed desi cows and churned the traditional bilona way. Rich aroma, a natural grainy texture and a golden colour, with nothing added.",
     file: "ghee.png",
+    gallery: ["/images/products/ghee2.png", "/images/products/ghee3.png"],
     category: "Ghee",
     style: "Glass Jar",
     care: "ghee",
-    rows: packRows(1199, 1399),
-    defaultPack: "Pack of 1",
+    rows: [["250 g", 649, 749], ["500 g", 1199, 1399], ["1 kg", 2299, 2599]],
+    defaultPack: "500 g",
     collections: ["best-sellers"],
     rating: 4.9,
     reviewCount: 1240,
     tileBg: "#FBF1D7",
     includes: "1 glass jar of ghee",
     benefits: ["Traditional bilona process", "A2 cow milk source", "100% natural, no preservatives"],
-    specifications: specs({ source: "Grass-fed desi cows", type: "A2 desi cow ghee", ingredients: "100% A2 cow milk butter", shelf: "9 months", packaging: "Glass jar", net: "500 g" }),
+    specifications: specs({ source: "Grass-fed desi cows", type: "A2 desi cow ghee", ingredients: "100% A2 cow milk butter", shelf: "9 months", packaging: "Glass jar" }),
   }),
   product({
     slug: "raw-honey",
@@ -129,18 +142,19 @@ const BASE_PRODUCTS: Product[] = [
     description:
       "Pure wild honey collected from natural forests and bottled raw. Never heated and never blended with sugar syrup, so the natural flavour and goodness stay intact.",
     file: "honey.png",
+    gallery: ["/images/products/honey2.png", "/images/products/honey3.png"],
     category: "Honey",
     style: "Glass Jar",
     care: "honey",
-    rows: packRows(649, 749),
-    defaultPack: "Pack of 1",
+    rows: [["250 g", 349, 399], ["500 g", 649, 749], ["1 kg", 1199, 1399]],
+    defaultPack: "500 g",
     collections: ["best-sellers"],
     rating: 4.8,
     reviewCount: 934,
     tileBg: "#FBEFD8",
     includes: "1 glass jar of honey",
     benefits: ["Pure wild honey", "Raw and unprocessed", "100% natural, no preservatives"],
-    specifications: specs({ source: "Natural forest beehives", type: "Raw wild honey", ingredients: "100% honey", shelf: "24 months", packaging: "Glass jar", net: "500 g" }),
+    specifications: specs({ source: "Natural forest beehives", type: "Raw wild honey", ingredients: "100% honey", shelf: "24 months", packaging: "Glass jar" }),
   }),
   product({
     slug: "wood-pressed-groundnut-oil",
@@ -149,18 +163,19 @@ const BASE_PRODUCTS: Product[] = [
     description:
       "Extracted slowly in a traditional wooden press from select groundnuts. Cold pressed and unrefined, it keeps the natural nutty aroma and is ideal for everyday Indian cooking.",
     file: "oils.png",
+    gallery: ["/images/products/oils2.png"],
     category: "Oils",
     style: "Bottle",
     care: "oil",
-    rows: packRows(399, 449),
-    defaultPack: "Pack of 1",
+    rows: [["1 L", 399, 449], ["2 L", 779, 879], ["5 L", 1899, 2149]],
+    defaultPack: "1 L",
     collections: ["new-arrivals", "best-sellers"],
     rating: 4.8,
     reviewCount: 612,
     tileBg: "#FBF3D6",
     includes: "1 bottle of oil",
     benefits: ["Wooden cold pressed", "Unrefined, natural aroma", "100% natural, no preservatives"],
-    specifications: specs({ source: "Select groundnuts", type: "Cold pressed groundnut oil", ingredients: "100% groundnut", shelf: "9 months", packaging: "Bottle", net: "1 L" }),
+    specifications: specs({ source: "Select groundnuts", type: "Cold pressed groundnut oil", ingredients: "100% groundnut", shelf: "9 months", packaging: "Bottle" }),
   }),
   product({
     slug: "heeng-compounded-asafoetida",
@@ -169,18 +184,19 @@ const BASE_PRODUCTS: Product[] = [
     description:
       "Strong, aromatic heeng that brings depth to dal, sabzi and tadka. A small pinch is all you need. Packed in a glass jar with a gold lid to keep the aroma locked in.",
     file: "spices.png",
+    gallery: ["/images/products/spices2.png", "/images/products/spices3.png"],
     category: "Spices",
     style: "Glass Jar",
     care: "spices",
-    rows: packRows(249, 299),
-    defaultPack: "Pack of 1",
+    rows: [["50 g", 249, 299], ["100 g", 449, 549]],
+    defaultPack: "50 g",
     collections: ["new-arrivals"],
     rating: 4.7,
     reviewCount: 404,
     tileBg: "#F8EFDB",
     includes: "1 glass jar of heeng",
     benefits: ["Strong, pure aroma", "A pinch is enough", "100% natural, no preservatives"],
-    specifications: specs({ source: "Selected asafoetida resin", type: "Compounded asafoetida", ingredients: "Asafoetida, edible starch, edible gum", shelf: "12 months", packaging: "Glass jar", net: "50 g" }),
+    specifications: specs({ source: "Selected asafoetida resin", type: "Compounded asafoetida", ingredients: "Asafoetida, edible starch, edible gum", shelf: "12 months", packaging: "Glass jar" }),
   }),
 ];
 
@@ -206,7 +222,7 @@ export function defaultVariant(p: Product) {
 }
 
 // Plain (serialisable) data for one colour listing — what the detail page needs to switch colours in place.
-export type ColourOption = Pick<Product, "slug" | "colour" | "image" | "images" | "sizes" | "price" | "mrp">;
+export type ColourOption = Pick<Product, "slug" | "colour" | "image" | "images" | "sizes" | "price" | "mrp" | "packImages">;
 
 const toOption = (x: Product): ColourOption => ({
   slug: x.slug,
@@ -216,6 +232,7 @@ const toOption = (x: Product): ColourOption => ({
   sizes: x.sizes,
   price: x.price,
   mrp: x.mrp,
+  packImages: x.packImages,
 });
 
 // All colour listings of this product's group (or just the product itself when it has none).

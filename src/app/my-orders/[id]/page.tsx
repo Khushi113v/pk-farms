@@ -7,6 +7,7 @@ import Breadcrumb from "@/components/common/Breadcrumb";
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import OrderRequestButton from "@/components/common/OrderRequest";
 import { ORDERS, getOrderById, orderSubtotal } from "@/lib/orders-data";
+import { itemHref } from "@/lib/hamper-data";
 
 const STEPS = [
   { label: "Placed", icon: Package },
@@ -133,7 +134,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
                     </div>
                     <div className="flex-1 min-w-0">
                       <Link
-                        href={`/products/${item.slug}`}
+                        href={itemHref(item.slug)}
                         className="font-display font-medium text-brand-ink text-sm hover:text-brand-funk transition-colors"
                       >
                         {item.name}

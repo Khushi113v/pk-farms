@@ -78,11 +78,28 @@ function BuyBar({ slug }: { slug: string }) {
   );
 }
 
-export default function WatchAndBuySection() {
+// Home page uses the defaults; the product page passes its own heading and puts its product's reels first.
+export default function WatchAndBuySection({
+  eyebrow = "From our farm to your feed",
+  title = (
+    <>
+      Watch <span className="italic text-brand-funk">&amp;</span> Buy
+    </>
+  ),
+  subtitle = "See how it's made, then shop it",
+  featured,
+}: {
+  eyebrow?: string;
+  title?: React.ReactNode;
+  subtitle?: string;
+  featured?: string | string[]; // product slug(s) whose reels come first
+} = {}) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState<number | null>(null);
+  const first = featured ? ([] as string[]).concat(featured) : [];
+  const reels = [...REELS.filter((r) => first.includes(r.product)), ...REELS.filter((r) => !first.includes(r.product))];
   // Rendered 3× so the auto-slider loops seamlessly (see useInfiniteLoop).
-  const LOOP = [...REELS, ...REELS, ...REELS];
+  const LOOP = [...reels, ...reels, ...reels];
   useInfiniteLoop(scrollerRef, REELS.length, playing !== null);
   useAutoScroll(scrollerRef, { interval: 4000, paused: playing !== null });
 
@@ -100,13 +117,13 @@ export default function WatchAndBuySection() {
         {/* Header */}
         <div className="flex items-end justify-between gap-6 mb-7 md:mb-9">
           <div className="min-w-0">
-            <p className="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-brand-tan">From our farm to your feed</p>
+            <p className="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-brand-tan">{eyebrow}</p>
             <h2 className="mt-2 font-hero font-bold text-brand-ink text-[30px] sm:text-4xl md:text-[46px] leading-[1.05]">
-              Watch <span className="italic text-brand-funk">&amp;</span> Buy
+              {title}
             </h2>
             <p className="mt-3 flex items-center gap-3 text-brand-ink/70 text-sm md:text-base">
               <span className="h-px w-8 bg-brand-tan" />
-              <span className="italic">See how it&apos;s made, then shop it</span>
+              <span className="italic">{subtitle}</span>
             </p>
           </div>
 

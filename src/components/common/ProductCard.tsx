@@ -11,6 +11,8 @@ import {
   defaultSizeIndex,
   sizeImage,
   COLOUR_HEX,
+  PACKS,
+  packPrice,
 } from "@/lib/product-data";
 import { useCart } from "@/lib/cart-context";
 
@@ -22,9 +24,11 @@ const chipOff = "border-brand-line text-brand-muted hover:border-brand-ink/40 ho
 export default function ProductCard({
   slug,
   onRemove,
+  initialSize,
 }: {
   slug: string;
   onRemove?: () => void;
+  initialSize?: string; // size label to pre-select, e.g. when the shop is filtered by size
 }) {
   const first = getProductBySlug(slug);
   const options = first ? colourOptions(first) : [];
@@ -32,16 +36,21 @@ export default function ProductCard({
   const [added, setAdded] = useState(false);
   // Colour options are separate listings in the same group — switching swaps the photo and link
   const [colourIdx, setColourIdx] = useState(() => Math.max(0, options.findIndex((o) => o.slug === slug)));
-  const [sizeIdx, setSizeIdx] = useState(() => (first ? defaultSizeIndex(first) : 0));
+  const [sizeIdx, setSizeIdx] = useState(() => {
+    const picked = initialSize ? first?.sizes?.findIndex((s) => s.label === initialSize) ?? -1 : -1;
+    return picked >= 0 ? picked : first ? defaultSizeIndex(first) : 0;
+  });
+  const [packIdx, setPackIdx] = useState(0);
 
   const product = getProductBySlug(options[colourIdx]?.slug ?? slug);
   if (!product) return null;
 
   const size = product.sizes?.[sizeIdx];
-  const price = size?.price ?? product.price;
-  const mrp = size?.mrp ?? product.mrp;
+  const pack = PACKS[packIdx] ?? PACKS[0];
+  const { price, mrp, offPct } = packPrice({ price: size?.price ?? product.price, mrp: size?.mrp ?? product.mrp }, pack);
   const image = sizeImage(product, size);
-  const label = variantLabel(product.colour, size);
+  const sizeLabel = variantLabel(product.colour, size);
+  const label = pack.qty > 1 ? [sizeLabel, `Pack of ${pack.qty}`].filter(Boolean).join(" · ") : sizeLabel;
 
   return (
     <div
@@ -77,7 +86,7 @@ export default function ProductCard({
         </button>
       )}
 
-      <div className="flex-1 p-2.5 md:p-3.5 flex flex-col gap-1 md:gap-1.5">
+      <div className="flex-1 p-2.5 md:p-3 flex flex-col gap-1">
         <p
           className="text-[9px] md:text-[11px] font-bold uppercase tracking-wider"
           style={{ color: "#8A6420" }}
@@ -125,7 +134,7 @@ export default function ProductCard({
         {product.sizes && (
           <div className="mt-0.5">
             <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-brand-muted mb-1">
-              Pack
+              Size
             </p>
             <div className="flex flex-wrap gap-1">
               {product.sizes.map((s, i) => (
@@ -143,17 +152,38 @@ export default function ProductCard({
           </div>
         )}
 
-        <div className="flex items-baseline gap-1.5">
-          <span className="font-display font-medium text-brand-ink text-sm md:text-base">₹{price}</span>
-          <span className="text-xs text-brand-muted line-through">₹{mrp}</span>
+        <div className="mt-0.5">
+          <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-brand-muted mb-1">
+            Pack
+          </p>
+          <div className="flex flex-wrap gap-1">
+            {PACKS.map((p, i) => (
+              <button
+                key={p.qty}
+                type="button"
+                aria-pressed={i === packIdx}
+                aria-label={`Pack of ${p.qty}`}
+                onClick={() => setPackIdx(i)}
+                className={`${chipBase} ${i === packIdx ? chipOn : chipOff}`}
+              >
+                {p.qty === 1 ? "1 Pc" : `${p.qty} Pcs`}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-auto pt-1.5 flex items-center gap-2">
+        <div className="flex flex-wrap items-baseline gap-x-1.5">
+          <span className="font-display font-medium text-brand-ink text-sm md:text-base">₹{price.toLocaleString("en-IN")}</span>
+          <span className="text-xs text-brand-muted line-through">₹{mrp.toLocaleString("en-IN")}</span>
+          {offPct > 0 && <span className="text-[10px] md:text-[11px] font-semibold text-emerald-700">{offPct}% off</span>}
+        </div>
+
+        <div className="mt-auto pt-1 flex items-center gap-1.5 md:gap-2">
           <Link
             href={`/products/${product.slug}`}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 h-9 rounded-full border border-brand-ink/25 text-brand-ink text-xs md:text-sm font-bold hover:border-brand-ink hover:bg-brand-ink hover:text-white transition-colors"
+            className="flex-1 min-w-0 inline-flex items-center justify-center gap-1 h-8 px-2 rounded-full border border-brand-ink/25 text-brand-ink text-[11px] md:text-xs font-bold whitespace-nowrap hover:border-brand-ink hover:bg-brand-ink hover:text-white transition-colors"
           >
-            <Eye size={14} strokeWidth={2.5} />
+            <Eye size={13} strokeWidth={2.5} />
             <span className="hidden sm:inline">View Details</span>
             <span className="sm:hidden">Details</span>
           </Link>
@@ -172,7 +202,7 @@ export default function ProductCard({
               setAdded(true);
               setTimeout(() => setAdded(false), 1500);
             }}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 h-9 rounded-full text-white text-xs md:text-sm font-bold transition-all"
+            className="flex-1 min-w-0 inline-flex items-center justify-center gap-1 h-8 px-2 rounded-full text-white text-[11px] md:text-xs font-bold whitespace-nowrap transition-all"
             style={{
               backgroundColor: added ? "#16A34A" : "#0B5B36",
             }}
@@ -184,7 +214,7 @@ export default function ProductCard({
               </>
             ) : (
               <>
-                <ShoppingBag size={13} strokeWidth={2.5} />
+                <ShoppingBag size={12} strokeWidth={2.5} />
                 <span className="hidden sm:inline">Add to Cart</span>
                 <span className="sm:hidden">Cart</span>
               </>

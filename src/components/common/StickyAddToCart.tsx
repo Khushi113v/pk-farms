@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ShoppingBag, Check, ArrowRight } from "lucide-react";
@@ -15,6 +15,7 @@ export default function StickyAddToCart({
 }) {
   const { slug, price, mrp, variant, image } = useProductVariant();
   const [visible, setVisible] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
   const [added, setAdded] = useState(false);
   const { addItem, closeCart } = useCart();
   const router = useRouter();
@@ -27,8 +28,23 @@ export default function StickyAddToCart({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Leave room under the footer for the bar, so it never covers the bottom of the page
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
+    const fit = () => (document.body.style.paddingBottom = `${bar.offsetHeight}px`);
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(bar);
+    return () => {
+      ro.disconnect();
+      document.body.style.paddingBottom = "";
+    };
+  }, []);
+
   return (
     <div
+      ref={barRef}
       className={`fixed bottom-0 inset-x-0 z-40 bg-white transition-transform duration-300 ${ visible ? "translate-y-0" : "translate-y-full" }`}
     >
       <div

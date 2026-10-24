@@ -15,6 +15,7 @@ const COLUMNS: { title: string; href?: string; links: FooterLink[] }[] = [
       { label: "Honey", href: "/shop?category=honey" },
       { label: "Oils", href: "/shop?category=oils" },
       { label: "Spices", href: "/shop?category=spices" },
+      { label: "Hampers", href: "/hampers" },
     ],
   },
   {
@@ -53,8 +54,8 @@ const SOCIALS = [
 
 export default function Footer() {
   return (
-    // Background is the exact colour of footer.png where it starts showing (row 143, see aspect below), so the two merge seamlessly
-    <footer className="relative bg-[#FBF3E5] border-t border-brand-line">
+    // Background is the exact colour of the top edge of footer.png, so the two merge seamlessly
+    <footer className="relative bg-[#FBEFDC] border-t border-brand-line">
       {/* Link columns + newsletter */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,1fr))_1.4fr] gap-x-6 gap-y-10">
         {COLUMNS.map((col) => (
@@ -103,16 +104,14 @@ export default function Footer() {
       </div>
 
       {/* Farm landscape with the copyright resting in its plain sky */}
-      {/* Only the lower part of the image is shown: its top ~18% is empty sky */}
-      <div className="relative mt-10 md:mt-14 w-full h-[220px] sm:h-auto sm:aspect-[1983/650] overflow-hidden">
+      <div className="relative mt-6 md:mt-8 w-full h-[220px] sm:h-auto sm:aspect-[2020/740] overflow-hidden">
         <Image
           src="/images/footer.png"
-          alt="Illustration of an Indian farm with fields, a farmhouse, beehives and a farmer walking with his cow"
+          alt="A pahadi farm at sunrise with beehives, a groundnut field, a farmhouse and a farmer with his cow"
           fill
           sizes="100vw"
           className="object-cover object-bottom"
-        />
-        <p className="absolute top-3 md:top-5 inset-x-0 px-4 text-center text-xs md:text-[13px] text-brand-ink/75">
+        />        <p className="absolute top-3 md:top-5 inset-x-0 px-4 text-center text-xs md:text-[13px] text-brand-ink/75">
           © {new Date().getFullYear()} PK Farms. All rights reserved.
         </p>
       </div>

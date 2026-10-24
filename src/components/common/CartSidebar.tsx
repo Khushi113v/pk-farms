@@ -8,6 +8,7 @@ import CartCrossSell from "@/components/common/CartCrossSell";
 import CartOffersNote from "@/components/common/CartOffersNote";
 import CartCoupon from "@/components/common/CartCoupon";
 import CartGiftBar from "@/components/common/CartGiftBar";
+import { itemHref } from "@/lib/hamper-data";
 
 export default function CartSidebar() {
   const { items, isOpen, closeCart, removeItem, updateQty, subtotal, coupon, discount, total } = useCart();
@@ -98,7 +99,7 @@ export default function CartSidebar() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <Link
-                      href={`/products/${item.slug}`}
+                      href={itemHref(item.slug)}
                       onClick={closeCart}
                       className="font-display font-medium text-brand-ink text-base leading-tight hover:text-brand-funk transition-colors line-clamp-2"
                     >

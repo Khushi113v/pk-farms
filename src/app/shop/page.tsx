@@ -6,7 +6,7 @@ import { Check, SlidersHorizontal, X } from "lucide-react";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ProductCard from "@/components/common/ProductCard";
 import BrandBackdrop, { BRAND_BACKDROP_BG } from "@/components/common/BrandBackdrop";
-import { PRODUCTS, searchProducts, CATEGORIES, STYLES, COLOUR_HEX, COLLECTIONS, type Category, type Style, type Product } from "@/lib/product-data";
+import { PRODUCTS, searchProducts, CATEGORIES, COLOUR_HEX, COLLECTIONS, type Category, type Product } from "@/lib/product-data";
 
 // Every colour a product comes in
 const COLOURS = Array.from(new Set(PRODUCTS.map((p) => p.colour).filter((c): c is string => !!c)));
@@ -21,18 +21,24 @@ const CATEGORY_PARAM: Record<string, Category> = {
   oils: "Oils",
   spices: "Spices",
 };
-const STYLE_PARAM: Record<string, Style> = {
-  jar: "Glass Jar",
-  bottle: "Bottle",
+// Every size on sale, small to large (grams first, then litres)
+const unitValue = (l: string) => {
+  const n = parseFloat(l);
+  return /kg|\bL\b/.test(l) ? n * 1000 : n;
 };
+const SIZES = Array.from(new Set(PRODUCTS.flatMap((p) => p.sizes?.map((s) => s.label) ?? []))).sort(
+  (a, b) => Number(/L$/.test(a)) - Number(/L$/.test(b)) || unitValue(a) - unitValue(b),
+);
 
-const MAX_PRICE = Math.max(...PRODUCTS.map((p) => p.price));
+// Highest price of any size (one unit)
+const sizePrices = (p: Product) => (p.sizes?.length ? p.sizes.map((s) => ({ label: s.label, price: s.price })) : [{ label: "", price: p.price }]);
+const MAX_PRICE = Math.max(...PRODUCTS.flatMap((p) => sizePrices(p).map((s) => s.price)));
 
 function FilterPanel({
   selectedCategories,
   toggleCategory,
-  selectedStyles,
-  toggleStyle,
+  selectedSizes,
+  toggleSize,
   selectedColours,
   toggleColour,
   maxPrice,
@@ -41,8 +47,8 @@ function FilterPanel({
 }: {
   selectedCategories: Category[];
   toggleCategory: (c: Category) => void;
-  selectedStyles: Style[];
-  toggleStyle: (s: Style) => void;
+  selectedSizes: string[];
+  toggleSize: (s: string) => void;
   selectedColours: string[];
   toggleColour: (c: string) => void;
   maxPrice: number;
@@ -89,30 +95,28 @@ function FilterPanel({
         </div>
       </div>
 
-      {/* Style */}
+      {/* Size */}
       <div>
         <p className="text-xs font-bold uppercase tracking-wider text-brand-muted mb-3">
-          Packaging
+          Size
         </p>
-        <div className="flex flex-col gap-2.5">
-          {STYLES.map((c) => (
-            <label key={c} className="flex items-center gap-2.5 cursor-pointer group">
-              <span
-                className={`shrink-0 grid place-items-center w-[18px] h-[18px] rounded-md border-2 transition-colors ${ selectedStyles.includes(c) ? "bg-brand-funk border-brand-funk" : "border-brand-line group-hover:border-brand-funk/50" }`}
+        <div className="flex flex-wrap gap-2">
+          {SIZES.map((s) => {
+            const on = selectedSizes.includes(s);
+            return (
+              <button
+                key={s}
+                type="button"
+                aria-pressed={on}
+                onClick={() => toggleSize(s)}
+                className={`h-8 px-3 rounded-full border text-xs font-semibold transition-colors ${
+                  on ? "border-brand-funk bg-brand-strip text-brand-funk" : "border-brand-line text-brand-ink hover:border-brand-funk/40"
+                }`}
               >
-                {selectedStyles.includes(c) && (
-                  <Check size={12} strokeWidth={3} className="text-white" />
-                )}
-              </span>
-              <input
-                type="checkbox"
-                className="sr-only"
-                checked={selectedStyles.includes(c)}
-                onChange={() => toggleStyle(c)}
-              />
-              <span className="text-sm text-brand-ink">{c}</span>
-            </label>
-          ))}
+                {s}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -188,12 +192,11 @@ function SearchChip({ query }: { query: string }) {
 function ShopContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category") ?? "";
-  const styleParam = searchParams.get("style") ?? "";
   const query = (searchParams.get("q") ?? "").trim();
   const collection = COLLECTIONS.find((c) => c.slug === searchParams.get("collection"));
 
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
-  const [selectedStyles, setSelectedStyles] = useState<Style[]>([]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColours, setSelectedColours] = useState<string[]>([]);
   const [maxPrice, setMaxPrice] = useState(MAX_PRICE);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -201,8 +204,7 @@ function ShopContent() {
   // Menu links change the URL without remounting — keep the filters in step with it
   useEffect(() => {
     setSelectedCategories(CATEGORY_PARAM[categoryParam] ? [CATEGORY_PARAM[categoryParam]] : []);
-    setSelectedStyles(STYLE_PARAM[styleParam] ? [STYLE_PARAM[styleParam]] : []);
-  }, [categoryParam, styleParam]);
+  }, [categoryParam]);
 
   const toggleCategory = (c: Category) =>
     setSelectedCategories((s) => (s.includes(c) ? s.filter((x) => x !== c) : [...s, c]));
@@ -210,12 +212,12 @@ function ShopContent() {
   const toggleColour = (c: string) =>
     setSelectedColours((s) => (s.includes(c) ? s.filter((x) => x !== c) : [...s, c]));
 
-  const toggleStyle = (c: Style) =>
-    setSelectedStyles((s) => (s.includes(c) ? s.filter((x) => x !== c) : [...s, c]));
+  const toggleSize = (c: string) =>
+    setSelectedSizes((s) => (s.includes(c) ? s.filter((x) => x !== c) : [...s, c]));
 
   const clearFilters = () => {
     setSelectedCategories([]);
-    setSelectedStyles([]);
+    setSelectedSizes([]);
     setSelectedColours([]);
     setMaxPrice(MAX_PRICE);
   };
@@ -227,15 +229,17 @@ function ShopContent() {
     const unique = matches.filter((p, i) => !p.group || matches.findIndex((x) => x.group === p.group) === i);
     return unique.filter((p) => {
       if (selectedCategories.length && (!p.category || !selectedCategories.includes(p.category))) return false;
-      if (selectedStyles.length && (!p.style || !selectedStyles.includes(p.style))) return false;
+      if (selectedSizes.length && !p.sizes?.some((s) => selectedSizes.includes(s.label))) return false;
       if (selectedColours.length && !colourVariants(p).some((v) => v.colour && selectedColours.includes(v.colour))) return false;
-      if (p.price > maxPrice) return false;
+      // keep the product if one of its (filtered) sizes is within the price
+      const inSize = sizePrices(p).filter((s) => !selectedSizes.length || selectedSizes.includes(s.label));
+      if (!inSize.some((s) => s.price <= maxPrice)) return false;
       return true;
     });
-  }, [query, collection, selectedCategories, selectedStyles, selectedColours, maxPrice]);
+  }, [query, collection, selectedCategories, selectedSizes, selectedColours, maxPrice]);
 
   const activeFilterCount =
-    selectedCategories.length + selectedStyles.length + selectedColours.length + (maxPrice < MAX_PRICE ? 1 : 0);
+    selectedCategories.length + selectedSizes.length + selectedColours.length + (maxPrice < MAX_PRICE ? 1 : 0);
 
   return (
     <>
@@ -277,8 +281,8 @@ function ShopContent() {
                 <FilterPanel
                   selectedCategories={selectedCategories}
                   toggleCategory={toggleCategory}
-                  selectedStyles={selectedStyles}
-                  toggleStyle={toggleStyle}
+                  selectedSizes={selectedSizes}
+                  toggleSize={toggleSize}
                   selectedColours={selectedColours}
                   toggleColour={toggleColour}
                   maxPrice={maxPrice}
@@ -326,8 +330,10 @@ function ShopContent() {
                       (selectedColours.length &&
                         colourVariants(p).find((v) => v.colour && selectedColours.includes(v.colour))?.slug) ||
                       p.slug;
-                    // re-key so the card resets to the chosen colour
-                    return <ProductCard key={cardSlug} slug={cardSlug} />;
+                    // open the card on the size the shopper filtered for
+                    const size = p.sizes?.find((s) => selectedSizes.includes(s.label))?.label;
+                    // re-key so the card resets to the chosen colour / size
+                    return <ProductCard key={`${cardSlug}-${size ?? ""}`} slug={cardSlug} initialSize={size} />;
                   })}
                 </div>
               )}
@@ -360,8 +366,8 @@ function ShopContent() {
           <FilterPanel
             selectedCategories={selectedCategories}
             toggleCategory={toggleCategory}
-            selectedStyles={selectedStyles}
-            toggleStyle={toggleStyle}
+            selectedSizes={selectedSizes}
+            toggleSize={toggleSize}
             selectedColours={selectedColours}
             toggleColour={toggleColour}
             maxPrice={maxPrice}

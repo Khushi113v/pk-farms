@@ -9,6 +9,7 @@ import CartOffersNote from "@/components/common/CartOffersNote";
 import { useCart } from "@/lib/cart-context";
 import { FREE_SHIPPING_THRESHOLD, GIFT_WRAP_FEE, COD_FEE } from "@/lib/offers-data";
 import { useAddresses } from "@/lib/address-context";
+import { itemHref } from "@/lib/hamper-data";
 
 
 // Shows the saved addresses marked for this use (billing or shipping); addresses without a use show in both
@@ -215,7 +216,7 @@ export default function CartPage() {
                     <div className="flex-1 min-w-0 flex flex-col">
                       <div className="flex items-start justify-between gap-3">
                         <Link
-                          href={`/products/${item.slug}`}
+                          href={itemHref(item.slug)}
                           className="font-display font-medium text-brand-ink text-lg leading-snug hover:text-brand-funk transition-colors"
                         >
                           {item.name}

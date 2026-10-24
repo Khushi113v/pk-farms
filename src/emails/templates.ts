@@ -144,8 +144,8 @@ export function cartReminderEmail(d: { name: string; items: EmailItem[]; code?: 
 
 // ─── Sample data for the preview page ─────────────────────────────────────────
 export const SAMPLE_ITEMS: EmailItem[] = [
-  { name: "Raw Honey", variant: "Pack of 1", qty: 1, price: 649, mrp: 749, image: "/images/products/honey.png" },
-  { name: "Pure Desi Cow Ghee", variant: "Pack of 1", qty: 1, price: 1199, mrp: 1399, image: "/images/products/ghee.png" },
+  { name: "Raw Honey", variant: "500 g", qty: 1, price: 649, mrp: 749, image: "/images/products/honey.png" },
+  { name: "Pure Desi Cow Ghee", variant: "500 g", qty: 1, price: 1199, mrp: 1399, image: "/images/products/ghee.png" },
 ];
 
 export const TEMPLATES = [

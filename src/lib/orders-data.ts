@@ -54,7 +54,7 @@ export const ORDERS: Order[] = [
       {
         slug: "pure-desi-cow-ghee",
         name: "Pure Desi Cow Ghee",
-        variant: "Pack of 1",
+        variant: "500 g",
         qty: 1,
         price: 1199,
         image: "/images/products/ghee.png",
@@ -77,7 +77,7 @@ export const ORDERS: Order[] = [
       {
         slug: "raw-honey",
         name: "Raw Honey",
-        variant: "Pack of 1",
+        variant: "500 g",
         qty: 1,
         price: 649,
         image: "/images/products/honey.png",
@@ -85,7 +85,7 @@ export const ORDERS: Order[] = [
       {
         slug: "wood-pressed-groundnut-oil",
         name: "Wood Pressed Groundnut Oil",
-        variant: "Pack of 1",
+        variant: "1 L",
         qty: 1,
         price: 399,
         image: "/images/products/oils.png",
@@ -107,7 +107,7 @@ export const ORDERS: Order[] = [
       {
         slug: "heeng-compounded-asafoetida",
         name: "Heeng",
-        variant: "Pack of 1",
+        variant: "50 g",
         qty: 1,
         price: 249,
         image: "/images/products/spices.png",
@@ -128,7 +128,7 @@ export const ORDERS: Order[] = [
       {
         slug: "raw-honey",
         name: "Raw Honey",
-        variant: "Pack of 1",
+        variant: "500 g",
         qty: 1,
         price: 649,
         image: "/images/products/honey.png",

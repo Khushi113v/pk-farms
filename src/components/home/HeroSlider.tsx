@@ -3,9 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
 import { ArrowRight } from "lucide-react";
+import { getProductBySlug } from "@/lib/product-data";
 
 // All banners are about 2145 × 733. The photo sits in a "cover" frame with this aspect ratio, focused
-// towards the right on phones (focusX) and fully right-aligned from tablets up.
+// towards the right on phones (focusX) and fully right-aligned from tablets up. A product placed inside
+// the frame (in % of the photo) therefore stays on its spot at every screen size.
 const AR = 2145 / 733;
 const coverFrame = (focusX: string): React.CSSProperties => ({
   width: `max(100cqw, calc(100cqh * ${AR}))`,
@@ -22,7 +24,12 @@ type Slide = {
   image: string; // wide banner (≈ 2145 × 733) with open space on the left for the text
   alt: string;
   focusX: number; // horizontal focus (0 = left, 1 = right) on phones, where the banner is cropped
+  product?: Placement;
 };
+
+// Where the product stands in the photo: left / bottom / width as % of the photo (the box is square,
+// the product sits at its bottom edge).
+type Placement = { slug: string; left: number; bottom: number; width: number };
 
 const SLIDES: Slide[] = [
   {
@@ -83,6 +90,31 @@ const SLIDES: Slide[] = [
   },
 ];
 
+function PlacedProduct({ placement }: { placement: Placement }) {
+  const product = getProductBySlug(placement.slug);
+  if (!product) return null;
+  return (
+    <div className="absolute pointer-events-none" style={coverFrame("var(--fx)")}>
+      <Link
+        href={`/products/${product.slug}`}
+        aria-label={product.name}
+        className="pointer-events-auto absolute aspect-square"
+        style={{ left: `${placement.left}%`, bottom: `${placement.bottom}%`, width: `${placement.width}%` }}
+      >
+        {/* Contact shadow where the product meets the surface */}
+        <span className="absolute left-1/2 -translate-x-1/2 bottom-[2%] w-[62%] h-[7%] rounded-[50%] bg-[#2A1C0E]/50 blur-[4px]" />
+        <Image
+          src={product.image}
+          alt=""
+          fill
+          sizes="(min-width: 768px) 360px, 35vw"
+          className="object-contain object-bottom drop-shadow-[0_6px_8px_rgba(31,20,10,0.35)]"
+        />
+      </Link>
+    </div>
+  );
+}
+
 export default function HeroSlider() {
   const [i, setI] = useState(0);
   const total = SLIDES.length;
@@ -118,6 +150,9 @@ export default function HeroSlider() {
               <div className="md:hidden absolute inset-0 bg-[linear-gradient(to_top,#FBF6EA_0%,rgba(251,246,234,0)_28%)]" />
               {/* Larger screens — light wash on the left so the text stays readable on any banner */}
               <div className="hidden md:block absolute inset-0 bg-[linear-gradient(to_right,rgba(251,246,234,0.82)_0%,rgba(251,246,234,0.55)_30%,rgba(251,246,234,0)_55%)]" />
+
+              {/* The real product, standing on its spot in the photo */}
+              {s.product && <PlacedProduct placement={s.product} />}
             </div>
 
             {/* Text */}
