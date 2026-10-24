@@ -6,7 +6,8 @@ import { Star, Check } from "lucide-react";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ProductActions from "@/components/common/ProductActions";
 import ProductTabs from "@/components/common/ProductTabs";
-import { SpecTable, ShippingTable, NutritionTable, HowToUse, LabReport } from "@/components/common/ProductInfoTables";
+import { SpecTable, ShippingTable, NutritionTable, HowToUse } from "@/components/common/ProductInfoTables";
+import LabReportCard from "@/components/product/LabReportCard";
 import ProductSlider from "@/components/common/ProductSlider";
 import ReviewsSection from "@/components/home/ReviewsSection";
 import WatchAndBuySection from "@/components/home/WatchAndBuySection";
@@ -24,8 +25,9 @@ import { PRODUCTS, getProductBySlug, colourOptions } from "@/lib/product-data";
 import { DETAILS, WHY_US } from "@/lib/product-details";
 import { productFaqs } from "@/lib/product-faqs";
 
-// True when a file exists in /public, so sections can use a new image as soon as it is added
+// True when a file exists in /public, so sections can use a new image or PDF as soon as it is added
 const hasImage = (src: string) => fs.existsSync(path.join(process.cwd(), "public", src));
+
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
@@ -87,7 +89,7 @@ export default function ProductDetailPage({
             </div>
 
             {/* Info */}
-            <div>
+            <div className="min-w-0">
               <p className="text-xs uppercase tracking-[0.2em] mb-2 text-[#8A6420]">
                 {[product.category, product.style].filter(Boolean).join(" · ")}
               </p>
@@ -132,6 +134,12 @@ export default function ProductDetailPage({
               <VariantSelector />
 
               <ProductActions name={product.name} tileBg={product.tileBg} />
+
+              <LabReportCard
+                name={product.name}
+                tests={d.labTests.map((t) => t.name)}
+                href={product.labReport}
+              />
             </div>
           </div>
 
@@ -169,11 +177,6 @@ export default function ProductDetailPage({
                   title: "How to Use",
                   icon: "use",
                   content: <HowToUse steps={d.uses} kind={product.care ?? "ghee"} />,
-                },
-                {
-                  title: "Lab Report",
-                  icon: "lab",
-                  content: <LabReport tests={d.labTests} report={product.labReport} />,
                 },
               ]}
             />

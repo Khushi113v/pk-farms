@@ -11,7 +11,8 @@ import ReviewsSection from "@/components/home/ReviewsSection";
 import WatchAndBuySection from "@/components/home/WatchAndBuySection";
 import FAQSection from "@/components/home/FAQSection";
 import ProductTabs from "@/components/common/ProductTabs";
-import { InfoTable, ShippingTable, NutritionTable, HowToUse, LabReport } from "@/components/common/ProductInfoTables";
+import { InfoTable, ShippingTable, NutritionTable, HowToUse } from "@/components/common/ProductInfoTables";
+import LabReportCard from "@/components/product/LabReportCard";
 import HealthBenefits from "@/components/product/HealthBenefits";
 import ProductWhyChoose from "@/components/product/ProductWhyChoose";
 import { DETAILS, WHY_US } from "@/lib/product-details";
@@ -90,12 +91,21 @@ export default function HamperDetailPage({ params }: { params: { slug: string } 
             </div>
 
             {/* Info + builder */}
-            <div>
+            <div className="min-w-0">
               <p className="text-xs uppercase tracking-[0.2em] mb-2 text-[#8A6420]">Hamper · Combo</p>
               <h1 className="font-display font-medium text-brand-ink text-[26px] sm:text-3xl md:text-[34px] leading-[1.15]">{hamper.name}</h1>
               <p className="mt-1 text-brand-muted text-sm">{hamper.tagline}</p>
 
               <HamperBuilder hamper={hamper} image={image} />
+
+              {products.map((p) => (
+                <LabReportCard
+                  key={p.slug}
+                  name={p.name}
+                  tests={DETAILS[p.care ?? "ghee"].labTests.map((t) => t.name)}
+                  href={p.labReport}
+                />
+              ))}
 
               <p className="mt-6 text-brand-ink/80 text-[15px] leading-relaxed">{hamper.description}</p>
               <ul className="mt-4 space-y-2.5">
@@ -178,16 +188,6 @@ export default function HamperDetailPage({ params }: { params: { slug: string } 
                       </div>
                     ))}
                   </div>
-                ),
-              },
-              {
-                title: "Lab Report",
-                icon: "lab",
-                content: (
-                  <PerProduct
-                    products={products}
-                    render={(p) => <LabReport tests={DETAILS[p.care ?? "ghee"].labTests} report={p.labReport} />}
-                  />
                 ),
               },
             ]}
