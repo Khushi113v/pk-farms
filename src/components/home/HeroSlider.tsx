@@ -129,7 +129,7 @@ export default function HeroSlider() {
   return (
     <section className="relative w-full bg-[#FBF6EA]">
       {/* Phones: banner on top, text below. Large screens: the full banner at its own proportions, text on its open left side. */}
-      <div className="relative w-full h-[580px] sm:h-[620px] md:h-[440px] lg:h-auto lg:aspect-[2145/733] lg:max-h-[660px] overflow-hidden">
+      <div className="relative w-full h-[485px] sm:h-[600px] md:h-[440px] lg:h-auto lg:aspect-[2145/733] lg:max-h-[660px] overflow-hidden">
         {SLIDES.map((s, idx) => (
           <div
             key={idx}
@@ -140,7 +140,7 @@ export default function HeroSlider() {
           >
             {/* Banner */}
             <div
-              className="absolute inset-x-0 top-0 h-[270px] sm:h-[320px] md:inset-0 md:h-auto overflow-hidden [container-type:size] [--fx:var(--fx-sm)] md:[--fx:1]"
+              className="absolute inset-x-0 top-0 h-[210px] sm:h-[300px] md:inset-0 md:h-auto overflow-hidden [container-type:size] [--fx:var(--fx-sm)] md:[--fx:1]"
               style={{ "--fx-sm": s.focusX } as React.CSSProperties}
             >
               <div className="absolute" style={coverFrame("var(--fx)")}>
@@ -156,7 +156,7 @@ export default function HeroSlider() {
             </div>
 
             {/* Text */}
-            <div className="absolute inset-x-0 bottom-0 top-[270px] sm:top-[320px] md:inset-0 flex items-start md:items-center">
+            <div className="absolute inset-x-0 bottom-0 top-[210px] sm:top-[300px] md:inset-0 flex items-start md:items-center">
               <div className="mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-8 pt-2 md:pt-0">
                 <div className="max-w-md lg:max-w-lg text-center md:text-left mx-auto md:mx-0">
                   <p className="text-[11px] md:text-xs font-bold uppercase tracking-[0.3em] text-brand-tan">
@@ -168,17 +168,17 @@ export default function HeroSlider() {
                   <p className="mt-3 md:mt-4 text-brand-ink/80 text-[14px] md:text-[15px] leading-relaxed">
                     {s.desc}
                   </p>
-                  <div className="mt-5 md:mt-7 flex flex-wrap items-center justify-center md:justify-start gap-3">
+                  <div className="mt-4 md:mt-7 flex items-center justify-center md:justify-start gap-2 sm:gap-3">
                     <Link
                       href={s.cta.href}
-                      className="inline-flex items-center gap-2 h-11 md:h-12 px-7 rounded-full bg-brand-funk hover:bg-brand-funkDark text-white text-sm md:text-[15px] font-semibold tracking-wide transition-colors"
+                      className="inline-flex items-center gap-1.5 sm:gap-2 h-10 md:h-12 px-4 sm:px-7 rounded-full bg-brand-funk hover:bg-brand-funkDark text-white text-[13px] sm:text-sm md:text-[15px] font-semibold tracking-wide whitespace-nowrap transition-colors"
                     >
                       {s.cta.label}
                       <ArrowRight size={16} strokeWidth={2} />
                     </Link>
                     <Link
                       href="/shop"
-                      className="inline-flex items-center h-11 md:h-12 px-7 rounded-full border border-brand-funk text-brand-funk bg-white/70 hover:bg-white text-sm md:text-[15px] font-semibold tracking-wide transition-colors"
+                      className="inline-flex items-center h-10 md:h-12 px-4 sm:px-7 rounded-full border border-brand-funk text-brand-funk bg-white/70 hover:bg-white text-[13px] sm:text-sm md:text-[15px] font-semibold tracking-wide whitespace-nowrap transition-colors"
                     >
                       View All Products
                     </Link>
