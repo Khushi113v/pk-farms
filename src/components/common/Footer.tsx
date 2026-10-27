@@ -55,7 +55,7 @@ const SOCIALS = [
 export default function Footer() {
   return (
     // Background is the exact colour of the top edge of footer.png, so the two merge seamlessly
-    <footer className="relative bg-[#FBEFDC] border-t border-brand-line">
+    <footer className="relative bg-[#FAECD9] border-t border-brand-line">
       {/* Link columns + newsletter */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,1fr))_1.4fr] gap-x-6 gap-y-10">
         {COLUMNS.map((col) => (
@@ -104,7 +104,7 @@ export default function Footer() {
       </div>
 
       {/* Farm landscape with the copyright resting in its plain sky */}
-      <div className="relative mt-6 md:mt-8 w-full h-[220px] sm:h-auto sm:aspect-[2020/740] overflow-hidden">
+      <div className="relative mt-2 md:mt-3 w-full h-[220px] sm:h-auto sm:aspect-[2226/706] overflow-hidden">
         <Image
           src="/images/footer.png"
           alt="A pahadi farm at sunrise with beehives, a groundnut field, a farmhouse and a farmer with his cow"
