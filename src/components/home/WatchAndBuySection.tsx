@@ -148,7 +148,7 @@ export default function WatchAndBuySection({
         {/* Reels */}
         <div
           ref={scrollerRef}
-          className="no-scrollbar flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory pb-2 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8"
+          className="no-scrollbar flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-8 pb-2 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8"
         >
           {LOOP.map((r, idx) => {
             const isPlaying = playing === idx;
