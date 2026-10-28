@@ -11,6 +11,7 @@ import CertifiedBySection from "@/components/home/CertifiedBySection";
 import FarmStoryVideoSection from "@/components/home/FarmStoryVideoSection";
 import BlogSection from "@/components/home/BlogSection";
 import FAQSection from "@/components/home/FAQSection";
+import GheeProcessSection from "@/components/home/GheeProcessSection";
 
 export default function HomePage() {
   return (
@@ -35,6 +36,7 @@ export default function HomePage() {
         collection="best-sellers"
         interval={4600}
       />
+      <GheeProcessSection />
       <WhyChooseSection />
       <WatchAndBuySection />
       <ReviewsSection />
