@@ -10,7 +10,7 @@ import { getProductBySlug } from "@/lib/product-data";
 // along the trail. The background lives through a whole day while it travels (dawn, morning, night, the next
 // dawn, golden ghee). Each step's drawing comes alive as the drop reaches it, the drop turns golden at the last
 // step, sinks into the jar and the numbers count up. All motion is code (SVG + CSS). The first two drawings
-// were traced from farm pictures into /images/process/fodder-art.svg and milking-art.svg, one group per moving part.
+// were traced from farm pictures into /images/process/grazing-art.svg and milking-art.svg, one group per moving part.
 
 // Top of the lid in the jar photo (fraction of its box)
 const JAR_LID = 0.05;
@@ -37,11 +37,16 @@ const PALETTE_ON = {
   "--pk-gold-soft": "#F3DDA6",
   "--pk-dark": "#3A4136",
   "--pk-flow": "#C3CCD1",
-  // used by the traced cow drawings: green fodder, pink udder and ears, grey horns and hooves, steel pail
-  "--pk-leaf": "#D2DEB6",
+  // used by the traced cow drawings: pink udder and ears, grey horns and hooves, steel pail, and the open field
+  // (light and dark grass, bushes, far hills, fence rails)
+  "--pk-leaf": "#D8DDAF",
   "--pk-blush": "#F4D3C1",
   "--pk-ash": "#A7A69B",
   "--pk-steel": "#E4E7E5",
+  "--pk-grass": "#87956A",
+  "--pk-bush": "#C2C895",
+  "--pk-hill": "#DCDCC2",
+  "--pk-bark": "#9A8461",
 } as React.CSSProperties;
 const PALETTE_OFF = {
   color: "#CCC4AF",
@@ -58,6 +63,10 @@ const PALETTE_OFF = {
   "--pk-blush": "#F1EDE2",
   "--pk-ash": "#E2DCCC",
   "--pk-steel": "#F0EEE8",
+  "--pk-grass": "#DCD9C8",
+  "--pk-bush": "#E8E6D8",
+  "--pk-hill": "#EFEDE3",
+  "--pk-bark": "#DED7C6",
 } as React.CSSProperties;
 
 type Step = {
@@ -74,7 +83,7 @@ const STEPS: Step[] = [
     time: "4:30 AM",
     title: "Fed on fresh green fodder",
     text: "Before sunrise our desi cows are fed fresh green fodder, dry straw and a little grain. A calm, well-fed cow gives rich, wholesome milk.",
-    Art: CowFodder,
+    Art: CowGrazing,
   },
   {
     time: "5:00 AM",
@@ -626,35 +635,51 @@ function Flames({ base }: { base: number }) {
 
 // The first two drawings were traced from farm pictures into plain SVG files (pale fills, soft detail lines);
 // each moving part is its own group there, drawn here with <use> so it can be animated.
-const FODDER_ART = "/images/process/fodder-art.svg";
+const GRAZING_ART = "/images/process/grazing-art.svg";
 const MILKING_ART = "/images/process/milking-art.svg";
 
-// 1. A desi cow eating fresh fodder: her head dips as she munches, her bell and tail swing, a lantern sways
-function CowFodder() {
+// Tufts of grass that sway in the breeze: [group, x, y of the tuft's foot, delay in s]
+const TUFTS: [string, number, number, number][] = [
+  ["tuftA", 29.3, 157.5, 0],
+  ["tuftB", 151.6, 162.8, -1.1],
+  ["tuftC", 23.7, 134.3, -0.5],
+  ["tuftD", 79.4, 166.7, -1.7],
+  ["tuftE", 89.1, 151.1, -0.8],
+  ["tuftF", 141.6, 143.4, -1.4],
+];
+
+// 1. A desi cow grazing in an open field in the morning sun: her head dips into the grass as she eats, her tail
+// swishes, the bell on her neck rope swings, tufts of grass sway in the breeze and the sun glows
+function CowGrazing() {
   return (
     <Art>
-      <use href={`${FODDER_ART}#base`} />
-      {/* only the tail's tuft swings, from where it joins the tail; the leg beside it stays still */}
-      <g className="pkp-a pkp-tail" style={{ transformOrigin: "190px 117px" }}>
-        <use href={`${FODDER_ART}#tail`} />
+      <circle className="pkp-a pkp-moonglow" cx="74.5" cy="47.1" r="19" fill="var(--pk-gold-soft)" stroke="none" />
+      <circle cx="74.5" cy="47.1" r="13.4" fill="var(--pk-gold-soft)" stroke="none" />
+      <use href={`${GRAZING_ART}#back`} />
+      <use href={`${GRAZING_ART}#base`} />
+      {/* only the tail's tuft swings, from where it joins the tail */}
+      <g className="pkp-a pkp-tail" style={{ transformOrigin: "190.4px 111.1px" }}>
+        <use href={`${GRAZING_ART}#tail`} />
       </g>
-      <g className="pkp-a pkp-munch" style={{ transformOrigin: "79px 85px" }}>
-        <use href={`${FODDER_ART}#head`} />
-        <g className="pkp-a pkp-bell" style={{ transformOrigin: "74.5px 101px" }}>
-          <use href={`${FODDER_ART}#bell`} />
+      {/* the head turns from where it joins the neck, so the muzzle dips into the grass */}
+      <g className="pkp-a pkp-graze" style={{ transformOrigin: "96.6px 100.6px" }}>
+        <use href={`${GRAZING_ART}#head`} />
+        <use href={`${GRAZING_ART}#forelock`} />
+      </g>
+      {/* the bell hangs from the end of her neck rope */}
+      <g className="pkp-a pkp-bell" style={{ transformOrigin: "101.2px 106.9px" }}>
+        <path d="M101.2 106.9V109.8" strokeWidth={1} />
+        <path d="M98.4 117.8C98.4 113.4 99.4 109.8 101.2 109.8C103 109.8 104 113.4 104 117.8Z" fill="var(--pk-gold)" strokeWidth={1} />
+        <path d="M97.6 117.8H104.8" strokeWidth={1.2} />
+        <circle cx="101.2" cy="118.9" r=".95" fill="currentColor" stroke="none" />
+      </g>
+      {/* the grass she is eating stays in front of her muzzle */}
+      <use href={`${GRAZING_ART}#grass`} />
+      {TUFTS.map(([id, x, y, delay]) => (
+        <g key={id} className="pkp-a pkp-blades" style={{ transformOrigin: `${x}px ${y}px`, animationDelay: `${delay}s` }}>
+          <use href={`${GRAZING_ART}#${id}`} />
         </g>
-      </g>
-
-      {/* a lantern hanging in the cowshed before sunrise */}
-      <path d="M6 10H58" strokeWidth={2.4} />
-      <g className="pkp-a pkp-swing" style={{ transformOrigin: "30px 10px" }}>
-        <circle className="pkp-a pkp-moonglow" cx="30" cy="31" r="14" fill="var(--pk-gold-soft)" stroke="none" />
-        <path d="M30 10V18" strokeWidth={1.3} />
-        <path d="M25 18H35M24 21H36" strokeWidth={1.6} />
-        <path d="M25 21H35V38H25Z" fill="var(--pk-gold-soft)" strokeWidth={1.6} />
-        <path className="pkp-a pkp-flicker" d="M30 35C27.5 32.5 28 29 30 26C32 29 32.5 32.5 30 35Z" fill="var(--pk-gold)" strokeWidth={1} />
-        <path d="M23 38H37" strokeWidth={2} />
-      </g>
+      ))}
     </Art>
   );
 }
@@ -931,8 +956,8 @@ const CSS = `
 .pkp-aroma { opacity: 0; animation: pkp-aroma 2.8s ease-in-out infinite; }
 .pkp-pop { transform-box: fill-box; transform-origin: center; animation: pkp-pop 1.4s ease-in-out infinite; }
 .pkp-shimmer { animation: pkp-shimmer 2.8s ease-in-out infinite; }
-.pkp-swing { animation: pkp-swing 2.2s ease-in-out infinite alternate; }
-.pkp-munch { animation: pkp-munch 1.9s ease-in-out infinite; }
+.pkp-graze { animation: pkp-graze 3.2s ease-in-out infinite; }
+.pkp-blades { animation: pkp-blades 2.4s ease-in-out infinite alternate; }
 .pkp-tail { animation: pkp-tail 1.7s ease-in-out infinite alternate; }
 .pkp-tail-out { animation: pkp-tail-out 1.5s ease-in-out infinite alternate; }
 .pkp-bell { animation: pkp-bell 1.2s ease-in-out infinite alternate; }
@@ -975,8 +1000,8 @@ const CSS = `
 @keyframes pkp-aroma { 0% { transform: translateY(10px); opacity: 0; } 35% { opacity: 1; } 100% { transform: translateY(-18px); opacity: 0; } }
 @keyframes pkp-pop { 0%, 100% { transform: scale(.4); opacity: 0; } 50% { transform: scale(1.25); opacity: 1; } }
 @keyframes pkp-shimmer { 0% { transform: translateX(-40px) skewX(-20deg); } 60%, 100% { transform: translateX(140px) skewX(-20deg); } }
-@keyframes pkp-swing { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
-@keyframes pkp-munch { 0%, 100% { transform: rotate(0deg); } 35%, 60% { transform: rotate(-2.5deg); } 47% { transform: rotate(-1.5deg); } }
+@keyframes pkp-graze { 0%, 100% { transform: rotate(0deg); } 22%, 42%, 62% { transform: rotate(-3deg); } 32%, 52% { transform: rotate(-1.8deg); } 82% { transform: rotate(.6deg); } }
+@keyframes pkp-blades { from { transform: skewX(-5deg); } to { transform: skewX(5deg); } }
 @keyframes pkp-tail { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
 @keyframes pkp-tail-out { from { transform: rotate(0deg); } to { transform: rotate(8deg); } }
 @keyframes pkp-bell { from { transform: rotate(-9deg); } to { transform: rotate(9deg); } }
