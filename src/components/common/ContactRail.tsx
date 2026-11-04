@@ -49,15 +49,15 @@ export default function ContactRail() {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-label={open ? "Hide contact links" : "Show contact links"}
-        className="absolute right-full top-1/2 -translate-y-1/2 grid place-items-center w-6 h-11 rounded-l-lg bg-brand-funk hover:bg-brand-funkDark text-white ring-1 ring-white/15 shadow-[-4px_4px_12px_-4px_rgba(31,45,36,0.45)] transition-colors"
+        className="absolute right-full top-1/2 -translate-y-1/2 grid place-items-center w-5 h-9 rounded-l-md bg-brand-funk hover:bg-brand-funkDark text-white ring-1 ring-white/15 shadow-[-4px_4px_12px_-4px_rgba(31,45,36,0.45)] transition-colors"
       >
-        {open ? <ChevronRight size={16} strokeWidth={2.5} /> : <ChevronLeft size={16} strokeWidth={2.5} />}
+        {open ? <ChevronRight size={14} strokeWidth={2.5} /> : <ChevronLeft size={14} strokeWidth={2.5} />}
       </button>
 
       <div
         ref={listRef}
         aria-hidden={!open}
-        className="flex flex-col py-1.5 rounded-l-2xl bg-brand-funk text-white shadow-[-6px_8px_24px_-8px_rgba(31,45,36,0.5)]"
+        className="flex flex-col py-1 rounded-l-xl bg-brand-funk text-white shadow-[-6px_8px_24px_-8px_rgba(31,45,36,0.5)]"
       >
         {LINKS.map(({ label, href, Icon, external }) => (
           <a
@@ -65,10 +65,10 @@ export default function ContactRail() {
             href={href}
             tabIndex={open ? undefined : -1}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="flex flex-col items-center gap-1 px-2 sm:px-3 py-2 sm:py-2.5 text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+            className="flex flex-col items-center gap-0.5 px-1.5 sm:px-2 py-1.5 text-white/90 hover:text-white hover:bg-white/10 transition-colors"
           >
-            <Icon size={19} strokeWidth={1.75} />
-            <span className="text-[9.5px] sm:text-[10.5px] font-medium leading-none tracking-wide whitespace-nowrap">{label}</span>
+            <Icon size={15} strokeWidth={1.75} />
+            <span className="text-[8px] sm:text-[9px] font-medium leading-none tracking-wide whitespace-nowrap">{label}</span>
           </a>
         ))}
       </div>

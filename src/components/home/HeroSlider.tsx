@@ -190,23 +190,22 @@ export default function HeroSlider() {
           </div>
         ))}
 
-        {/* Arrows: on phones they sit on the photo, from tablets up halfway down the banner. The right one keeps
-            clear of the contact rail on the right edge of the page (--side-rail is its width, 0 when it is hidden). */}
+        {/* Arrows: on phones they sit on the photo, from tablets up halfway down the banner */}
         <button
           type="button"
           aria-label="Previous banner"
           onClick={() => go(i - 1)}
-          className="absolute z-10 left-3 md:left-5 top-[105px] sm:top-[150px] md:top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 md:w-[46px] md:h-[46px] rounded-full bg-white/85 backdrop-blur-sm text-brand-funk ring-1 ring-brand-funk/15 shadow-[0_6px_16px_-6px_rgba(31,45,36,0.45)] hover:bg-brand-funk hover:text-white transition-colors"
+          className="absolute z-10 left-3 md:left-5 top-[105px] sm:top-[150px] md:top-1/2 -translate-y-1/2 grid place-items-center w-8 h-8 md:w-9 md:h-9 rounded-full bg-white/85 backdrop-blur-sm text-brand-funk ring-1 ring-brand-funk/15 shadow-[0_6px_16px_-6px_rgba(31,45,36,0.45)] hover:bg-brand-funk hover:text-white transition-colors"
         >
-          <ChevronLeft size={22} strokeWidth={2.25} />
+          <ChevronLeft size={18} strokeWidth={2.25} />
         </button>
         <button
           type="button"
           aria-label="Next banner"
           onClick={() => go(i + 1)}
-          className="absolute z-10 right-3 md:right-[calc(1.25rem+var(--side-rail,0px))] top-[105px] sm:top-[150px] md:top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 md:w-[46px] md:h-[46px] rounded-full bg-white/85 backdrop-blur-sm text-brand-funk ring-1 ring-brand-funk/15 shadow-[0_6px_16px_-6px_rgba(31,45,36,0.45)] hover:bg-brand-funk hover:text-white transition-[right,background-color,color] duration-300"
+          className="absolute z-10 right-3 md:right-5 top-[105px] sm:top-[150px] md:top-1/2 -translate-y-1/2 grid place-items-center w-8 h-8 md:w-9 md:h-9 rounded-full bg-white/85 backdrop-blur-sm text-brand-funk ring-1 ring-brand-funk/15 shadow-[0_6px_16px_-6px_rgba(31,45,36,0.45)] hover:bg-brand-funk hover:text-white transition-colors"
         >
-          <ChevronRight size={22} strokeWidth={2.25} />
+          <ChevronRight size={18} strokeWidth={2.25} />
         </button>
 
         {/* Dots, on a soft pill so they stand out on any banner; each has a bigger area to tap */}
