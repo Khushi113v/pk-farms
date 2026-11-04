@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import BackToTop from "@/components/common/BackToTop";
+import ContactRail from "@/components/common/ContactRail";
 import CartSidebar from "@/components/common/CartSidebar";
 import { CartProvider } from "@/lib/cart-context";
 import { AddressProvider } from "@/lib/address-context";
@@ -31,6 +32,7 @@ export default function RootLayout({
               <main className="flex-1">{children}</main>
               <Footer />
               <BackToTop />
+              <ContactRail />
               <CartSidebar />
             </CartProvider>
           </WishlistProvider>

@@ -12,6 +12,7 @@ import FarmStoryVideoSection from "@/components/home/FarmStoryVideoSection";
 import BlogSection from "@/components/home/BlogSection";
 import FAQSection from "@/components/home/FAQSection";
 import GheeProcessSection from "@/components/home/GheeProcessSection";
+import HoneyProcessSection from "@/components/home/HoneyProcessSection";
 
 export default function HomePage() {
   return (
@@ -39,6 +40,7 @@ export default function HomePage() {
       <GheeProcessSection />
       <WhyChooseSection />
       <WatchAndBuySection />
+      <HoneyProcessSection />
       <ReviewsSection />
       <BlogSection />
       <CertifiedBySection />

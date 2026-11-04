@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { getProductBySlug } from "@/lib/product-data";
 
 // All banners are about 2145 × 733. The photo sits in a "cover" frame with this aspect ratio, focused
@@ -157,7 +157,8 @@ export default function HeroSlider() {
 
             {/* Text */}
             <div className="absolute inset-x-0 bottom-0 top-[210px] sm:top-[300px] md:inset-0 flex items-start md:items-center">
-              <div className="mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-8 pt-2 md:pt-0">
+              {/* From tablets up the text starts clear of the left arrow */}
+              <div className="mx-auto w-full max-w-7xl px-6 sm:px-10 md:pl-[84px] lg:px-8 lg:pl-[84px] xl:pl-[max(2rem,calc(84px_-_(100vw_-_80rem)/2))] pt-2 md:pt-0">
                 <div className="max-w-md lg:max-w-lg text-center md:text-left mx-auto md:mx-0">
                   <p className="text-[11px] md:text-xs font-bold uppercase tracking-[0.3em] text-brand-tan">
                     {s.eyebrow}
@@ -189,17 +190,42 @@ export default function HeroSlider() {
           </div>
         ))}
 
-        {/* Dots */}
-        <div className="absolute bottom-4 md:bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2.5 z-10">
+        {/* Arrows: on phones they sit on the photo, from tablets up halfway down the banner. The right one keeps
+            clear of the contact rail on the right edge of the page (--side-rail is its width, 0 when it is hidden). */}
+        <button
+          type="button"
+          aria-label="Previous banner"
+          onClick={() => go(i - 1)}
+          className="absolute z-10 left-3 md:left-5 top-[105px] sm:top-[150px] md:top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 md:w-[46px] md:h-[46px] rounded-full bg-white/85 backdrop-blur-sm text-brand-funk ring-1 ring-brand-funk/15 shadow-[0_6px_16px_-6px_rgba(31,45,36,0.45)] hover:bg-brand-funk hover:text-white transition-colors"
+        >
+          <ChevronLeft size={22} strokeWidth={2.25} />
+        </button>
+        <button
+          type="button"
+          aria-label="Next banner"
+          onClick={() => go(i + 1)}
+          className="absolute z-10 right-3 md:right-[calc(1.25rem+var(--side-rail,0px))] top-[105px] sm:top-[150px] md:top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 md:w-[46px] md:h-[46px] rounded-full bg-white/85 backdrop-blur-sm text-brand-funk ring-1 ring-brand-funk/15 shadow-[0_6px_16px_-6px_rgba(31,45,36,0.45)] hover:bg-brand-funk hover:text-white transition-[right,background-color,color] duration-300"
+        >
+          <ChevronRight size={22} strokeWidth={2.25} />
+        </button>
+
+        {/* Dots, on a soft pill so they stand out on any banner; each has a bigger area to tap */}
+        <div className="absolute bottom-3 md:bottom-5 left-1/2 -translate-x-1/2 z-10 flex items-center rounded-full bg-white/80 backdrop-blur-sm px-1.5 ring-1 ring-brand-funk/10 shadow-[0_4px_12px_-6px_rgba(31,45,36,0.4)]">
           {SLIDES.map((_, idx) => (
             <button
               key={idx}
+              type="button"
               aria-label={`Go to slide ${idx + 1}`}
+              aria-current={idx === i}
               onClick={() => go(idx)}
-              className={`h-2 rounded-full transition-all ${
-                idx === i ? "w-6 bg-brand-funk" : "w-2 bg-brand-funk/30 hover:bg-brand-funk/50"
-              }`}
-            />
+              className="group/dot grid place-items-center h-6 px-1"
+            >
+              <span
+                className={`block h-2.5 rounded-full transition-all duration-300 ${
+                  idx === i ? "w-7 bg-brand-funk" : "w-2.5 bg-brand-funk/35 group-hover/dot:bg-brand-funk/70 group-hover/dot:scale-110"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>

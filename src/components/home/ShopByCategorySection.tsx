@@ -57,31 +57,31 @@ export default function ShopByCategorySection() {
               {/* Arched farm window. The arch is narrower than the farm photo, so the photo always
                   shows at its full height (only the sides are trimmed). That keeps the stone's top
                   surface at the same height (back edge ~75%, front lip ~86%) in every card size, and
-                  the product lines up with it. Nothing in the arch moves on hover, so the product
-                  never slides off the stone. */}
-              <div className="relative w-full h-[190px] sm:h-[210px] md:h-[230px] rounded-t-[999px] rounded-b-[28px] overflow-hidden isolate ring-1 ring-brand-line transition-shadow duration-500 group-hover:ring-brand-funk/40 group-hover:shadow-[0_22px_36px_-22px_rgba(31,45,36,0.45)]">
+                  the product lines up with it. On hover the whole arch lifts a little, and the product
+                  grows from its base (its shadow with it), so it stays standing on the stone. */}
+              <div className="relative w-full h-[190px] sm:h-[210px] md:h-[230px] rounded-t-[999px] rounded-b-[28px] overflow-hidden isolate ring-1 ring-brand-line transition-[transform,box-shadow] duration-300 ease-out group-hover:-translate-y-1.5 group-hover:scale-[1.02] group-hover:ring-2 group-hover:ring-brand-funk/25 group-hover:shadow-[0_18px_28px_-16px_rgba(31,45,36,0.4)] group-focus-visible:-translate-y-1.5 group-focus-visible:scale-[1.02] group-focus-visible:ring-2 group-focus-visible:ring-brand-funk/25 group-focus-visible:shadow-[0_18px_28px_-16px_rgba(31,45,36,0.4)]">
                 <Image
                   src="/images/background.png"
                   alt=""
                   aria-hidden
                   fill
                   sizes="(max-width: 1024px) 50vw, 25vw"
-                  className="object-cover object-[53%_center] opacity-85"
+                  className="object-cover object-[53%_center] opacity-85 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
                 />
                 {/* Light wash at the top so the product reads clearly against the sky */}
                 <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/10 to-transparent" />
 
                 {/* Contact shadow on the stone, right under the product */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[13.5%] w-[34%] h-[5%] rounded-[50%] bg-[#3A2A18]/45 blur-[5px]" />
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[13.5%] w-[34%] h-[5%] rounded-[50%] bg-[#3A2A18]/45 blur-[5px] transition-transform duration-500 ease-out group-hover:scale-x-[1.07] group-focus-visible:scale-x-[1.07]" />
 
                 {/* Product standing on the middle of the stone's top surface */}
-                <div className="absolute inset-x-[20%] top-[8%] bottom-[15%]">
+                <div className="absolute inset-x-[20%] top-[8%] bottom-[15%] origin-bottom transition-transform duration-500 ease-out group-hover:scale-[1.04] group-focus-visible:scale-[1.04]">
                   <Image
                     src={c.image as string}
                     alt={c.name}
                     fill
                     sizes="(max-width: 1024px) 35vw, 18vw"
-                    className="object-contain object-bottom drop-shadow-[0_3px_4px_rgba(31,45,36,0.25)]"
+                    className="object-contain object-bottom brightness-100 saturate-100 drop-shadow-[0_3px_4px_rgba(31,45,36,0.25)] transition-[filter] duration-500 group-hover:brightness-[1.06] group-hover:saturate-[1.06] group-focus-visible:brightness-[1.06] group-focus-visible:saturate-[1.06]"
                   />
                 </div>
               </div>

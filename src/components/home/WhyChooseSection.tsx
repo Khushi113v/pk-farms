@@ -19,10 +19,10 @@ import {
 
 type Feature = {
   icon: React.ElementType;
-  image?: string; // shown in the icon tile instead of the icon (product page)
-  heroImage: string; // photo shown at the top of the home page slide
-  focus?: string; // object-position for the photo
-  productIcon?: React.ElementType; // overrides `icon` on the product detail page
+  image?: string; 
+  heroImage: string;
+  focus?: string; 
+  productIcon?: React.ElementType; 
   title: string;
   desc: string;
   accent: string;

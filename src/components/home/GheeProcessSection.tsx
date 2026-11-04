@@ -5,27 +5,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getProductBySlug } from "@/lib/product-data";
 
-// "The journey of a single drop": it starts with the cow being fed and then milked by hand. One drop of that
-// milk leaves the farmer's pail and glides down a winding trail as you scroll, its tip always pointing back
-// along the trail. The background lives through a whole day while it travels (dawn, morning, night, the next
-// dawn, golden ghee). Each step's drawing comes alive as the drop reaches it, the drop turns golden at the last
-// step, sinks into the jar and the numbers count up. All motion is code (SVG + CSS). The first two drawings
-// were traced from farm pictures into /images/process/grazing-art.svg and milking-art.svg, one group per moving part.
 
-// Top of the lid in the jar photo (fraction of its box)
 const JAR_LID = 0.05;
-// The drop starts hanging from the milk pail: its tip just touches the pail's bottom (px below it)
 const HANG = 23;
-// The drop rides at this height of the screen while the page scrolls
 const RIDE = 0.55;
-// A step lights up once the drop reaches this far down it (0 = its top, 0.5 = its middle)
 const LIGHT_AT = 0.18;
 
-// Background through the day, one colour per stop: the milk pail (dawn), each step after it, then the jar
 const SKY = ["#FCEDE1", "#FBF5E8", "#E9EDF6", "#FCEFE2", "#FBF6EA", "#FBEED5", "#FBEED5"];
 const SKY_RGB = SKY.map((h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)));
 
-// Drawing palette: before the drop arrives everything is a pale sketch, then it turns to ink with soft tints
 const PALETTE_ON = {
   color: "#33402F",
   "--pk-paper": "#FFFDF8",
@@ -37,8 +25,6 @@ const PALETTE_ON = {
   "--pk-gold-soft": "#F3DDA6",
   "--pk-dark": "#3A4136",
   "--pk-flow": "#C3CCD1",
-  // used by the traced cow drawings: pink udder and ears, grey horns and hooves, steel pail, and the open field
-  // (light and dark grass, bushes, far hills, fence rails)
   "--pk-leaf": "#D8DDAF",
   "--pk-blush": "#F4D3C1",
   "--pk-ash": "#A7A69B",
@@ -74,7 +60,6 @@ type Step = {
   title: string;
   text: string;
   Art: () => JSX.Element;
-  // Bottom of the milk pail in this step's drawing (fractions of it): the drop starts here
   pail?: { x: number; y: number };
 };
 
@@ -123,7 +108,6 @@ const STEPS: Step[] = [
     Art: KadhaiGhee,
   },
 ];
-// The step the drop starts from (milking). The steps before it are shown lit from the start.
 const START = Math.max(0, STEPS.findIndex((s) => s.pail));
 
 export default function GheeProcessSection() {
@@ -154,18 +138,17 @@ export default function GheeProcessSection() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let pts: { x: number; y: number }[] = [];
-    let stops: number[] = []; // heights of: the milk pail, each step after it, the jar
+    let stops: number[] = []; 
     let startY = 0;
     let endY = 0;
-    let stepYs: number[] = []; // middle of each step
-    let lightYs: number[] = []; // where each step lights up
+    let stepYs: number[] = []; 
+    let lightYs: number[] = []; 
     let cur = NaN;
     let raf = 0;
     let lastT = 0;
     let shownStep = -2;
     let shownLanded = false;
 
-    // x of the trail at a given height (the trail only ever runs downwards)
     const xAt = (y: number) => {
       const n = pts.length;
       if (!n) return 0;
@@ -202,8 +185,6 @@ export default function GheeProcessSection() {
       const track = box(trackRef.current!);
       const t0 = track.y;
       const t1 = track.y + track.h;
-      // The trail starts at the bottom of the milk pail in the milking drawing, and the drop hangs from it.
-      // (Measured on the picture's column, which is never scaled, so the start is exact.)
       const pail = STEPS[START].pail ?? { x: 0.5, y: 1 };
       const art = artRefs.current[START];
       const pic = art ? box(art) : { x: lx, y: t0, w: 0, h: 0 };
@@ -216,12 +197,9 @@ export default function GheeProcessSection() {
       stepYs = steps.map((b) => b.y + b.h / 2);
       lightYs = steps.map((b) => b.y + b.h * LIGHT_AT);
 
-      // Straight down while the drop hangs from the pail, then one smooth curve across to the line, straight down
-      // past the rest of the steps and into the jar. The curve is as long and gentle as it can be while it still
-      // passes clear of the next step's picture and text, on every screen size.
+    
       const hangEnd = sy + HANG;
       const xOnCurve = (len: number, y: number) => {
-        // The curve leaves and meets the line vertically: find how far along it is at height y, then its x
         const u = Math.min(1, Math.max(0, (y - hangEnd) / len));
         let t = u;
         for (let k = 0; k < 8; k++) {
@@ -401,8 +379,8 @@ export default function GheeProcessSection() {
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Steps */}
         <div ref={trackRef} className="relative mt-8 md:mt-12">
-          {/* Marks where the trail runs: left on phones, centre on desktop */}
-          <span ref={lineRef} aria-hidden className="absolute top-0 left-[17px] sm:left-[21px] md:left-1/2 w-px h-px" />
+          {/* Marks where the trail runs: down the centre */}
+          <span ref={lineRef} aria-hidden className="absolute top-0 left-1/2 w-px h-px" />
 
           <ol>
             {STEPS.map((s, i) => {
@@ -414,9 +392,9 @@ export default function GheeProcessSection() {
                   ref={(el) => {
                     stepRefs.current[i] = el;
                   }}
-                  className={`pkp-step ${on ? "pkp-on" : ""} relative grid grid-cols-[34px_100px_1fr] sm:grid-cols-[42px_150px_1fr] md:grid-cols-[1fr_200px_1fr] lg:grid-cols-[1fr_240px_1fr] items-center gap-x-3 sm:gap-x-5 md:gap-x-0 py-4 md:py-5 ${
-                    // a little more room on tablets for the drop's curve out of the milking pail
-                    i === START + 1 ? "sm:pt-20 md:pt-16 lg:pt-5" : ""
+                  className={`pkp-step ${on ? "pkp-on" : ""} relative grid grid-cols-[1fr_22px_1fr] sm:grid-cols-[1fr_40px_1fr] md:grid-cols-[1fr_200px_1fr] lg:grid-cols-[1fr_240px_1fr] items-center gap-x-2.5 sm:gap-x-4 md:gap-x-0 py-4 md:py-5 ${
+                    // a little more room for the drop's curve out of the milking pail
+                    i === START + 1 ? "pt-16 sm:pt-20 md:pt-16 lg:pt-5" : ""
                   }`}
                   style={on ? PALETTE_ON : PALETTE_OFF}
                 >
@@ -425,8 +403,8 @@ export default function GheeProcessSection() {
                     ref={(el) => {
                       artRefs.current[i] = el;
                     }}
-                    className={`row-start-1 col-start-2 w-full md:w-[230px] lg:w-[260px] ${
-                      even ? "md:col-start-1 md:justify-self-end" : "md:col-start-3 md:justify-self-start"
+                    className={`row-start-1 w-full max-w-[150px] sm:max-w-[180px] md:max-w-none md:w-[230px] lg:w-[260px] ${
+                      even ? "col-start-1 justify-self-end" : "col-start-3 justify-self-start"
                     }`}
                   >
                     <div className="pkp-art relative aspect-square w-full">
@@ -436,21 +414,21 @@ export default function GheeProcessSection() {
 
                   {/* Text */}
                   <div
-                    className={`row-start-1 col-start-3 min-w-0 transition-all duration-700 ${on ? "opacity-100 translate-y-0" : "opacity-[.45] translate-y-2"} ${
-                      even ? "md:col-start-3 md:justify-self-start" : "md:col-start-1 md:justify-self-end md:text-right"
+                    className={`row-start-1 min-w-0 transition-all duration-700 ${on ? "opacity-100 translate-y-0" : "opacity-[.45] translate-y-2"} ${
+                      even ? "col-start-3 justify-self-start" : "col-start-1 justify-self-end text-right"
                     }`}
                   >
-                    <p className={`flex items-center gap-2.5 md:gap-3 ${even ? "" : "md:flex-row-reverse"}`}>
+                    <p className={`flex items-center gap-1.5 sm:gap-2.5 md:gap-3 ${even ? "" : "flex-row-reverse"}`}>
                       <span
-                        className={`font-hero italic leading-none text-[26px] md:text-[36px] transition-colors duration-700 ${on ? "text-brand-funk" : "text-[#BDB49D]"}`}
+                        className={`font-hero italic leading-none text-[22px] sm:text-[26px] md:text-[36px] transition-colors duration-700 ${on ? "text-brand-funk" : "text-[#BDB49D]"}`}
                       >
                         0{i + 1}
                       </span>
-                      <span aria-hidden className="h-px w-7 md:w-10 bg-[#B9A77E]" />
-                      <span className="text-[10.5px] md:text-xs font-semibold uppercase tracking-[0.22em] text-[#9A7B3F]">{s.time}</span>
+                      <span aria-hidden className="hidden sm:block h-px w-7 md:w-10 bg-[#B9A77E]" />
+                      <span className="text-[9px] sm:text-[10.5px] md:text-xs font-semibold uppercase tracking-[0.1em] sm:tracking-[0.22em] text-[#9A7B3F]">{s.time}</span>
                     </p>
-                    <h3 className="mt-3 font-hero font-semibold text-brand-ink text-[19px] sm:text-[21px] md:text-[28px] leading-tight">{s.title}</h3>
-                    <p className={`mt-2 max-w-[430px] text-[13.5px] md:text-[16px] leading-relaxed text-brand-ink/70 ${even ? "" : "md:ml-auto"}`}>
+                    <h3 className="mt-2 sm:mt-3 font-hero font-semibold text-brand-ink text-[16px] sm:text-[21px] md:text-[28px] leading-tight">{s.title}</h3>
+                    <p className={`mt-1.5 sm:mt-2 max-w-[430px] text-[12px] sm:text-[13.5px] md:text-[16px] leading-relaxed text-brand-ink/70 ${even ? "" : "ml-auto"}`}>
                       {s.text}
                     </p>
                   </div>

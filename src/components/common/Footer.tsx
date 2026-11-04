@@ -57,10 +57,10 @@ export default function Footer() {
     // Background is the exact colour of the top edge of footer.png, so the two merge seamlessly
     <footer className="relative bg-[#FAECD9] border-t border-brand-line">
       {/* Link columns + newsletter */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,1fr))_1.4fr] gap-x-6 gap-y-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 md:pt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,1fr))_1.4fr] gap-x-6 gap-y-6 md:gap-y-8">
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <h4 className="font-body text-[12px] uppercase tracking-[0.22em] text-brand-funk mb-5">
+            <h4 className="font-body text-[12px] uppercase tracking-[0.22em] text-brand-funk mb-3 md:mb-4">
               {col.href ? (
                 <Link href={col.href} className="hover:text-brand-funkDark transition-colors">
                   {col.title}
@@ -69,7 +69,7 @@ export default function Footer() {
                 col.title
               )}
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-1.5 md:space-y-2">
               {col.links.map((l) => (
                 <li key={l.label}>
                   <Link
@@ -86,7 +86,7 @@ export default function Footer() {
 
         {/* Social links */}
         <div>
-          <h4 className="font-body text-[12px] uppercase tracking-[0.22em] text-brand-funk mb-5">Follow us</h4>
+          <h4 className="font-body text-[12px] uppercase tracking-[0.22em] text-brand-funk mb-3 md:mb-4">Follow us</h4>
           <p className="text-[15px] text-brand-ink/85 leading-relaxed mb-4">Fresh stock and farm stories, first on Instagram.</p>
           <div className="flex items-center gap-4">
             {SOCIALS.map(({ Icon, label, href }) => (
