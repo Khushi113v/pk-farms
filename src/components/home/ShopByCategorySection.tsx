@@ -66,7 +66,7 @@ export default function ShopByCategorySection() {
                   aria-hidden
                   fill
                   sizes="(max-width: 1024px) 50vw, 25vw"
-                  className="object-cover object-[53%_center] opacity-85 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                  className="object-cover object-[53%_center] opacity-85 origin-[53%_80%] transition-[opacity,transform] duration-700 ease-out group-hover:opacity-100 group-hover:scale-[1.05] group-focus-visible:opacity-100 group-focus-visible:scale-[1.05]"
                 />
                 {/* Light wash at the top so the product reads clearly against the sky */}
                 <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/10 to-transparent" />
@@ -83,6 +83,23 @@ export default function ShopByCategorySection() {
                     sizes="(max-width: 1024px) 35vw, 18vw"
                     className="object-contain object-bottom brightness-100 saturate-100 drop-shadow-[0_3px_4px_rgba(31,45,36,0.25)] transition-[filter] duration-500 group-hover:brightness-[1.06] group-hover:saturate-[1.06] group-focus-visible:brightness-[1.06] group-focus-visible:saturate-[1.06]"
                   />
+                  {/* Light sheen that sweeps across the product only (masked to its shape) */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 overflow-hidden pointer-events-none"
+                    style={{
+                      WebkitMaskImage: `url(${c.image})`,
+                      maskImage: `url(${c.image})`,
+                      WebkitMaskSize: "contain",
+                      maskSize: "contain",
+                      WebkitMaskRepeat: "no-repeat",
+                      maskRepeat: "no-repeat",
+                      WebkitMaskPosition: "center bottom",
+                      maskPosition: "center bottom",
+                    }}
+                  >
+                    <div className="absolute inset-y-0 -left-[30%] w-[30%] -skew-x-[20deg] bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full transition-none group-hover:translate-x-[450%] group-hover:transition-transform group-hover:duration-[1100ms] group-hover:ease-out group-focus-visible:translate-x-[450%] group-focus-visible:transition-transform group-focus-visible:duration-[1100ms]" />
+                  </div>
                 </div>
               </div>
 

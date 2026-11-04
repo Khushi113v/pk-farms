@@ -57,7 +57,7 @@ export default function ContactRail() {
       <div
         ref={listRef}
         aria-hidden={!open}
-        className="flex flex-col py-1 rounded-l-xl bg-brand-funk text-white shadow-[-6px_8px_24px_-8px_rgba(31,45,36,0.5)]"
+        className="flex flex-col py-1.5 rounded-l-xl bg-brand-funk text-white shadow-[-6px_8px_24px_-8px_rgba(31,45,36,0.5)]"
       >
         {LINKS.map(({ label, href, Icon, external }) => (
           <a
@@ -65,9 +65,9 @@ export default function ContactRail() {
             href={href}
             tabIndex={open ? undefined : -1}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="flex flex-col items-center gap-0.5 px-1.5 sm:px-2 py-1.5 text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+            className="flex flex-col items-center gap-1 px-1.5 sm:px-2 py-2 text-white/90 hover:text-white hover:bg-white/10 transition-colors"
           >
-            <Icon size={15} strokeWidth={1.75} />
+            <Icon size={17} strokeWidth={1.75} />
             <span className="text-[8px] sm:text-[9px] font-medium leading-none tracking-wide whitespace-nowrap">{label}</span>
           </a>
         ))}
