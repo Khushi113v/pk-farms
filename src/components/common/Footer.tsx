@@ -69,9 +69,9 @@ export default function Footer() {
                 col.title
               )}
             </h4>
-            <ul className="space-y-1.5 md:space-y-2">
+            <ul className="space-y-1">
               {col.links.map((l) => (
-                <li key={l.label}>
+                <li key={l.label} className="leading-snug">
                   <Link
                     href={l.href}
                     className="text-[15px] text-brand-ink/85 hover:text-brand-funk transition-colors"
@@ -111,7 +111,9 @@ export default function Footer() {
           fill
           sizes="100vw"
           className="object-cover object-bottom"
-        />        <p className="absolute top-2 md:top-3 inset-x-0 px-4 text-center text-xs md:text-[13px] text-brand-ink/75">
+        />
+        <div aria-hidden className="absolute inset-x-0 top-0 h-[14%] bg-gradient-to-b from-[#FAECD9] to-transparent" />
+        <p className="absolute top-2 md:top-3 inset-x-0 px-4 text-center text-xs md:text-[13px] text-brand-ink/75">
           © {new Date().getFullYear()} PK Farms. All rights reserved.
         </p>
       </div>
